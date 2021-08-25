@@ -1,0 +1,63 @@
+# -- Oh My Zsh -----------------------------------------------------------------
+
+source $ZSH/oh-my-zsh.sh
+
+# -- Aliases/functions ---------------------------------------------------------
+
+source "$ZDOTDIR/functions.zsh"
+
+zsh_add_file "$ZDOTDIR/aliases.zsh"
+zsh_add_file "$ZDOTDIR/directories.zsh"
+# zsh_add_file "$ZDOTDIR/key-bindings.zsh"
+
+zsh_add_file "$HOME/Dropbox/dotfiles/secrets"
+zsh_add_file "$HOME/Dropbox/dotfiles/aliases.zsh"
+
+# -- Zinit ---------------------------------------------------------------------
+
+declare -A ZINIT
+export ZINIT[HOME_DIR]="${XDG_CONFIG_HOME:-$HOME/.config}/zinit"
+export ZINIT[BIN_DIR]="${XDG_CONFIG_HOME:-$HOME/.config}/zinit/bin"
+export ZINIT[PLUGINS_DIR]="${XDG_CONFIG_HOME:-$HOME/.config}/zinit/plugins"
+export ZINIT[COMPLETIONS_DIR]="${XDG_CONFIG_HOME:-$HOME/.config}/zinit/root_completions"
+export ZINIT[SNIPPETS_DIR]="${XDG_CONFIG_HOME:-$HOME/.config}/zinit/snippets"
+export ZINIT[ZCOMPDUMP_PATH]="${XDG_CONFIG_HOME:-$HOME/.config}/zinit"
+
+if [[ ! -f "$ZINIT[BIN_DIR]/zinit.zsh" ]]; then
+  print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+  command mkdir -p "$ZINIT[HOME_DIR]" && command chmod g-rwX "$ZINIT[HOME_DIR]"
+  command git clone https://github.com/zdharma/zinit "$ZINIT/[BIN_DIR]" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+source "$ZINIT[BIN_DIR]/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# -- Plugins -------------------------------------------------------------------
+
+zinit light kazhala/dotbare
+zinit light zdharma/fast-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
+
+# -- Starship ------------------------------------------------------------------
+
+eval "$(starship init zsh)"
+
+# -- Dotbare -------------------------------------------------------------------
+
+# autoload -U compinit && compinit
+[ -x $(command -v dotbare) ] && _dotbare_completion_cmd
+
+# -- Fzf -----------------------------------------------------------------------
+
+zsh_add_file "$XDG_CONFIG_HOME/fzf/fzf.zsh"
+
+# -- Z -------------------------------------------------------------------------
+
+zsh_add_file "$XDG_CONFIG_HOME/z/z.sh"
+
+# -- Rustup --------------------------------------------------------------------
+
+zsh_add_file "$XDG_DATA_HOME/cargo/env"
