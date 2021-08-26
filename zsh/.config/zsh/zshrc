@@ -36,7 +36,6 @@ autoload -Uz _zinit
 
 # -- Plugins -------------------------------------------------------------------
 
-zinit light kazhala/dotbare
 zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
@@ -44,11 +43,6 @@ zinit light zsh-users/zsh-completions
 # -- Starship ------------------------------------------------------------------
 
 eval "$(starship init zsh)"
-
-# -- Dotbare -------------------------------------------------------------------
-
-# autoload -U compinit && compinit
-[ -x $(command -v dotbare) ] && _dotbare_completion_cmd
 
 # -- Fzf -----------------------------------------------------------------------
 
