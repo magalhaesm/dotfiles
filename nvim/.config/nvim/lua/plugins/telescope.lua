@@ -2,7 +2,6 @@
 --  Telescope:
 -------------------------------------------------------------------------------
 
--- FIXME: oldfiles deve mostrar no topo da lista, exatamente o último arquivo aberto
 require("telescope").setup {
   defaults = {
     prompt_prefix = "❯ ",
@@ -16,9 +15,7 @@ require("telescope").setup {
 -- Nvim config
 function mm.edit_nvim()
   require("telescope.builtin").find_files {
-    -- path_display = "shorten",
-    -- shorten_path = false,
-    cwd = "~/.config/nvim/",
+    cwd = "~/.dotfiles/nvim/.config/nvim/",
     prompt_title = "Neovim Configuration",
     hidden = true,
   }
@@ -28,7 +25,7 @@ end
 function mm.edit_zsh()
   require("telescope.builtin").find_files {
     shorten_path = false,
-    cwd = "~/.config/zsh/",
+    cwd = "~/.dotfiles/zsh/.config/zsh/",
     prompt_title = "Zsh Configuration",
     hidden = false,
   }
@@ -38,7 +35,7 @@ end
 function mm.edit_tmux()
   require("telescope.builtin").find_files {
     shorten_path = false,
-    cwd = "~/.config/tmux/",
+    cwd = "~/.dotfiles/tmux/.config/tmux/",
     prompt_title = "Tmux Configuration",
     hidden = true,
   }
@@ -66,16 +63,6 @@ function mm.new_note()
   local note = timestamp:gsub("%s+", "") .. ".md"
   vim.cmd("e " .. zettel.home .. note)
 end
-
--- function mm.cookbook()
---   require("telescope.builtin").find_files {
---     shorten_path = false,
---     cwd = "~/Dropbox/CookBook/",
---     prompt_title = "CookBook",
---     results_title = "Notes",
---     hidden = false,
---   }
--- end
 
 function mm.cookbook()
   require("telescope.builtin").live_grep {
