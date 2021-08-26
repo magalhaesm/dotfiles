@@ -182,7 +182,7 @@ return require("packer").startup {
       "terrortylor/nvim-comment",
       event = "BufRead",
       config = function()
-        require("nvim_comment").setup()
+        require("nvim_comment").setup { comment_empty = false }
       end,
     }
 
