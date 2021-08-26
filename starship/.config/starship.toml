@@ -1,3 +1,5 @@
+# ~/.config/starship.toml
+
 [python]
 symbol = "🐍 "
 python_binary = "python3"
@@ -10,8 +12,6 @@ symbol = "!!"
 style = "bold blue"
 
 [status]
-# style = "bg:blue"
-symbol = "🔴"
 format = '[\[$symbol $common_meaning$signal_name$maybe_int\]]($style) '
 map_symbol = true
 disabled = false
