@@ -95,6 +95,6 @@ export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
 
 export GOPATH="${XDG_DATA_HOME}/go"
 
-export _Z_DATA="${XDG_DATA_HOME}/z"
+export _ZO_DATA_DIR="${XDG_DATA_HOME}/zoxide"
 
 export GNUPGHOME="${XDG_DATA_HOME}/gnupg"

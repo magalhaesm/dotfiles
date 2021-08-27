@@ -50,7 +50,7 @@ zsh_add_file "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 
 # -- Z -------------------------------------------------------------------------
 
-zsh_add_file "$XDG_CONFIG_HOME/z/z.sh"
+eval "$(zoxide init zsh)"
 
 # -- Rustup --------------------------------------------------------------------
 
