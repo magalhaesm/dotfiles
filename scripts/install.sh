@@ -7,6 +7,10 @@ NC="\033[m"
 
 DOTFILES="$HOME/.dotfiles"
 
+make_dirs() {
+  [ ! -d "$HOME/.local/bin" ] && mkdir "$HOME/.local/bin"
+}
+
 info() {
   echo -e "\n${CYAN}info:${NC} $1"
 }
@@ -26,6 +30,11 @@ missing=()
 echo "---------------------------------------------------------"
 echo " Installing terminal, tools and configurations "
 echo "---------------------------------------------------------"
+
+make_dirs
+
+info "Obtaining repository..."
+clone_repo
 
 info "Checking dependencies..."
 for dep in "${dependencies[@]}"
@@ -51,9 +60,6 @@ then
     "$DOTFILES/scripts/install-$tool"
   done
 fi
-
-info "Obtaining repository..."
-clone_repo
 
 info "Setting up..."
 cd "$DOTFILES" || exit
