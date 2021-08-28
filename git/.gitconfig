@@ -1,0 +1,56 @@
+[user]
+  email = marcelomagalhaes@protonmail.com
+  name = Marcelo Magalhães
+
+[include]
+    path = ~/.gitconfig.local
+
+[core]
+    editor = nvim
+    pager = delta
+
+[merge]
+    tool = vimdiff
+
+[alias]
+    i = !git init | touch .gitignore && git add --all
+    s = !git status -s
+    st = status
+    l = !git log --oneline --decorate --graph
+    lg = !git log --color --graph --pretty=format:'%C(auto)%h% %d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    hist = log --pretty=format:'%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)' --graph --date=relative --decorate --all
+    llog = log --graph --name-status --pretty=format:'%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset' --date=relative
+    c = !git add --all && git commit -m
+    co = checkout
+    ci = commit
+    ca = commit -a
+    cm = commit -m
+    br = branch
+    ba = branch -a
+
+[credential]
+    helper = store
+
+[push]
+    followTags = true
+
+[delta]
+    features = line-numbers decorations
+    syntax-theme = Dracula
+    minus-style = red
+    plus-style = green
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+    hunk-header-decoration-style = cyan box ul
+
+[delta "line-numbers"]
+    line-numbers-left-style = cyan
+    line-numbers-right-style = cyan
+    line-numbers-minus-style = 124
+    line-numbers-plus-style = 28
