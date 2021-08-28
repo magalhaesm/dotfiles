@@ -77,7 +77,7 @@ export PROJECT_HOME="${HOME}/Projetos"
 
 export BAT_PAGER="less"
 export WGETRC="${XDG_CONFIG_HOME}/wget/wgetrc"
-export SQLITE_HISTORY="${XDG_CONFIG_HOME}/sqlite_history"
+export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
 export WINEPREFIX="${XDG_DATA_HOME}/wineprefixes/default"
 
 export TMUX_CONFIG="${XDG_CONFIG_HOME}/tmux/tmux.conf"
