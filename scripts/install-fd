@@ -4,13 +4,13 @@ URL="https://github.com/sharkdp/fd/releases"
 RELEASES="$URL/latest"
 DOWNLOAD="$URL/download"
 
-cd $(mktemp -d)
+cd "$(mktemp -d)" || exit
 LATEST=$(curl -s $RELEASES | cut -d'"' -f2)
-VERSION=$(echo $LATEST | awk -F "v" '{ print $NF }' | cut -d'"' -f1)
+VERSION=$(echo "$LATEST" | awk -F "v" '{ print $NF }' | cut -d'"' -f1)
 
 ARCH="_amd64"
 DEB_AMD64="fd_$VERSION$ARCH.deb"
 
-curl -L "$DOWNLOAD/v$VERSION/$DEB_AMD64" -o $DEB_AMD64
-sudo dpkg -i $DEB_AMD64
-cd -
+curl -L "$DOWNLOAD/v$VERSION/$DEB_AMD64" -o "$DEB_AMD64"
+sudo dpkg -i "$DEB_AMD64"
+cd - || exit
