@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+URL="https://github.com/dandavison/delta/releases"
+RELEASES="$URL/latest"
+DOWNLOAD="$URL/download"
+
+LATEST=$(curl -s $RELEASES | cut -d'"' -f2)
+VERSION=$(echo "$LATEST" | awk -F "/" "{ print $NF }")
+
+ARCH="_amd64"
+DEB_AMD64="git-delta_$VERSION$ARCH.deb"
+
+cd "$(mktemp -d)" || exit 1
+curl -L "$DOWNLOAD/$VERSION/$DEB_AMD64" -o "$DEB_AMD64"
+sudo dpkg -i "$DEB_AMD64"
+cd - || exit 1
