@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set_zshenv() {
+  echo "Editing /etc/zsh/zshenv"
+
+  echo -e "\n# Load user config" | sudo tee -a /etc/zsh/zshenv
+  echo -e "[ -f \$HOME/.config/zsh/profile.zsh ] &&" \
+    "source \$HOME/.config/zsh/profile.zsh" | sudo tee -a /etc/zsh/zshenv
+}
+
+# Oh-my-zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+mv ~/.oh-my-zsh ~/.config/oh-my-zsh
+
+# Zinit
+git clone https://github.com/zdharma/zinit.git ~/.config/zinit/bin
+
+sudo apt install zsh
+chsh -s "$(command -v zsh)" "$USER"
+{ grep -q profile.zsh /etc/zsh/zshenv && exit 0; } || set_zshenv
