@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
 
 curl -sS https://webinstall.dev/zoxide | bash
-
-# ~/.local/bin already on the path
-rm ~/.zshrc
