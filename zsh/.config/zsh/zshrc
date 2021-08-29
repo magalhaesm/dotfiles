@@ -23,14 +23,14 @@ export ZINIT[COMPLETIONS_DIR]="${XDG_CONFIG_HOME:-$HOME/.config}/zinit/root_comp
 export ZINIT[SNIPPETS_DIR]="${XDG_CONFIG_HOME:-$HOME/.config}/zinit/snippets"
 export ZINIT[ZCOMPDUMP_PATH]="${XDG_CONFIG_HOME:-$HOME/.config}/zinit"
 
-if [[ ! -f "$ZINIT[BIN_DIR]/zinit.zsh" ]]; then
+if [[ ! -f "${ZINIT[BIN_DIR]}/zinit.zsh" ]]; then
   print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-  command mkdir -p "$ZINIT[HOME_DIR]" && command chmod g-rwX "$ZINIT[HOME_DIR]"
-  command git clone https://github.com/zdharma/zinit "$ZINIT/[BIN_DIR]" && \
-    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+  command mkdir -p "${ZINIT[HOME_DIR]}" && command chmod g-rwX "${ZINIT[HOME_DIR]}"
+  { command git clone https://github.com/zdharma/zinit "${ZINIT[BIN_DIR]}" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b"; } || \
     print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
-source "$ZINIT[BIN_DIR]/zinit.zsh"
+source "${ZINIT[BIN_DIR]}/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -48,7 +48,7 @@ eval "$(starship init zsh)"
 
 zsh_add_file "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 
-# -- Z -------------------------------------------------------------------------
+# -- Zoxide --------------------------------------------------------------------
 
 eval "$(zoxide init zsh)"
 
