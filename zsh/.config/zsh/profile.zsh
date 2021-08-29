@@ -31,8 +31,8 @@ export HISTSIZE=30000
 export SAVEHIST=10000
 export HISTFILE="${XDG_CACHE_HOME}/zsh/history"
 
-export ICEAUTHORITY="${XDG_CACHE_HOME}/ICEauthority"
-export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtkrc"
+# export ICEAUTHORITY="${XDG_CACHE_HOME}/ICEauthority"
+# export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtkrc"
 
 # -- Fd ------------------------------------------------------------------------
 
