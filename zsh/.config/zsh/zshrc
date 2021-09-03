@@ -39,11 +39,13 @@ zsh_add_file "$HOME/Dropbox/dotfiles/aliases.zsh"
 
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zdharma/fast-syntax-highlighting"
+zsh_add_plugin "jeffreytse/zsh-vi-mode"
 
 # -- Plugin Preferences --------------------------------------------------------
 
 # Autosuggestions
 bindkey "^ " autosuggest-accept
+ZVM_VI_INSERT_ESCAPE_BINDKEY=kj
 
 # -- Starship ------------------------------------------------------------------
 
