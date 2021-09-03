@@ -1,6 +1,8 @@
 # Usa neovim se houver na máquina
 [ -x "$(command -v nvim)" ] && alias v='vim' vim='nvim' vimdiff='nvim -d'
 
+[ -x "$(command -v bat)" ] && alias cat='bat'
+
 # Por segurança, pergunta antes de sobrescrever algo
 alias cp='cp -iv'
 alias mv='mv -iv'
@@ -31,7 +33,6 @@ else
 fi
 
 alias g='git'
-alias db='dotbare'
 alias tmux='tmux -f $TMUX_CONFIG'
 alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 alias sqlite3='sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc'
