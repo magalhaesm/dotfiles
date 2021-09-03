@@ -7,43 +7,38 @@ NC="\033[m"
 
 DOTFILES="$HOME/.dotfiles"
 
-clone_ohmyzsh() {
-  local ohmyzsh="$HOME/.config/oh-my-zsh"
-  [ -d "$ohmyzsh" ] && return
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  mv ~/.oh-my-zsh "$ohmyzsh"
-}
-
-clone_zinit() {
-  local zinit="$HOME/.config/zinit/bin"
-  [ -d "$zinit" ] && return
-  git clone https://github.com/zdharma/zinit.git "$zinit"
-}
-
 clone_dotfiles() {
   [ -d "$DOTFILES" ] && { echo "Directory $DOTFILES already exists." && return; }
   git clone https://github.com/magalhaesm/dotfiles.git "$DOTFILES"
 }
 
 set_shell() {
-  zsh_path="$(command -v zsh)"
-  [ "$SHELL" != "$zsh_path" ] && chsh -s "$zsh_path" "$USER"
+  zsh="$(command -v zsh)"
+  [ "$SHELL" != "$zsh" ] && chsh -s "$zsh" "$USER"
 }
 
 info() {
   echo -e "\n${CYAN}info:${NC} $1"
 }
 
+if_install() {
+  [ ! -x "$(command -v "$1")" ] && sudo apt install "$1" || echo -e "${GREEN} ✓${NC} $1"
+}
+
 dependencies=(
-  curl stow git delta zsh kitty gcc fzf nvim
-  bat rg zoxide fd tmux node starship
+  stow kitty zsh nvim gcc fzf
+  bat delta rg zoxide fd tmux node starship
 )
 
 missing=()
 
 echo "---------------------------------------------------------"
-echo " Installing terminal, tools and configurations "
+echo " ==> Installing terminal, tools and configurations "
 echo "---------------------------------------------------------"
+
+info "Getting main dependencies..."
+if_install curl
+if_install git
 
 info "Obtaining repository..."
 clone_dotfiles
@@ -62,7 +57,6 @@ done
 
 if [ "${#missing[@]}" != 0 ]
 then
-  # TODO: this could be better
   read -rp " Install missing dependencies? [y/N] " install
   [ "$install" != "y" ] && exit
 
@@ -73,17 +67,15 @@ then
   done
 fi
 
-info "Preparing shell..."
-clone_ohmyzsh
-clone_zinit
-set_shell
-
-info "Setting up..."
+info "Configuring..."
 cd "$DOTFILES" || exit
 for tool in "${dependencies[@]}"
 do
   [ -d "$tool" ] && stow -vt "$HOME" "$tool"
 done
 cd - &>/dev/null || exit
+
+info "Setting zsh as default shell..."
+set_shell
 
 info "Restart the session to take effect."
