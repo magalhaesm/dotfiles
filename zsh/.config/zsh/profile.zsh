@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # Define as variáveis de ambiente
 
 # ESTE ARQUIVO É CARREGADO NO LOGIN POR /etc/zsh/zshenv
@@ -30,9 +28,6 @@ export COLORTERM="truecolor"
 export HISTSIZE=30000
 export SAVEHIST=10000
 export HISTFILE="${XDG_CACHE_HOME}/zsh/history"
-
-# export ICEAUTHORITY="${XDG_CACHE_HOME}/ICEauthority"
-# export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtkrc"
 
 # -- Fd ------------------------------------------------------------------------
 
@@ -73,12 +68,9 @@ export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 
 # -- Misc ----------------------------------------------------------------------
 
-export PROJECT_HOME="${HOME}/Projetos"
-
 export BAT_PAGER="less"
 export WGETRC="${XDG_CONFIG_HOME}/wget/wgetrc"
 export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
-export WINEPREFIX="${XDG_DATA_HOME}/wineprefixes/default"
 
 export TMUX_CONFIG="${XDG_CONFIG_HOME}/tmux/tmux.conf"
 export TMUX_TMPDIR="${XDG_RUNTIME_DIR}"
