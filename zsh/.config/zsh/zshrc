@@ -45,20 +45,22 @@ zsh_add_plugin "jeffreytse/zsh-vi-mode"
 
 # Autosuggestions
 bindkey "^ " autosuggest-accept
+
+# Vi-mode
 ZVM_VI_INSERT_ESCAPE_BINDKEY=kj
-
-# -- Starship ------------------------------------------------------------------
-
-eval "$(starship init zsh)"
 
 # -- Fzf -----------------------------------------------------------------------
 
 zsh_add_file "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 
+# -- Rustup --------------------------------------------------------------------
+
+zsh_add_file "$XDG_DATA_HOME/cargo/env"
+
 # -- Zoxide --------------------------------------------------------------------
 
 eval "$(zoxide init zsh)"
 
-# -- Rustup --------------------------------------------------------------------
+# -- Starship ------------------------------------------------------------------
 
-zsh_add_file "$XDG_DATA_HOME/cargo/env"
+eval "$(starship init zsh)"
