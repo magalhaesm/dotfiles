@@ -10,11 +10,11 @@ VERSION=$(echo "$LATEST" | awk -F "v" "{ print $NF }" | cut -d'"' -f1)
 ARCH="linux-x86_64"
 AMD64_ZIP="exa-$ARCH-v$VERSION.zip"
 
-cd "$(mktemp -d)" || exit 1
+pushd "$(mktemp -d)" &>/dev/null || exit 1
 curl -L "$DOWNLOAD/v$VERSION/$AMD64_ZIP" -o "$AMD64_ZIP"
 
 unzip "$AMD64_ZIP"
 sudo mv man/exa.1 /usr/share/man/man1
 sudo mv bin/exa /usr/local/bin
 sudo mv completions/exa.zsh /usr/local/share/site-functions
-cd - || exit 1
+popd &>/dev/null || exit 1

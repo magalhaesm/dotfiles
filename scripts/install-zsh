@@ -1,12 +1,3 @@
 #!/usr/bin/env bash
 
-set_zshenv() {
-  echo "Editing /etc/zsh/zshenv"
-
-  echo -e "\n# Load user config" | sudo tee -a /etc/zsh/zshenv
-  echo -e "[ -f \$HOME/.config/zsh/profile.zsh ] &&" \
-    "source \$HOME/.config/zsh/profile.zsh" | sudo tee -a /etc/zsh/zshenv
-}
-
 sudo apt install zsh
-{ grep -q profile.zsh /etc/zsh/zshenv && exit 0; } || set_zshenv
