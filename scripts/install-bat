@@ -5,12 +5,14 @@ RELEASES="$URL/latest"
 DOWNLOAD="$URL/download"
 
 LATEST=$(curl -s $RELEASES | cut -d'"' -f2)
-VERSION=$(echo "$LATEST" | awk -F "v" '{ print $NF }' | cut -d'"' -f1)
+VERSION=$(basename "$LATEST")
 
-ARCH="_amd64"
-DEB_AMD64="bat_$VERSION$ARCH.deb"
+ARCH="amd64"
+DEB_AMD64="bat_${VERSION:1}_${ARCH}.deb"
 
 pushd "$(mktemp -d)" &>/dev/null || exit 1
-curl -L "$DOWNLOAD/v$VERSION/$DEB_AMD64" -o "$DEB_AMD64"
+
+curl -L "$DOWNLOAD/$VERSION/$DEB_AMD64" -o "$DEB_AMD64"
 sudo dpkg -i "$DEB_AMD64"
+
 popd &>/dev/null || exit 1
