@@ -17,11 +17,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 require "globals"
-require "utils"
 require "settings"
 require "mappings"
 require "autocmds"
 require "plugins"
-
--- Colorscheme
-vim.cmd "colorscheme dracula"

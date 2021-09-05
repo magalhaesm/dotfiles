@@ -14,6 +14,7 @@ local lsp_settings = {
 local default = {
   lsp = {
     format_on_save = false,
+    document_highlight = false,
   },
 }
 

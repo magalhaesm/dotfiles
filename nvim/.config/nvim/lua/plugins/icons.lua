@@ -4,6 +4,9 @@ if not present then
 end
 
 local colors = vim.g.dracula
+if not colors then
+  return
+end
 
 icons.setup {
   override = {

@@ -1,7 +1,8 @@
 mm["python"] = {
-	lsp = {
-		format_on_save = false,
-	},
+  lsp = {
+    format_on_save = false,
+    document_highlight = false,
+  },
 }
 
 local lsp_settings = {

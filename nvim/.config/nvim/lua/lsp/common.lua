@@ -2,10 +2,11 @@ mm.lsp = {
   diagnostic_opts = {
     virtual_text = {
       prefix = "",
-      spacing = 5,
+      spacing = 3,
     },
     signs = true,
     underline = true,
+    update_in_insert = false,
   },
 
   signs = {

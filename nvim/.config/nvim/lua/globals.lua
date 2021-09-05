@@ -8,6 +8,7 @@ _G.mm = {
 }
 
 local fn = vim.fn
+local cmd = vim.cmd
 
 ---Limpa todos os registradores
 function _G.WipeRegisters()
@@ -92,3 +93,30 @@ mm.onoremap = make_mapper("o", noremap_opts)
 mm.tnoremap = make_mapper("t", noremap_opts)
 mm.snoremap = make_mapper("s", noremap_opts)
 mm.cnoremap = make_mapper("c", { noremap = true, silent = false })
+
+-- https://github.com/ojroques/nvim-bufdel
+function mm.delete_buffer()
+  local buflisted = fn.getbufinfo { buflisted = 1 }
+  local cur_winnr, cur_bufnr = fn.winnr(), fn.bufnr()
+  if #buflisted < 2 then
+    cmd "confirm qall"
+    return
+  end
+  for _, winid in ipairs(fn.getbufinfo(cur_bufnr)[1].windows) do
+    cmd(string.format("%d wincmd w", fn.win_id2win(winid)))
+    cmd(cur_bufnr == buflisted[#buflisted].bufnr and "bp" or "bn")
+  end
+  cmd(string.format("%d wincmd w", cur_winnr))
+  local is_terminal = fn.getbufvar(cur_bufnr, "&buftype") == "terminal"
+  cmd(is_terminal and "bd! #" or "silent! confirm bd #")
+end
+
+function mm.check_lsp_client_active(name)
+  local clients = vim.lsp.get_active_clients()
+  for _, client in pairs(clients) do
+    if client.name == name then
+      return true
+    end
+  end
+  return false
+end

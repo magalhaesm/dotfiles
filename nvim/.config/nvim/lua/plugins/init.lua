@@ -41,7 +41,7 @@ return require("packer").startup {
       end,
     }
 
-    -- Autocomplete
+    -- Autocompletion
     use {
       "hrsh7th/nvim-cmp",
       after = "LuaSnip",
@@ -50,14 +50,14 @@ return require("packer").startup {
       end,
     }
     -- Snippet engine
-    use { "L3MON4D3/LuaSnip", event = "InsertEnter" }
+    use { "L3MON4D3/LuaSnip", after = "nvim-lspconfig" }
 
     -- Completion sources
-    use { "hrsh7th/cmp-nvim-lsp", event = "InsertCharPre" }
-    use { "hrsh7th/cmp-path", event = "InsertCharPre" }
-    use { "hrsh7th/cmp-nvim-lua", event = "InsertCharPre" }
-    use { "hrsh7th/cmp-buffer", event = "InsertCharPre" }
-    use { "saadparwaiz1/cmp_luasnip", event = "InsertCharPre" }
+    use { "hrsh7th/cmp-nvim-lsp", event = "InsertEnter" }
+    use { "hrsh7th/cmp-path", event = "InsertEnter" }
+    use { "hrsh7th/cmp-nvim-lua", event = "InsertEnter" }
+    use { "hrsh7th/cmp-buffer", event = "InsertEnter" }
+    use { "saadparwaiz1/cmp_luasnip", event = "InsertEnter" }
 
     -- TreeSitter
     use {
@@ -106,6 +106,9 @@ return require("packer").startup {
     use {
       "~/.config/nvim/themes/dracula.nvim",
       requires = "rktjmp/lush.nvim",
+      config = function()
+        vim.cmd "colorscheme dracula"
+      end,
     }
 
     -- GitSigns

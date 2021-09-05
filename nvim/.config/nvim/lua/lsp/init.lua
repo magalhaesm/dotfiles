@@ -19,9 +19,35 @@ local function setup_diagnostic_signs()
   end
 end
 
+local function on_publish_show_diagnostic_sources(_, _, params, client_id, _, config)
+  local uri = params.uri
+  local bufnr = vim.uri_to_bufnr(uri)
+
+  if not bufnr then
+    return
+  end
+
+  local diagnostics = params.diagnostics
+
+  vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
+
+  if not vim.api.nvim_buf_is_loaded(bufnr) then
+    return
+  end
+
+  -- don't mutate the original diagnostic because it would interfere with
+  -- code action (and probably other stuff, too)
+  local prefixed_diagnostics = vim.deepcopy(diagnostics)
+  for i, v in pairs(diagnostics) do
+    prefixed_diagnostics[i].message = string.format("%s: %s", v.source, v.message)
+  end
+  vim.lsp.diagnostic.display(prefixed_diagnostics, bufnr, client_id, config)
+end
+
 local function setup_handlers()
   lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(
-    lsp.diagnostic.on_publish_diagnostics,
+    -- lsp.diagnostic.on_publish_diagnostics,
+    on_publish_show_diagnostic_sources,
     mm.lsp.diagnostic_opts
   )
   lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, mm.lsp.popup_opts)
@@ -65,7 +91,7 @@ local function add_lsp_keybindings(bufnr)
     mode = "n", -- NORMAL mode
     prefix = "<localleader>",
     buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
+    silent = false, -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
   }
@@ -107,9 +133,6 @@ end
 
 local function make_config(server)
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  -- capabilities.textDocument.completion.completionItem.snippetSupport = true
-  -- capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-
   capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.preselectSupport = true
@@ -129,9 +152,9 @@ local function make_config(server)
   local default_config = {
     on_attach = on_attach,
     capabilities = capabilities,
-    -- flags = {
-    --   debounce_text_changes = 150,
-    -- },
+    flags = {
+      debounce_text_changes = 150,
+    },
   }
   return merge_user_settings(default_config, server)
 end

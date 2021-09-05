@@ -28,9 +28,8 @@ nnoremap("<leader>k", "<cmd>wincmd k<CR>")
 nnoremap("<leader>H", "<cmd>split<CR>")
 nnoremap("<leader>v", "<cmd>vsplit<CR>")
 
--- Apagar o destaque de busca
--- nnoremap("<leader><CR>", "<cmd>nohl<CR>")
-nnoremap("<BS>", "<cmd>nohl<CR>")
+-- Apagar o destaque dos termos de busca
+nnoremap("<ESC><ESC>", "<cmd>nohl<CR>")
 
 -- Navegação entre Buffers
 nnoremap("<C-l>", "<cmd>bnext<CR>")
@@ -85,9 +84,3 @@ nnoremap("]q", "<cmd>cnext<CR>")
 nnoremap("[q", "<cmd>cprev<CR>")
 nnoremap("]l", "<cmd>lnext<CR>")
 nnoremap("[l", "<cmd>lprev<CR>")
-
--- Desativa teclas direcionais no modo de inserção
--- ["i|<Up>"] = map_cmd([[<C-o>:echo "--> k <--" <CR>]]):noremap(),
--- ["i|<Down>"] = map_cmd([[<C-o>:echo "--> j <--" <CR>]]):noremap(),
--- ["i|<Right>"] = map_cmd([[<C-o>:echo "--> l <--" <CR>]]):noremap(),
--- ["i|<Left>"] = map_cmd([[<C-o>:echo "--> h <--" <CR>]]):noremap(),
