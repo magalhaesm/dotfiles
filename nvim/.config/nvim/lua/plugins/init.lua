@@ -21,10 +21,59 @@ return require("packer").startup {
     -- Plugin Manager
     use { "wbthomason/packer.nvim" }
 
+    -- Which Key
+    use {
+      "folke/which-key.nvim",
+      event = "BufRead",
+      config = function()
+        require "plugins.which-key"
+      end,
+    }
+
+    -- LSP
+    use { "kabouzeid/nvim-lspinstall", event = "BufRead" }
+    use { "jose-elias-alvarez/null-ls.nvim", after = "nvim-lspinstall" }
+    use {
+      "neovim/nvim-lspconfig",
+      after = "null-ls.nvim",
+      config = function()
+        require "lsp"
+      end,
+    }
+
+    -- Autocomplete
+    use {
+      "hrsh7th/nvim-cmp",
+      after = "LuaSnip",
+      config = function()
+        require "plugins.compe"
+      end,
+    }
+    -- Snippet engine
+    use { "L3MON4D3/LuaSnip", event = "InsertEnter" }
+
+    -- Completion sources
+    use { "hrsh7th/cmp-nvim-lsp", event = "InsertCharPre" }
+    use { "hrsh7th/cmp-path", event = "InsertCharPre" }
+    use { "hrsh7th/cmp-nvim-lua", event = "InsertCharPre" }
+    use { "hrsh7th/cmp-buffer", event = "InsertCharPre" }
+    use { "saadparwaiz1/cmp_luasnip", event = "InsertCharPre" }
+
+    -- TreeSitter
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      event = "BufRead",
+      config = function()
+        require "plugins.treesitter"
+      end,
+    }
+    use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }
+    use { "nvim-treesitter/playground", after = "nvim-treesitter" }
+
     -- Refactoring
     use {
       "ThePrimeagen/refactoring.nvim",
-      event = "BufRead",
+      after = "nvim-treesitter",
       requires = {
         { "nvim-lua/plenary.nvim" },
         { "nvim-treesitter/nvim-treesitter" },
@@ -33,55 +82,6 @@ return require("packer").startup {
         require "plugins.refactoring"
       end,
     }
-
-    -- Which Key
-    use {
-      "folke/which-key.nvim",
-      event = "VimEnter",
-      config = function()
-        require "plugins.which-key"
-      end,
-    }
-
-    -- use { "plasticboy/vim-markdown", event = "BufRead", filetypes = "markdown" }
-
-    -- Todo Comments
-    use {
-      "folke/todo-comments.nvim",
-      event = "VimEnter",
-      requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require "plugins.todo-comments"
-      end,
-    }
-
-    -- LSP
-    use { "neovim/nvim-lspconfig" }
-    use { "kabouzeid/nvim-lspinstall" }
-    use { "jose-elias-alvarez/null-ls.nvim" }
-
-    -- Autocomplete
-    use {
-      "hrsh7th/nvim-compe",
-      event = "InsertEnter",
-      config = function()
-        require("plugins.compe").config()
-      end,
-    }
-
-    -- TreeSitter
-    use {
-      "nvim-treesitter/nvim-treesitter",
-      config = function()
-        require "plugins.treesitter"
-      end,
-    }
-    use { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufRead" }
-    use { "nvim-treesitter/playground", event = "BufRead" }
-
-    -- Snippets
-    use { "hrsh7th/vim-vsnip", event = "InsertCharPre" }
-    use { "rafamadriz/friendly-snippets", event = "InsertCharPre" }
 
     -- NvimColorizer
     use {
@@ -92,8 +92,21 @@ return require("packer").startup {
       end,
     }
 
+    -- Todo Comments
+    use {
+      "folke/todo-comments.nvim",
+      event = "BufRead",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require "plugins.todo-comments"
+      end,
+    }
+
     -- Themes
-    use { "~/.config/nvim/themes/dracula.nvim", requires = "rktjmp/lush.nvim" }
+    use {
+      "~/.config/nvim/themes/dracula.nvim",
+      requires = "rktjmp/lush.nvim",
+    }
 
     -- GitSigns
     use {
@@ -107,7 +120,7 @@ return require("packer").startup {
     -- Bufferline
     use {
       "akinsho/nvim-bufferline.lua",
-      event = "VimEnter",
+      after = "nvim-web-devicons",
       config = function()
         require "plugins.bufferline"
       end,
@@ -116,7 +129,7 @@ return require("packer").startup {
     -- Lualine
     use {
       "hoob3rt/lualine.nvim",
-      event = "VimEnter",
+      after = "nvim-web-devicons",
       config = function()
         require("plugins.lualine").config()
       end,
@@ -134,7 +147,7 @@ return require("packer").startup {
     -- Dashboard
     use {
       "glepnir/dashboard-nvim",
-      event = "VimEnter",
+      event = "BufRead",
       config = require("plugins.dashboard").config(),
     }
 
@@ -161,7 +174,7 @@ return require("packer").startup {
     -- Telescope
     use {
       "nvim-telescope/telescope.nvim",
-      requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
+      requires = { "nvim-lua/plenary.nvim" },
       event = "VimEnter",
       config = function()
         require "plugins.telescope"
@@ -189,7 +202,7 @@ return require("packer").startup {
     -- Indent guide
     use {
       "lukas-reineke/indent-blankline.nvim",
-      event = "BufWinEnter",
+      event = "BufRead",
       config = function()
         require "plugins.blankline"
       end,

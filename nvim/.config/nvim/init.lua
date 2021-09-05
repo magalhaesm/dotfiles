@@ -22,7 +22,6 @@ require "settings"
 require "mappings"
 require "autocmds"
 require "plugins"
-require "lsp"
 
 -- Colorscheme
 vim.cmd "colorscheme dracula"

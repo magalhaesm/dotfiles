@@ -2,7 +2,7 @@ mm.lsp = {
   diagnostic_opts = {
     virtual_text = {
       prefix = "",
-      spacing = 0,
+      spacing = 5,
     },
     signs = true,
     underline = true,
@@ -22,31 +22,31 @@ mm.lsp = {
   },
 
   item_kind = {
-    " (Text)", -- Text
-    " (Method)", -- Method
-    " (Function)", -- Function
-    " (Constructor)", -- Constructor
-    " (Field)", -- Field
-    " (Variable)", -- Variable
-    " (Class)", -- Class
-    "ﰮ (Interface)", -- Interface
-    " (Module)", -- Module
-    " (Property)", -- Property
-    " (Unit)", -- Unit
-    " (Value)", -- Value
-    " (Enum)", -- Enum
-    " (Keyword)", -- Keyword
-    "﬌ (Snippet)", -- Snippet
-    " (Color)", -- Color
-    " (File)", -- File
-    " (Reference)", -- Reference
-    " (Folder)", -- Folder
-    " (EnumMember)", -- EnumMember
-    " (Constant)", -- Constant
-    " (Struct)", -- Struct
-    " (Event)", -- Event
-    "ﬦ (Operator)", -- Operator
-    " (TypeParameter)", -- TypeParameter
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "",
+    Interface = "ﰮ",
+    Module = "",
+    Property = "",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "﬌",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "ﬦ",
+    TypeParameter = "",
   },
   --[[
   signs = {
