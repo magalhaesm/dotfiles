@@ -1,6 +1,7 @@
 mm["sh"] = {
   lsp = {
     format_on_save = false,
+    document_highlight = false,
   },
 }
 
