@@ -7,7 +7,7 @@ local autocmds = {
     {
       "FileType",
       "help,man,qf",
-      [[nnoremap <buffer><silent> q :close<CR>]]
+      [[nnoremap <buffer><silent> q :close<CR>]],
     },
     {
       "FileType",
@@ -24,7 +24,7 @@ local autocmds = {
     {
       "FileType",
       "lspinfo",
-      [[nnoremap <buffer><silent> q :close<CR>]]
+      [[nnoremap <buffer><silent> q :close<CR>]],
     },
   },
   _filetypes = {
@@ -33,15 +33,19 @@ local autocmds = {
     { "BufNewFile,BufRead", "tmux*", "setf tmux" },
     { "BufNewFile,BufRead", "*rc", "setf conf" },
     { "BufNewFile,BufRead", "*rc", "setf conf" },
-    -- TODO: achar um lugar para isso
     {
       "FileType",
       "c,cpp",
       [[setlocal ts=4 sw=4 sts=4 commentstring=//%s]],
     },
+    {
+      "FileType",
+      "toml",
+      [[set commentstring=#%s]],
+    },
   },
   packer = {
-    { "BufWritePost", "plugins.lua", "PackerCompile" },
+    { "BufWritePost", "init.lua", "source <afile> | PackerCompile" },
   },
 }
 
