@@ -98,7 +98,7 @@ local function add_lsp_keybindings(bufnr)
     mode = "n", -- NORMAL mode
     prefix = "<localleader>",
     buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = false, -- use `silent` when creating keymaps
+    silent = true, -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
   }
@@ -141,7 +141,10 @@ end
 
 local function make_config(server)
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
+  capabilities.textDocument.completion.completionItem.documentationFormat = {
+    "markdown",
+    "plaintext",
+  }
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.preselectSupport = true
   capabilities.textDocument.completion.completionItem.insertReplaceSupport = true

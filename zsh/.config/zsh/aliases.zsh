@@ -36,7 +36,7 @@ alias g='git'
 alias tmux='tmux -f $TMUX_CONFIG'
 alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 alias sqlite3='sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc'
-alias gdb='gdb -nh -x $XDG_CONFIG_HOME/gdb/init'
+# alias gdb='gdb -nh -x $XDG_CONFIG_HOME/gdb/init'
 
 alias corona='curl https://corona-stats.online\?top\=10'
 
