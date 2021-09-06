@@ -4,7 +4,7 @@
 
 local fn = vim.fn
 
-local install_folder = fn.stdpath "data" .. "/site/pack/packer"
+local install_folder = mm.DATA_PATH .. "/site/pack/packer"
 
 if fn.empty(fn.glob(install_folder)) > 0 then
   print "Rode o script de instalação... "
@@ -109,6 +109,11 @@ return require("packer").startup {
       config = function()
         vim.cmd "colorscheme dracula"
       end,
+      cond = function()
+        if mm.colorscheme == "dracula" then
+          return true
+        end
+      end,
     }
 
     -- GitSigns
@@ -212,7 +217,7 @@ return require("packer").startup {
     }
   end,
   config = {
-    compile_path = fn.stdpath "data" .. "/site/plugin/packer_compiled.vim",
+    compile_path = mm.DATA_PATH .. "/site/plugin/packer_compiled.vim",
     display = {
       open_fn = function()
         return require("packer.util").float { border = "single" }

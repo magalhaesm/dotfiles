@@ -8,23 +8,29 @@ local sources = {
   -- Python
   b.formatting.black,
   b.formatting.isort,
-  b.diagnostics.flake8,
+  b.diagnostics.flake8.with {
+    condition = function(utils)
+      return utils.root_has_file ".flake8"
+    end,
+  },
+  b.diagnostics.pylint.with {
+    condition = function(utils)
+      return utils.root_has_file ".pylintrc"
+    end,
+  },
 
   -- Lua
   b.formatting.stylua,
-  b.diagnostics.luacheck.with {
-    condition = function(utils)
-      return utils.root_has_file ".luacheckrc"
-    end,
-  },
 
   -- Bash
   b.diagnostics.shellcheck,
 
+  -- C/C++
+  b.formatting.clang_format,
+
   -- Javascript/TypeScript
 }
 
--- PERF: adicionar lint_on_save
 local M = {}
 M.setup = function()
   null_ls.config {

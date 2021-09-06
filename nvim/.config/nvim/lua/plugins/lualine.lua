@@ -41,7 +41,7 @@ local function python_env()
 end
 
 local function position()
-  return "  %3l/%-3L %3v "
+  return "☰ %3l/%-3L ln :%3v "
 end
 
 -- local function clock()
@@ -50,8 +50,8 @@ end
 --
 M.settings = {
   options = {
-    theme = "dracula",
-    section_separators = { "", "" },
+    -- section_separators = { "", "" },
+    section_separators = { "", "" },
     component_separators = { "", "" },
     icons_enabled = true,
   },

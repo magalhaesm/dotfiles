@@ -4,6 +4,7 @@
 
 -- Populate global escope
 require "lsp.common"
+
 mm.nnoremap("<leader>i", "<cmd>LspInfo<CR>")
 
 local lsp = vim.lsp
@@ -58,6 +59,12 @@ local function add_format_on_save()
   if mm[vim.bo.filetype].lsp.format_on_save == true then
     vim.cmd "autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting_sync()"
   end
+end
+
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
+local function avoid_formatting_conflicts(client)
+  client.resolved_capabilities.document_formatting = false
+  client.resolved_capabilities.document_range_formatting = false
 end
 
 local function add_document_highlight(client)
@@ -116,6 +123,7 @@ local function add_lsp_keybindings(bufnr)
 end
 
 local function on_attach(client, bufnr)
+  avoid_formatting_conflicts(client)
   setup_diagnostic_signs()
   setup_handlers()
   add_format_on_save()

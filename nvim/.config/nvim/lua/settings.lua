@@ -7,6 +7,8 @@ local cmd = vim.cmd
 cmd "syntax on"
 cmd "filetype plugin indent on"
 
+mm.colorscheme = "dracula"
+
 -- opt.mouse = "a"
 opt.showmode = false
 opt.hidden = true

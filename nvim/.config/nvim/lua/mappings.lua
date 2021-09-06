@@ -10,8 +10,6 @@ local cnoremap = mm.cnoremap
 -- Sair do modo inserção
 inoremap("kj", "<ESC>`^")
 
-nnoremap("<leader>;", "A;<ESC>")
-
 -- Y copia até o fim da linha
 nnoremap("Y", "y$")
 
@@ -63,14 +61,6 @@ cnoremap("<C-e>", "<End>")
 cnoremap("<C-d>", "<Del>")
 cnoremap("<C-b>", "<BS>")
 cnoremap("<C-t>", [[<C-R>=expand("%:p:h") . "/" <CR>]])
-
--- FIXME: Mantêm o cursor centralizado
--- nnoremap("n", "nzzzv")
--- nnoremap("N", "Nzzzv")
--- nnoremap("J", "mzJ`z")
--- ["n|n"] = map_cmd("nzzzv"):noremap(),
--- ["n|N"] = map_cmd("Nzzzv"):noremap(),
--- ["n|J"] = map_cmd("mzJ`z"):noremap(),
 
 -- Move o cursor para início/final da linha
 nnoremap("<A-h>", "^")

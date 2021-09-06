@@ -19,22 +19,22 @@ local config = {
   },
 }
 
-local palette = vim.g[vim.g.colors_name]
-if palette then
-  config["highlights"] = {
-    fill = {
-      guibg = palette.black,
-    },
-    indicator_selected = {
-      guifg = palette.green,
-    },
-    separator = {
-      guifg = palette.selection,
-    },
-    buffer_selected = {
-      gui = "bold",
-    },
-  }
-end
+-- local palette = vim.g[vim.g.colors_name]
+-- if palette then
+--   config["highlights"] = {
+--     fill = {
+--       guibg = palette.black,
+--     },
+--     indicator_selected = {
+--       guifg = palette.green,
+--     },
+--     separator = {
+--       guifg = palette.selection,
+--     },
+--     buffer_selected = {
+--       gui = "bold",
+--     },
+--   }
+-- end
 
 require("bufferline").setup(config)

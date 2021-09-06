@@ -23,7 +23,7 @@ local autocmds = {
   _lsp = {
     {
       "FileType",
-      "lspinfo",
+      "lspinfo,null-ls-info",
       [[nnoremap <buffer><silent> q :close<CR>]],
     },
   },

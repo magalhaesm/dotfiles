@@ -110,13 +110,3 @@ function mm.delete_buffer()
   local is_terminal = fn.getbufvar(cur_bufnr, "&buftype") == "terminal"
   cmd(is_terminal and "bd! #" or "silent! confirm bd #")
 end
-
-function mm.check_lsp_client_active(name)
-  local clients = vim.lsp.get_active_clients()
-  for _, client in pairs(clients) do
-    if client.name == name then
-      return true
-    end
-  end
-  return false
-end
