@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+NC="\033[m"
 RED="\033[1;31m"
 CYAN="\033[1;36m"
 GREEN="\033[1;32m"
-NC="\033[m"
 
 DOTFILES="$HOME/.dotfiles"
+USER_ENVS="\$HOME/.config/zsh/exports.zsh"
 
 info() {
   echo -e "\n${CYAN}info:${NC} $1"
@@ -28,20 +29,21 @@ clone_dotfiles() {
 }
 
 set_zshenv() {
-  echo "Editing /etc/zsh/zshenv"
+  if ! grep -q $USER_ENVS /etc/zsh/zshenv
+  then
+    echo "Editing /etc/zsh/zshenv"
 
-  echo -e "\n# Load user envs" | sudo tee -a /etc/zsh/zshenv
-  echo -e "[ -f \$HOME/.config/zsh/profile.zsh ] &&" \
-    "source \$HOME/.config/zsh/profile.zsh" | sudo tee -a /etc/zsh/zshenv
+    echo -e "\n# Load user envs" | sudo tee -a /etc/zsh/zshenv
+    echo -e "[ -f $USER_ENVS ] && source $USER_ENVS" | sudo tee -a /etc/zsh/zshenv
+    info "Restart the session to take effect."
+  fi
 }
 
 set_shell() {
-  grep -q profile.zsh /etc/zsh/zshenv || set_zshenv
-  zsh="$(command -v zsh)"
+  zsh=$(command -v zsh)
   if [ "$SHELL" != "$zsh" ]
   then
     chsh -s "$zsh" "$USER"
-    info "Restart the session to take effect."
   else
     echo "Already configured."
   fi
@@ -58,7 +60,7 @@ echo "---------------------------------------------------------"
 info "Checking main dependencies..."
 if ! installed git || ! installed curl
 then
-  echo "Install to continue... "
+  echo -e "\nPlease, install and try again."
   exit 1
 fi
 
@@ -102,6 +104,9 @@ do
 done
 
 popd &>/dev/null || exit 1
+
+info "Ensuring user environment variables..."
+set_zshenv
 
 info "Setting zsh as default shell..."
 set_shell
