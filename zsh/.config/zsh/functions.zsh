@@ -18,25 +18,32 @@ zsh_add_file() {
   [ -f "$1" ] && source "$1"
 }
 
+info() {
+  echo -e "\n\033[1;36minfo:\033[m $1"
+}
+
 zsh_add_plugin() {
-  PLUGIN_NAME=$(echo "$1" | cut -d "/" -f 2)
+  PLUGIN_NAME=$(basename "$1")
   if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
     # For plugins
     zsh_add_file "$ZDOTDIR/plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
     zsh_add_file "$ZDOTDIR/plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
   else
+    info "Installing plugin $PLUGIN_NAME"
     git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+    source "$ZDOTDIR/.zshrc"
   fi
 }
 
 zsh_add_completion() {
-  PLUGIN_NAME=$(echo "$1" | cut -d "/" -f 2)
+  PLUGIN_NAME=$(basename "$1")
   if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
     # For completions
     completion_file_path=$(ls "$ZDOTDIR/plugins/$PLUGIN_NAME/_*")
     fpath+="$(dirname "${completion_file_path}")"
     zsh_add_file "$ZDOTDIR/plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
   else
+    info "Installing completions for $PLUGIN_NAME"
     git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
     fpath+=$(ls "$ZDOTDIR/plugins/$PLUGIN_NAME/_*")
     [ -f "$ZDOTDIR/.zccompdump" ] && $"ZDOTDIR/.zccompdump"
