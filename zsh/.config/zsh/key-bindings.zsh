@@ -4,22 +4,22 @@ bindkey -v
 export KEYTIMEOUT=1
 
 # ci", ci', ci`, di", etc
-# autoload -U select-quoted
-# zle -N select-quoted
-# for m in visual viopp; do
-#   for c in {a,i}{\',\",\`}; do
-#     bindkey -M $m $c select-quoted
-#   done
-# done
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $m $c select-quoted
+  done
+done
 
 # ci{, ci(, ci<, di{, etc
-# autoload -U select-bracketed
-# zle -N select-bracketed
-# for m in visual viopp; do
-#   for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-#     bindkey -M $m $c select-bracketed
-#   done
-# done
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $m $c select-bracketed
+  done
+done
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
