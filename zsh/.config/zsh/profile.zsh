@@ -21,6 +21,7 @@ export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 export EDITOR="nvim"
 export TERMINAL="kitty"
+export TERMINAL_THEME="dracula"
 export BROWSER="vivaldi"
 export TERM="xterm-256color"
 export COLORTERM="truecolor"
