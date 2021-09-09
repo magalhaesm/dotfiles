@@ -3,11 +3,6 @@ if not present then
   return
 end
 
-local colors = vim.g.dracula
-if not colors then
-  return
-end
-
 icons.setup {
   override = {
     html = {
@@ -41,7 +36,7 @@ icons.setup {
       name = "Sh",
     },
     [".gitignore"] = {
-      color = colors.red,
+      color = "#e64a19",
       icon = "",
       name = "GitIgnore",
     },
@@ -56,8 +51,7 @@ icons.setup {
       name = "Pylint",
     },
     [".pre-commit-config.yaml"] = {
-      -- color = "#ef4235",
-      color = colors.bright_red,
+      color = "#ff5252",
       icon = "",
       name = "PreCommit",
     },
