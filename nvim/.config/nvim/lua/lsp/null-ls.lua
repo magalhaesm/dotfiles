@@ -20,13 +20,17 @@ local sources = {
   },
 
   -- Lua
-  b.formatting.stylua,
+  b.formatting.stylua.with {
+    extra_args = { "--config-path", vim.fn.expand "$XDG_CONFIG_HOME/stylua.toml" },
+  },
 
   -- Bash
   b.diagnostics.shellcheck,
 
   -- C/C++
-  b.formatting.clang_format,
+  b.formatting.clang_format.with {
+    filetypes = { "c", "cpp" },
+  },
 
   -- Javascript/TypeScript
 }
