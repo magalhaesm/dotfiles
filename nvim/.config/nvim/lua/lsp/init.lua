@@ -139,7 +139,7 @@ local function merge_user_settings(config, server)
   return config
 end
 
-local function make_config(server)
+local function make_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.documentationFormat = {
     "markdown",
@@ -159,6 +159,12 @@ local function make_config(server)
       "additionalTextEdits",
     },
   }
+
+  return capabilities
+end
+
+local function make_config(server)
+  local capabilities = make_capabilities()
 
   local default_config = {
     on_attach = on_attach,

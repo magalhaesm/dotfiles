@@ -7,7 +7,7 @@ local cmd = vim.cmd
 cmd "syntax on"
 cmd "filetype plugin indent on"
 
-mm.colorscheme = os.getenv "TERMINAL_THEME"
+mm.colorscheme = ""
 
 opt.showmode = false
 opt.hidden = true

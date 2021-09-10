@@ -5,6 +5,7 @@
 _G.mm = {
   DATA_PATH = vim.fn.stdpath "data",
   CONFIG_PATH = vim.fn.stdpath "config",
+  TERMINAL_THEME = os.getenv "TERMINAL_THEME",
 }
 
 local fn = vim.fn
@@ -26,11 +27,11 @@ function _G.inspect(...)
   print(unpack(objects))
 end
 
-mm.replace_termcodes = function(str)
+function mm.replace_termcodes(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-mm.check_back_space = function()
+function mm.check_back_space()
   local col = fn.col "." - 1
   if col == 0 or fn.getline("."):sub(col, col):match "%s" then
     return true
@@ -94,6 +95,7 @@ mm.tnoremap = make_mapper("t", noremap_opts)
 mm.snoremap = make_mapper("s", noremap_opts)
 mm.cnoremap = make_mapper("c", { noremap = true, silent = false })
 
+-- TODO: really need this?
 -- https://github.com/ojroques/nvim-bufdel
 function mm.delete_buffer()
   local buflisted = fn.getbufinfo { buflisted = 1 }

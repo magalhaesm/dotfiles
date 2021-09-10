@@ -110,7 +110,8 @@ return require("packer").startup {
         vim.cmd "colorscheme dracula"
       end,
       cond = function()
-        if mm.colorscheme == "dracula" then
+        local theme = "dracula"
+        if mm.colorscheme == theme or mm.TERMINAL_THEME == theme then
           return true
         end
       end,
