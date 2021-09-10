@@ -45,7 +45,7 @@ local autocmds = {
     },
   },
   packer = {
-    { "BufWritePost", "init.lua", "source <afile> | PackerCompile" },
+    { "BufWritePost", "*/plugins/init.lua", "source <afile> | PackerCompile" },
   },
 }
 
