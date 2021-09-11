@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+install_path="$HOME/.local/bin"
+[ ! -d "$install_path" ] && mkdir -p "$install_path"
+
+# Dependency to use interactive mode
+[ ! "$(command -v rlwrap)" ] && sudo apt install rlwrap
+
+curl https://cht.sh/:cht.sh > "$install_path/cht.sh"
+
+chmod +x "$install_path/cht.sh"
