@@ -1,7 +1,20 @@
-# -- KEYBINDING ----------------------------------------------------------------
+# -- KEYBINDINGS ---------------------------------------------------------------
 
-bindkey -v
-export KEYTIMEOUT=1
+# Use emacs keybindings
+bindkey -e
+
+# Enter vim mode
+bindkey "^v" vi-cmd-mode
+
+# Use vim keys in tab complete menu
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
+# Browse history
+bindkey "^p" up-line-or-history
+bindkey "^n" down-line-or-history
 
 # ci", ci', ci`, di", etc
 autoload -U select-quoted
@@ -20,16 +33,3 @@ for m in visual viopp; do
     bindkey -M $m $c select-bracketed
   done
 done
-
-# Use vim keys in tab complete menu:
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-# bindkey -M menuselect '^o' accept-and-infer-next-history
-
-bindkey "^p" up-line-or-history
-bindkey "^n" down-line-or-history
-
-# bindkey -M vicmd v edit-command-line
-# bindkey "^?" backward-delete-char

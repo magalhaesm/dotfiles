@@ -9,7 +9,7 @@ DOTFILES="$HOME/.dotfiles"
 USER_ENVS="\$HOME/.config/zsh/exports.zsh"
 
 dependencies=(
-  stow kitty tmux delta
+  stow kitty tmux delta omz
   nvim gcc node
   zsh rg bat zoxide fzf exa fd starship
 )

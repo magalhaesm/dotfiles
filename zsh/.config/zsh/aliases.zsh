@@ -15,7 +15,7 @@ alias fgrep='fgrep --color=auto'
 
 alias path='echo $PATH | tr -s ":" "\n"'
 
-if [[ -x "$(command -v exa)" ]]
+if [ -x "$(command -v exa)" ]
 then
   alias l='exa --color=always --group-directories-first'
   alias ls='l'
@@ -33,7 +33,7 @@ else
 fi
 
 alias g='git'
-alias tmux='tmux -f $TMUX_CONFIG'
+# alias tmux='tmux -f $TMUX_CONFIG'
 alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 alias sqlite3='sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc'
 # alias gdb='gdb -nh -x $XDG_CONFIG_HOME/gdb/init'

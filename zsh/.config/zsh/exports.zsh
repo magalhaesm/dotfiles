@@ -14,16 +14,21 @@ export XDG_CACHE_HOME=${XDG_CACHE_HOME:="$HOME/.cache"}
 
 # -- Zsh -----------------------------------------------------------------------
 
+export KEYTIMEOUT=1
 export ZSH="${XDG_CONFIG_HOME}/oh-my-zsh"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 # -- Sistema -------------------------------------------------------------------
 
 export EDITOR="nvim"
+
 export TERMINAL="kitty"
-export TERMINAL_THEME="dracula"
+# TODO: move to a file
+# export TERMINAL_THEME="dracula"
+export TERMINAL_THEME="gruvbox_dark"
+
 export BROWSER="vivaldi"
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 export COLORTERM="truecolor"
 
 export HISTSIZE=30000

@@ -3,6 +3,7 @@ define_session() {
   [[ ${WORKSPACE:0:1} == "." ]] && echo "${WORKSPACE:1}" || echo "${WORKSPACE}"
 }
 
+# Init tmux session which name is the current directory
 ide() {
   SESSION=$(define_session)
   if ! tmux has-session -t "$SESSION" 2> /dev/null

@@ -1,35 +1,10 @@
 # -- ZSHRC --------------------------------------------------------------------
 
-setopt extendedglob nomatch menucomplete
-setopt interactive_comments
-stty stop undef   # Disable ctrl-s to freeze terminal.
-
-zle_highlight=('paste:none')
-
-unsetopt BEEP   # Disable beep
-
-# Completions
-autoload -Uz compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-
-# Compinit
-_comp_options+=(globdots)   # Include hidden files.
-
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
-# Colors
-autoload -Uz colors && colors
-
-# -- Aliases/functions ---------------------------------------------------------
-
 source "$ZDOTDIR/functions.zsh"
 
+zsh_add_file "$ZSH/oh-my-zsh.sh"
+
 zsh_add_file "$ZDOTDIR/aliases.zsh"
-zsh_add_file "$ZDOTDIR/directories.zsh"
 zsh_add_file "$ZDOTDIR/key-bindings.zsh"
 
 zsh_add_file "$HOME/Dropbox/dotfiles/secrets"
@@ -55,7 +30,7 @@ zsh_add_file "$XDG_DATA_HOME/cargo/env"
 
 # -- Zoxide --------------------------------------------------------------------
 
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd j zsh)"
 
 # -- Starship ------------------------------------------------------------------
 
