@@ -117,6 +117,19 @@ return require("packer").startup {
       end,
     }
 
+    use {
+      "RRethy/nvim-base16",
+      config = function()
+        vim.cmd "colorscheme base16-gruvbox-dark-medium"
+      end,
+      cond = function()
+        local theme = "gruvbox_dark"
+        if mm.colorscheme == theme or mm.TERMINAL_THEME == theme then
+          return true
+        end
+      end,
+    }
+
     -- GitSigns
     use {
       "lewis6991/gitsigns.nvim",
