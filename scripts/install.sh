@@ -9,7 +9,7 @@ DOTFILES="$HOME/.dotfiles"
 USER_ENVS="\$HOME/.config/zsh/exports.zsh"
 
 dependencies=(
-  stow kitty tmux delta omz
+  stow kitty tmux delta
   nvim gcc node
   zsh rg bat zoxide fzf exa fd starship
 )
@@ -118,6 +118,9 @@ main() {
 
   info "Ensuring user environment variables..."
   set_zshenv
+
+  info "Installing Oh-my-zsh..."
+  "$DOTFILES/scripts/install-omz"
 
   info "Setting zsh as default shell..."
   set_shell
