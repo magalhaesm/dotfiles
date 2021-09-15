@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
 export ZSH="$HOME/.config/oh-my-zsh"
+[ -d "$ZSH" ] && { echo "Directory $ZSH already exists." ; exit ; }
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
