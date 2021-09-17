@@ -6,10 +6,10 @@ list() {
 }
 
 tmux-window() {
-  tmux new-window -n cheat "$SHELL" -c "$1 | less -R"
+  tmux new-window -n info "$SHELL" -c "$1 | less -R"
 }
 
-utils=("xargs" "find" "sed" "awk" "fd")
+utils=("xargs" "find" "sed" "awk" "fd" "tar" "tr")
 languages=("c" "cpp" "bash" "lua" "rust" "golang" "python" "javascript" "typescript")
 
 all=("${languages[@]}" "${utils[@]}")
