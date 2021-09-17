@@ -2,12 +2,19 @@
 --  Telescope:
 -------------------------------------------------------------------------------
 
+local actions = require('telescope.actions')
+
 require("telescope").setup {
   defaults = {
     prompt_prefix = "❯ ",
     layout_config = { prompt_position = "top" },
     selection_caret = " ",
     sorting_strategy = "ascending",
+    mappings = {
+      n = {
+        ["q"] = actions.close
+      },
+    },
   },
   path_display = { shorten = 5 },
 }
