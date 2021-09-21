@@ -8,7 +8,7 @@ python_binary = "python3"
 symbol = "🦀 "
 
 [jobs]
-symbol = "!!"
+symbol = " 🟅"
 style = "bold blue"
 
 # [status]
