@@ -1,3 +1,15 @@
 #!/usr/bin/env bash
 
-sudo apt install kitty
+# Install pre-built binary
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+
+# Create a symbolic link to add kitty to PATH
+bin_dir="$HOME/.local/bin"
+[ ! -d "$bin_dir" ] && mkdir -p "$bin_dir"
+ln -s ~/.local/kitty.app/bin/kitty "$bin_dir"
+
+# Place the kitty.desktop file somewhere it can be found by the OS
+cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+
+# Update the path to the kitty icon in the kitty.desktop file
+sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
