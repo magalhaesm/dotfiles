@@ -1,0 +1,21 @@
+# THEME: Dracula
+export TERMINAL_THEME='dracula'
+
+export color0='#6272a4'
+export color8='#6272a4'
+export color1='#ff5555'
+export color9='#ff6e6e'
+export color2='#50fa7b'
+export color10='#69ff94'
+export color3='#f1fa8c'
+export color11='#ffffa5'
+export color4='#bd93f9'
+export color12='#d6acff'
+export color5='#ff79c6'
+export color13='#ff92df'
+export color6='#8be9fd'
+export color14='#a4ffff'
+export color7='#f8f8f2'
+export color15='#ffffff'
+
+export BAT_THEME='Dracula'
