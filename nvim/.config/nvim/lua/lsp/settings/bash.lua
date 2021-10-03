@@ -7,7 +7,7 @@ mm["sh"] = {
 
 local lsp_settings = {
   settings = {},
-  filetypes = { 'sh' },
+  filetypes = { "sh" },
 }
 
 return lsp_settings

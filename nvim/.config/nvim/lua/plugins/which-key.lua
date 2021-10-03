@@ -78,7 +78,7 @@ function M.config()
       ["/"] = { "<cmd>CommentToggle<CR>", "Comment" },
       ["w"] = { "<cmd>w!<CR>", "Save" },
       ["q"] = { "<cmd>q!<CR>", "Quit" },
-      ["e"] = { "<cmd>lua require'plugins.nvimtree'.toggle_tree()<CR>", "Explorer" },
+      ["e"] = { "<cmd>lua require'nvim-tree'.toggle()<CR>", "Explorer" },
       ["u"] = { "<cmd>UndotreeShow<CR>", "UndoTree" },
       ["f"] = { "<cmd>Telescope find_files<CR>", "Find Files" },
       ["x"] = { "<cmd>bdelete<cr>", "Close buffer" },

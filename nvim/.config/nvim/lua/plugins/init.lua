@@ -31,7 +31,7 @@ return require("packer").startup {
     }
 
     -- LSP
-    use { "kabouzeid/nvim-lspinstall", event = "BufRead" }
+    use { "kabouzeid/nvim-lspinstall", event = "BufWinEnter" }
     use { "jose-elias-alvarez/null-ls.nvim", after = "nvim-lspinstall" }
     use {
       "neovim/nvim-lspconfig",
@@ -178,7 +178,7 @@ return require("packer").startup {
       "kyazdani42/nvim-tree.lua",
       event = "BufWinEnter",
       config = function()
-        require("plugins.nvimtree").config()
+        require "plugins.nvimtree"
       end,
     }
 

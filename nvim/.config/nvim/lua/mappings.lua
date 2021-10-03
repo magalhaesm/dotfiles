@@ -27,7 +27,7 @@ nnoremap("<leader>H", "<cmd>split<CR>")
 nnoremap("<leader>v", "<cmd>vsplit<CR>")
 
 -- Apagar o destaque dos termos de busca
-nnoremap("<ESC><ESC>", "<cmd>nohl<CR>")
+nnoremap("<ESC>", "<cmd>nohl<CR>")
 
 -- Navegação entre Buffers
 nnoremap("<C-l>", "<cmd>bnext<CR>")
