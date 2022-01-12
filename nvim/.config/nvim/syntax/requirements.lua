@@ -18,8 +18,8 @@ vim.cmd [[
 
   hi link requirementsComment Comment
   hi link requirementsCommandOption Special
-  hi link requirementsVersionSpecifiers Boolean
-  hi link requirementsPackageName Identifier
+  hi link requirementsVersionSpecifiers Operator
+  hi link requirementsPackageName String
   hi link requirementsExtras Type
   hi link requirementsVersionControls Underlined
   hi link requirementsURLs Underlined
