@@ -48,20 +48,13 @@ gitsigns.setup {
 }
 
 map.nname("<leader>g", "Git")
-nnoremap("<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<CR>", "Next Hunk")
-nnoremap("<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<CR>", "Prev Hunk")
 nnoremap("<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<CR>", "Blame")
-nnoremap("<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<CR>", "Preview Hunk")
-nnoremap("<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<CR>", "Reset Hunk")
-nnoremap("<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<CR>", "Reset Buffer")
-nnoremap("<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<CR>", "Stage Hunk")
-nnoremap("<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<CR>", "Undo Stage Hunk")
 nnoremap("<leader>gd", "<cmd>Gitsigns diffthis HEAD<CR>", "Diff")
 
 -- ToggleTerm
 nnoremap("<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit")
 
 -- Telescope
-nnoremap("<leader>go", "<cmd>Telescope git_status<CR>", "Open changed file")
-nnoremap("<leader>gb", "<cmd>Telescope git_branches<CR>", "Checkout branch")
-nnoremap("<leader>gc", "<cmd>Telescope git_commits<CR>", "Checkout commit")
+nnoremap("<leader>gs", "<cmd>Telescope git_status<CR>", "Status")
+nnoremap("<leader>gb", "<cmd>Telescope git_branches<CR>", "Branchs")
+nnoremap("<leader>gc", "<cmd>Telescope git_commits<CR>", "Commits")

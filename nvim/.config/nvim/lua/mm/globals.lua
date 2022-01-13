@@ -53,7 +53,7 @@ function _G.inspect(...)
   print(unpack(objects))
 end
 
--- TODO: testar
+-- TODO: test
 --- automatically clear commandline messages after a few seconds delay
 --- source: http://unix.stackexchange.com/a/613645
 ---@return function

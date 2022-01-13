@@ -35,7 +35,7 @@ local options = {
   sidescrolloff = 8,                       -- columns to keep to the left and to the right
   showcmd = false,                         -- show command in the last line of the screen
   list = true,                             -- show invisible characters
-  showbreak = "↳ ",
+  showbreak = "⤷ ",
 }
 
 vim.opt.listchars = { tab = "»∙" }

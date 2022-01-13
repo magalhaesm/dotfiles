@@ -7,16 +7,20 @@ if not status_ok then
   return
 end
 
-local monokai = require('monokai')
-local palette = monokai
+local monokai = require "monokai"
+local palette = monokai.classic
 
 monokai.setup {
   custom_hlgroups = {
     GitSignsChange = {
+      bg = palette.base2,
+    },
+    TelescopeNormal = {
       bg = palette.base2
+    },
+    Todo = {
+      fg = palette.orange,
+      style = "bold",
     },
   },
 }
-
--- BUG: não aplica custom_hlgroups em todos os arquivos
-vim.cmd [[ hi link GitSignsChange Normal ]]

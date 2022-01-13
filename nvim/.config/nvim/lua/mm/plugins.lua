@@ -63,6 +63,7 @@ return packer.startup {
     use "folke/which-key.nvim"
     use "nvim-neorg/neorg"
     use "b0o/mapx.nvim"
+    use "norcalli/nvim-colorizer.lua"
 
     -- Colorschemes
     -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -109,9 +110,5 @@ return packer.startup {
   end,
   config = {
     compile_path = PACKER_COMPILED_PATH,
-    profile = {
-      enable = true,
-      threshold = 1,
-    },
   },
 }
