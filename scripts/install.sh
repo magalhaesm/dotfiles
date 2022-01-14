@@ -88,7 +88,7 @@ set_zshenv() {
     echo "Editing /etc/zsh/zshenv"
 
     echo -e "\n# Load user envs" | sudo tee -a /etc/zsh/zshenv
-    echo -e "[ -f \"$USER_ENVS\" ] && source \"$USER_ENVS\"" | sudo tee -a /etc/zsh/zshenv
+    echo "[ -f $USER_ENVS ] && source $USER_ENVS" | sudo tee -a /etc/zsh/zshenv
     info "Restart the session to take effect."
   fi
 }
