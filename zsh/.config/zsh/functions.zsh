@@ -37,7 +37,7 @@ zsh_add_plugin() {
   else
     # TODO: why is it repeating?
     __info "Installing plugin $PLUGIN_NAME"
-    if ! git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"; then
+    if ! git clone "https://username:password@github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"; then
       __error "$1 not found"
     else
       source "$ZDOTDIR/.zshrc"
@@ -54,7 +54,7 @@ zsh_add_completion() {
     zsh_add_file "$ZDOTDIR/plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
   else
     __info "Installing completions for $PLUGIN_NAME"
-    if ! git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"; then
+    if ! git clone "https://username:password@github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"; then
       __error "$1 not found" 
     else
       fpath+=$(ls "$ZDOTDIR/plugins/$PLUGIN_NAME/_*")
