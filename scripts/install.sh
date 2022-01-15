@@ -95,7 +95,7 @@ set_zshenv() {
 
 set_shell() {
   zsh=$(command -v zsh)
-  [ "$SHELL" != "$zsh" ] && chsh -s "$zsh" "$USER" || echo "Already configured."
+  [ "$SHELL" != "$zsh" ] && sudo chsh -s "$zsh" "$USER" || echo "Already configured."
 }
 
 main() {
