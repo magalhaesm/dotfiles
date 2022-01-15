@@ -42,4 +42,4 @@ luac.out
 packer_compiled.lua
 __pycache__
 *.bak
-*.norg
+.zcompdump*
