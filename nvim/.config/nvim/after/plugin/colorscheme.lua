@@ -1,11 +1,11 @@
 -- local colorscheme = "darkplus"
-local colorscheme = "monokai"
+-- local colorscheme = "monokai"
 
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  vim.notify("Colorscheme " .. colorscheme .. " not found!")
-  return
-end
+-- local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+-- if not status_ok then
+--   vim.notify("Colorscheme " .. colorscheme .. " not found!")
+--   return
+-- end
 
 local ok, monokai = pcall(require, "monokai")
 if ok then

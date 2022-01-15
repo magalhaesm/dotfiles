@@ -1,4 +1,4 @@
-local ok, mapx = mm.safe_require "mapx"
+local ok, mapx = pcall(require, "mapx")
 if not ok then
   return
 end

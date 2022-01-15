@@ -81,6 +81,9 @@ telescope.setup {
       theme = "dropdown",
       previewer = false,
     },
+    live_grep = {
+      hidden = true,
+    }
   },
   extensions = {
     fzf = {
@@ -212,7 +215,7 @@ end
 
 nnoremap("<leader>b", "<cmd>Telescope buffers<CR>", "Buffers")
 nnoremap("<leader>f", "<cmd>lua mm.search_files()<CR>", "Files")
-nnoremap("<leader>r", "<cmd>lua mm.search_recents()<CR>", "Recents")
+nnoremap("<leader>r", "<cmd>lua mm.frecency()<CR>", "Recents")
 nnoremap("<leader>F", "<cmd>Telescope live_grep<CR>", "Text")
 
 map.nname("<leader>s", "Search")
@@ -226,7 +229,7 @@ nnoremap("<leader>s?", "<cmd>Telescope help_tags<CR>", "Help")
 nnoremap("<leader>sk", "<cmd>Telescope keymaps<CR>", "Keymaps")
 nnoremap("<leader>so", "<cmd>lua mm.vim_options()<CR>", "Vim options")
 nnoremap("<leader>st", "<cmd>lua mm.search_by_filetype()<CR>", "Filetype")
-nnoremap("<leader>sh", "<cmd>lua mm.frecency()<CR>", "History")
+-- nnoremap("<leader>sh", "<cmd>lua mm.frecency()<CR>", "History")
 
 nnoremap("<leader>sz", "<cmd>lua mm.edit_zsh()<CR>", "Zsh")
 nnoremap("<leader>sn", "<cmd>lua mm.edit_nvim()<CR>", "Nvim")
