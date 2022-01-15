@@ -7,20 +7,31 @@ if not status_ok then
   return
 end
 
-local monokai = require "monokai"
-local palette = monokai.classic
+local ok, monokai = pcall(require, "monokai")
+if ok then
+  local palette = monokai.classic
 
-monokai.setup {
-  custom_hlgroups = {
-    GitSignsChange = {
-      bg = palette.base2,
+  monokai.setup {
+    custom_hlgroups = {
+      GitSignsChange = {
+        fg = palette.yellow,
+        bg = palette.base2,
+      },
+      TelescopeNormal = {
+        bg = palette.base2,
+      },
+      TSNote = {
+        fg = palette.aqua,
+        style = "bold",
+      },
+      TSWarning = {
+        fg = palette.orange,
+        style = "bold",
+      },
+      TSDanger = {
+        fg = palette.pink,
+        style = "bold",
+      },
     },
-    TelescopeNormal = {
-      bg = palette.base2
-    },
-    Todo = {
-      fg = palette.orange,
-      style = "bold",
-    },
-  },
-}
+  }
+end

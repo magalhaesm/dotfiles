@@ -48,10 +48,10 @@ nvim_tree.setup({
   open_on_tab = false,
   hijack_cursor = false,
   update_cwd = false,
-  update_to_buf_dir = {
-    enable = true,
-    auto_open = true,
-  },
+  -- update_to_buf_dir = {
+  --   enable = false,
+  --   auto_open = true,
+  -- },
   diagnostics = {
     enable = true,
     icons = {
@@ -65,10 +65,6 @@ nvim_tree.setup({
     enable = true,
     update_cwd = false,
     ignore_list = {},
-  },
-  system_open = {
-    cmd = nil,
-    args = {},
   },
   filters = {
     dotfiles = false,

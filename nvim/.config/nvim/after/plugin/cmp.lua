@@ -17,7 +17,6 @@ local check_backspace = function()
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
---   פּ ﯟ   some other good icons
 local kind_icons = {
   Text = "",
   Method = "",
@@ -53,6 +52,7 @@ cmp.setup {
       luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
+  -- completion = { keyword_length = 3 },
   mapping = {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
@@ -62,6 +62,10 @@ cmp.setup {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     },
+    -- ["<CR>"] = cmp.mapping.confirm {
+    --   behavior = cmp.ConfirmBehavior.Replace,
+    --   select = true,
+    -- },
     ["<CR>"] = cmp.mapping.confirm { select = true },
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -97,12 +101,13 @@ cmp.setup {
     format = function(entry, vim_item)
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+      -- Source
       vim_item.menu = ({
-        nvim_lsp = "[lsp]",
-        nvim_lua = "[nvim_lua]",
-        luasnip = "[snippet]",
-        buffer = "[buffer]",
-        path = "[path]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[Lua]",
+        luasnip = "[LuaSnip]",
+        buffer = "[Buffer]",
+        path = "[Path]",
       })[entry.source.name]
       return vim_item
     end,
@@ -110,14 +115,14 @@ cmp.setup {
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
-    { name = "buffer", Keyword_length = 5 },
+    { name = "buffer", option = { keyword_pattern = [[\k\+]] } },
     { name = "path" },
     { name = "nvim_lua" },
     { name = "neorg" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
-    select = false,
+    -- select = false,
   },
   documentation = {
     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
@@ -129,7 +134,7 @@ cmp.setup {
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline("/", {
     sources = {
-      { name = "buffer", keyword_length = 2 },
+      { name = "buffer", keyword_length = 3 },
     },
   }),
 }

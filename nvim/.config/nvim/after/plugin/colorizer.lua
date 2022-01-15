@@ -7,5 +7,5 @@ colorizer.setup {
   "html",
   "css",
   "lua",
-  "conf",
+  "tmux",
 }

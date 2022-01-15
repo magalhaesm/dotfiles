@@ -81,7 +81,7 @@ xnoremap("<", "<gv")
 xnoremap("p", '"_dP', opts)
 
 -- Matchit
-nnoremap("<Tab>", "%")
+-- nnoremap("<Tab>", "%")
 
 ------------------------------------------------------------------------------
 -- Move lines up and down

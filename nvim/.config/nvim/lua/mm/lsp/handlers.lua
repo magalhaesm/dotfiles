@@ -77,7 +77,7 @@ local function lsp_keymaps(client, bufnr)
   nnoremap("<leader>lii", "<cmd>LspInstallInfo<CR>", "Installed", opts, buf)
 
   nnoremap("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action", opts, buf)
-  nnoremap("<leader>lw", "<cmd>Telescope diagnostics bufnr=0<CR>", "Document Diagnostics", opts, buf)
+  nnoremap("<leader>ld", "<cmd>Telescope diagnostics bufnr=0<CR>", "Document Diagnostics", opts, buf)
   nnoremap("<leader>ll", "<cmd>lua vim.lsp.codelens.run()<CR>", "CodeLens Action", opts, buf)
   nnoremap("<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", "Quickfix", opts, buf)
 

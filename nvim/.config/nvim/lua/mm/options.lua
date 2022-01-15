@@ -50,5 +50,6 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+-- palavra-teste
 vim.opt.whichwrap:append "<,>,[,],h,l"
 vim.opt.iskeyword:append "-"

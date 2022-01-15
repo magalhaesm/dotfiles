@@ -83,9 +83,24 @@ telescope.setup {
     },
   },
   extensions = {
-    -- Your extension configuration goes here:
+    fzf = {
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+    },
+    frecency = {
+      workspaces = {
+        -- conf = "/home/marcelo/.config",
+        nvim = "/home/marcelo/.config/nvim",
+        zsh = "/home/marcelo/.config/zsh",
+        tmux = "/home/marcelo/.config/tmux",
+      },
+    },
   },
 }
+
+require("telescope").load_extension "fzf"
+require("telescope").load_extension "frecency"
 
 function mm.search_files()
   local opts = themes.get_dropdown {
@@ -96,15 +111,10 @@ function mm.search_files()
 end
 
 function mm.search_recents()
-  builtin.oldfiles {
-    theme = "dropdown",
+  local opts = themes.get_dropdown {
     previewer = false,
-    layout_config = {
-      prompt_position = "top",
-      width = 80,
-      height = 15,
-    },
   }
+  builtin.oldfiles(opts)
 end
 
 function mm.edit_zsh()
@@ -160,6 +170,15 @@ function mm.vim_options()
   }
 end
 
+function mm.frecency()
+  local opts = themes.get_dropdown {
+    hidden = false,
+    previewer = false,
+    shorten_path = true,
+  }
+  require("telescope").extensions.frecency.frecency(opts)
+end
+
 function mm.lsp_code_actions()
   local opts = themes.get_dropdown {
     winblend = 10,
@@ -203,10 +222,11 @@ nnoremap("<leader>sp", "<cmd>Telescope projects<CR>", "Projects")
 nnoremap("<leader>sC", "<cmd>Telescope commands<CR>", "Commands")
 nnoremap("<leader>sm", "<cmd>Telescope man_pages<CR>", "Manual")
 nnoremap("<leader>sR", "<cmd>Telescope registers<CR>", "Registers")
-nnoremap("<leader>sh", "<cmd>Telescope help_tags<CR>", "Help")
+nnoremap("<leader>s?", "<cmd>Telescope help_tags<CR>", "Help")
 nnoremap("<leader>sk", "<cmd>Telescope keymaps<CR>", "Keymaps")
 nnoremap("<leader>so", "<cmd>lua mm.vim_options()<CR>", "Vim options")
 nnoremap("<leader>st", "<cmd>lua mm.search_by_filetype()<CR>", "Filetype")
+nnoremap("<leader>sh", "<cmd>lua mm.frecency()<CR>", "History")
 
 nnoremap("<leader>sz", "<cmd>lua mm.edit_zsh()<CR>", "Zsh")
 nnoremap("<leader>sn", "<cmd>lua mm.edit_nvim()<CR>", "Nvim")

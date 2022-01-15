@@ -92,12 +92,16 @@ return packer.startup {
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"
+    use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+    use { "nvim-telescope/telescope-frecency.nvim" }
+    use { "tami5/sqlite.lua" }
 
     -- Treesitter
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
     use "JoosepAlviste/nvim-ts-context-commentstring"
     use "nvim-treesitter/playground"
-    use "p00f/nvim-ts-rainbow"
+    -- NOTE: not working
+    -- use "p00f/nvim-ts-rainbow"
 
     -- Git
     use "lewis6991/gitsigns.nvim"
