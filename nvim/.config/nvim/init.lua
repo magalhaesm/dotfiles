@@ -18,6 +18,8 @@ vim.g.maplocalleader = ","
 ------------------------------------------------------------------------
 pcall(require, "impatient")
 
+require "mm.bootstrap"
+
 require "mm.globals"
 require "mm.options"
 require "mm.plugins"
