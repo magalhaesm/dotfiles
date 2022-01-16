@@ -192,17 +192,6 @@ function mm.lsp_code_actions()
   builtin.lsp_code_actions(opts)
 end
 
-function mm.lsp_references()
-  builtin.lsp_references {
-    layout_strategy = "vertical",
-    layout_config = {
-      prompt_position = "top",
-    },
-    sorting_strategy = "ascending",
-    ignore_filename = false,
-  }
-end
-
 function mm.lsp_implementations()
   builtin.lsp_implementations {
     layout_strategy = "vertical",
