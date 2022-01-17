@@ -5,6 +5,11 @@ end
 
 icons.setup {
   override = {
+    norg = {
+      icon = "",
+      color = "#5cbc7e",
+      name = "norg",
+    },
     html = {
       icon = "",
       color = "#e34c26",

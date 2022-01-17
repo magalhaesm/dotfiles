@@ -8,5 +8,5 @@ return {
       "--header-insertion=iwyu",
     },
   },
-  -- filetypes = { "c", "cpp" },
+  filetypes = { "c", "cpp" },
 }
