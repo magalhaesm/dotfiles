@@ -2,5 +2,5 @@
 
 curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o nvim.appimage
 chmod +x nvim.appimage
-[ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/.local/bin"
 mv nvim.appimage "$HOME/.local/bin/nvim"

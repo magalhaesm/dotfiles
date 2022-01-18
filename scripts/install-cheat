@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 install_path="$HOME/.local/bin"
-[ ! -d "$install_path" ] && mkdir -p "$install_path"
+mkdir -p "$install_path"
 
 # Dependency to use interactive mode
 [ ! "$(command -v rlwrap)" ] && sudo apt install rlwrap
