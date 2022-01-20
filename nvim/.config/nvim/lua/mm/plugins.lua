@@ -46,9 +46,9 @@ return packer.startup {
     use "nvim-neorg/neorg"
     use "b0o/mapx.nvim"
     use "norcalli/nvim-colorizer.lua"
+    use "abecodes/tabout.nvim"
 
     -- Colorschemes
-    -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
     use "lunarvim/darkplus.nvim"
     use "tanvirtin/monokai.nvim"
     -- use "ful1e5/onedark.nvim"
@@ -82,8 +82,6 @@ return packer.startup {
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
     use "JoosepAlviste/nvim-ts-context-commentstring"
     use "nvim-treesitter/playground"
-    -- NOTE: not working
-    -- use "p00f/nvim-ts-rainbow"
 
     -- Git
     use "lewis6991/gitsigns.nvim"

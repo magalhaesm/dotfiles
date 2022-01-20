@@ -32,6 +32,7 @@ if ok then
         fg = palette.pink,
         style = "bold",
       },
+      DiagnosticError = {},
     },
   }
 end

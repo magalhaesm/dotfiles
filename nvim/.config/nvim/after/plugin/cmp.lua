@@ -8,6 +8,11 @@ if not snip_status_ok then
   return
 end
 
+local tabout_ok, tabout = pcall(require, "tabout")
+if tabout_ok then
+  tabout.setup {}
+end
+
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 require("luasnip/loaders/from_vscode").lazy_load()
@@ -15,6 +20,30 @@ require("luasnip/loaders/from_vscode").lazy_load()
 local check_backspace = function()
   local col = vim.fn.col "." - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+end
+
+local tab = function(fallback)
+  if cmp.visible() then
+    cmp.select_next_item()
+  elseif luasnip.expandable() then
+    luasnip.expand()
+  elseif luasnip.expand_or_jumpable() then
+    luasnip.expand_or_jump()
+  elseif check_backspace() then
+    fallback()
+  else
+    fallback()
+  end
+end
+
+local shift_tab = function(fallback)
+  if cmp.visible() then
+    cmp.select_prev_item()
+  elseif luasnip.jumpable(-1) then
+    luasnip.jump(-1)
+  else
+    fallback()
+  end
 end
 
 local kind_icons = {
@@ -49,10 +78,10 @@ local kind_icons = {
 cmp.setup {
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body) -- For `luasnip` users.
+      luasnip.lsp_expand(args.body)
     end,
   },
-  -- completion = { keyword_length = 3 },
+  completion = { keyword_length = 2 },
   mapping = {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
@@ -62,39 +91,9 @@ cmp.setup {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     },
-    -- ["<CR>"] = cmp.mapping.confirm {
-    --   behavior = cmp.ConfirmBehavior.Replace,
-    --   select = true,
-    -- },
     ["<CR>"] = cmp.mapping.confirm { select = true },
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expandable() then
-        luasnip.expand()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      elseif check_backspace() then
-        fallback()
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
+    ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "s" }),
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
@@ -114,15 +113,11 @@ cmp.setup {
   },
   sources = {
     { name = "nvim_lsp" },
-    { name = "luasnip" },
+    { name = "luasnip", keyword_length = 1 },
     { name = "buffer", option = { keyword_pattern = [[\k\+]] } },
     { name = "path" },
     { name = "nvim_lua" },
     { name = "neorg" },
-  },
-  confirm_opts = {
-    behavior = cmp.ConfirmBehavior.Replace,
-    -- select = false,
   },
   documentation = {
     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
@@ -131,7 +126,7 @@ cmp.setup {
     ghost_text = false,
     native_menu = false,
   },
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  -- Use buffer source for searches with `/`
   cmp.setup.cmdline("/", {
     sources = {
       { name = "buffer", keyword_length = 3 },

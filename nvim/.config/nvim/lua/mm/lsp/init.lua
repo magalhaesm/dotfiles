@@ -1,3 +1,8 @@
+local status_ok, _ = pcall(require, "lspconfig")
+if not status_ok then
+  return
+end
+
 local lsp = vim.lsp
 
 local border_opts = { header = "", border = "rounded", focusable = false }
@@ -94,11 +99,6 @@ local function lsp_autocmd(client)
 end
 --]=]
 
-local function disable_formatting(client)
-  client.resolved_capabilities.document_formatting = false
-  client.resolved_capabilities.document_range_formatting = false
-end
-
 local function lsp_keymaps(_, bufnr)
   local buf = { buffer = bufnr }
 
@@ -119,7 +119,7 @@ local function lsp_keymaps(_, bufnr)
   nnoremap("<leader>lf", "<cmd>LspFormat<CR>", "Format", buf)
   nnoremap("<leader>lr", "<cmd>LspRename<CR>", "Rename", buf)
 
-  nnoremap("<leader>la", "<cmd>lua mm.lsp_code_actions()<CR>", "Code Action", buf)
+  nnoremap("<leader>la", "<cmd>Telescope lsp_code_actions<CR>", "Code Action", buf)
   nnoremap("<leader>ld", "<cmd>Telescope diagnostics bufnr=0<CR>", "Document Diagnostics", buf)
   nnoremap("<leader>ll", "<cmd>lua vim.lsp.codelens.run()<CR>", "CodeLens Action", buf)
   nnoremap("<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", "Quickfix", buf)
@@ -133,7 +133,6 @@ local function lsp_keymaps(_, bufnr)
 end
 
 local custom_on_attach = function(client, bufnr)
-  disable_formatting(client)
   -- lsp_autocmd(client)
   lsp_keymaps(client, bufnr)
 end

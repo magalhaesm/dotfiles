@@ -19,7 +19,7 @@ end
 ---@return string
 local function python_env()
   if vim.bo.filetype == "python" then
-    local venv = os.getenv("VIRTUAL_ENV")
+    local venv = os.getenv "VIRTUAL_ENV"
     if venv ~= nil then
       return string.format("  (%s)", mm.basename(venv))
     end
@@ -49,9 +49,17 @@ local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
   symbols = { error = " ", warn = " ", info = " ", hint = " " },
+
+  -- diagnostics_color = {
+  --   -- Same values as the general color option can be used here.
+  --   error = "DiagnosticError", -- Changes diagnostics' error color.
+  --   warn = "DiagnosticWarn", -- Changes diagnostics' warn color.
+  --   info = "DiagnosticInfo", -- Changes diagnostics' info color.
+  --   hint = "DiagnosticHint", -- Changes diagnostics' hint color.
+  -- },
 }
 
-lualine.setup({
+lualine.setup {
   options = {
     icons_enabled = true,
     -- theme = "codedark",
@@ -77,4 +85,4 @@ lualine.setup({
     lualine_z = {},
   },
   extensions = {},
-})
+}

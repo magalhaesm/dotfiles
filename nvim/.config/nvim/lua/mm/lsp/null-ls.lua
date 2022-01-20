@@ -29,11 +29,6 @@ local sources = {
   -- Bash
   diagnostics.shellcheck,
 
-  -- C/C++
-  formatting.clang_format.with {
-    filetypes = { "c", "cpp" },
-  },
-
   -- Javascript/TypeScript
   formatting.prettier.with {
     extra_args = {

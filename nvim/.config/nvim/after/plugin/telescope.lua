@@ -15,6 +15,8 @@ local function large_preview(_, cols, _)
   end
 end
 
+local CONFIG_HOME = vim.env.XDG_CONFIG_HOME
+
 telescope.setup {
   defaults = {
 
@@ -26,15 +28,14 @@ telescope.setup {
     path_display = { "smart", "absolute", "truncate" },
     file_ignore_patterns = { "%.jpg", "%.jpeg", "%.png", "%.otf", "%.ttf", "%.gif", ".git/" },
 
-    selection_strategy = "reset",
-    sorting_strategy = "ascending",
-    scroll_strategy = "cycle",
+    -- selection_strategy = "reset",
+    -- sorting_strategy = "ascending",
+    -- scroll_strategy = "cycle",
 
     layout_strategy = "horizontal",
     layout_config = {
       width = 0.95,
       height = 0.85,
-      prompt_position = "top",
 
       horizontal = {
         preview_width = large_preview,
@@ -71,9 +72,9 @@ telescope.setup {
     },
   },
   pickers = {
-    find_files = {
-      hidden = true,
-    },
+    -- find_files = {
+    --   hidden = true,
+    -- },
     buffers = {
       sort_mru = true,
       sort_lastused = true,
@@ -83,7 +84,10 @@ telescope.setup {
     },
     live_grep = {
       hidden = true,
-    }
+    },
+    lsp_code_actions = {
+      theme = "cursor",
+    },
   },
   extensions = {
     fzf = {
@@ -93,10 +97,10 @@ telescope.setup {
     },
     frecency = {
       workspaces = {
-        -- conf = "/home/marcelo/.config",
-        nvim = "/home/marcelo/.config/nvim",
-        zsh = "/home/marcelo/.config/zsh",
-        tmux = "/home/marcelo/.config/tmux",
+        -- conf = CONFIG_HOME,
+        nvim = CONFIG_HOME .. "/nvim",
+        zsh = CONFIG_HOME .. "/zsh",
+        tmux = CONFIG_HOME .. "/tmux",
       },
     },
   },
@@ -121,35 +125,35 @@ function mm.search_recents()
 end
 
 function mm.edit_zsh()
-  builtin.find_files {
-    cwd = "~/.config/zsh/",
-    hidden = false,
-    follow = true,
+  builtin.git_files {
     prompt_title = "Zsh Config",
+    cwd = "~/.config/zsh/",
+    use_git_root = false,
   }
 end
 
 function mm.edit_nvim()
-  builtin.find_files {
-    cwd = "~/.config/nvim/",
-    follow = true,
+  builtin.git_files {
     prompt_title = "Nvim Config",
+    cwd = "~/.config/nvim/",
+    use_git_root = false,
   }
 end
 
 function mm.edit_tmux()
-  builtin.find_files {
-    cwd = "~/.config/tmux/",
-    follow = true,
+  builtin.git_files {
     prompt_title = "Tmux Config",
+    cwd = "~/.config/tmux/",
+    use_git_root = false,
   }
 end
 
+-- TODO: would be better
 function mm.cookbook()
   builtin.live_grep {
+    prompt_title = "Cookbook",
     cwd = "~/Dev/Cookbook",
     file_ignore_patterns = { "LICENSE" },
-    prompt_title = "Cookbook",
   }
 end
 
@@ -182,26 +186,6 @@ function mm.frecency()
   require("telescope").extensions.frecency.frecency(opts)
 end
 
-function mm.lsp_code_actions()
-  local opts = themes.get_dropdown {
-    winblend = 10,
-    border = true,
-    previewer = false,
-    shorten_path = false,
-  }
-  builtin.lsp_code_actions(opts)
-end
-
-function mm.lsp_implementations()
-  builtin.lsp_implementations {
-    layout_strategy = "vertical",
-    layout_config = {
-      prompt_position = "top",
-    },
-    ignore_filename = false,
-  }
-end
-
 nnoremap("<leader>b", "<cmd>Telescope buffers<CR>", "Buffers")
 nnoremap("<leader>f", "<cmd>lua mm.search_files()<CR>", "Files")
 nnoremap("<leader>r", "<cmd>lua mm.frecency()<CR>", "Recents")
@@ -209,6 +193,7 @@ nnoremap("<leader>F", "<cmd>Telescope live_grep<CR>", "Text")
 
 map.nname("<leader>s", "Search")
 nnoremap("<leader>sf", "<cmd>Telescope find_files<CR>", "Files")
+nnoremap("<leader>sg", "<cmd>Telescope git_files<CR>", "Git files")
 nnoremap("<leader>sr", "<cmd>Telescope oldfiles<CR>", "Recent")
 nnoremap("<leader>sp", "<cmd>Telescope projects<CR>", "Projects")
 nnoremap("<leader>sC", "<cmd>Telescope commands<CR>", "Commands")
@@ -218,7 +203,6 @@ nnoremap("<leader>s?", "<cmd>Telescope help_tags<CR>", "Help")
 nnoremap("<leader>sk", "<cmd>Telescope keymaps<CR>", "Keymaps")
 nnoremap("<leader>so", "<cmd>lua mm.vim_options()<CR>", "Vim options")
 nnoremap("<leader>st", "<cmd>lua mm.search_by_filetype()<CR>", "Filetype")
--- nnoremap("<leader>sh", "<cmd>lua mm.frecency()<CR>", "History")
 
 nnoremap("<leader>sz", "<cmd>lua mm.edit_zsh()<CR>", "Zsh")
 nnoremap("<leader>sn", "<cmd>lua mm.edit_nvim()<CR>", "Nvim")
