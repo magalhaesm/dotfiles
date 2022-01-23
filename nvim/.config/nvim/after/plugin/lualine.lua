@@ -49,14 +49,6 @@ local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
   symbols = { error = " ", warn = " ", info = " ", hint = " " },
-
-  -- diagnostics_color = {
-  --   -- Same values as the general color option can be used here.
-  --   error = "DiagnosticError", -- Changes diagnostics' error color.
-  --   warn = "DiagnosticWarn", -- Changes diagnostics' warn color.
-  --   info = "DiagnosticInfo", -- Changes diagnostics' info color.
-  --   hint = "DiagnosticHint", -- Changes diagnostics' hint color.
-  -- },
 }
 
 lualine.setup {

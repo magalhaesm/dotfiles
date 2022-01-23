@@ -33,6 +33,15 @@ if ok then
         style = "bold",
       },
       DiagnosticError = {},
+      TSParameter = {
+        fg = palette.orange,
+      },
+      TSArgument = {
+        fg = palette.white,
+      },
+      TSVariableBuiltin = {
+        fg = palette.purple,
+      },
     },
   }
 end

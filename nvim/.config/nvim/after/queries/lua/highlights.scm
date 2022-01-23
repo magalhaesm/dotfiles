@@ -3,9 +3,6 @@
 ;;
 [ "." ":" ] @operator
 
-;;
-; (function
-;   (function_name
-;     (function_name_field
-;       object: (identifier)
-;       (property_identifier) @function)))
+(function_call
+  arguments: (arguments
+    (identifier) @TSArgument))

@@ -8,4 +8,5 @@ colorizer.setup {
   "css",
   "lua",
   "tmux",
+  "zsh",
 }
