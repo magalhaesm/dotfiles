@@ -39,7 +39,9 @@ luac.out
 *.x86_64
 *.hex
 
+# Misc
 packer_compiled.lua
 __pycache__
 *.bak
 .zcompdump*
+**/zsh/plugins
