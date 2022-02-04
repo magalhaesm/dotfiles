@@ -3,6 +3,36 @@
 -----------------------------------------------------------------------------//
 _G.mm = {}
 
+mm.lsp = {
+  kind_icons = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "ﰠ",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "ﰠ",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+  },
+}
+
 function _G.inspect(...)
   local objects = vim.tbl_map(vim.inspect, { ... })
   print(unpack(objects))

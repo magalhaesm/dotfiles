@@ -5,7 +5,18 @@ end
 
 local lsp = vim.lsp
 
-local border_opts = { header = "", border = "rounded", focusable = false }
+-----------------------------------------------------------------------------
+-- Handlers
+-----------------------------------------------------------------------------
+local max_width = math.floor(vim.o.columns * 0.7)
+local max_height = math.floor(vim.o.lines * 0.3)
+local border_opts = {
+  header = "",
+  border = "rounded",
+  focusable = false,
+  max_width = max_width,
+  max_height = max_height,
+}
 
 vim.diagnostic.config { virtual_text = false, float = border_opts }
 
@@ -24,7 +35,7 @@ lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_hel
 lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, border_opts)
 
 -----------------------------------------------------------------------------//
--- LSP Commands {{{
+-- LSP Commands
 -----------------------------------------------------------------------------//
 
 cmd("LspFormat", function()
@@ -47,6 +58,10 @@ cmd("LspImplementation", function()
   vim.lsp.buf.implementation()
 end)
 
+cmd("LspTypeDefinition", function()
+  vim.lsp.buf.type_definition()
+end)
+
 cmd("LspHover", function()
   vim.lsp.buf.hover()
 end)
@@ -63,21 +78,15 @@ cmd("LspReferences", function()
   vim.lsp.buf.references()
 end)
 
-cmd("LspSignature", function()
-  vim.lsp.buf.signature_help()
-end)
-
 cmd("LspRename", function()
   vim.lsp.buf.rename()
 end)
--- }}}
 
 -----------------------------------------------------------------------------
 -- LSP Config
 -----------------------------------------------------------------------------
 
---[=[
-local function lsp_autocmd(client)
+local function document_highlight(client)
   if client.resolved_capabilities.document_highlight then
     vim.cmd [[
       augroup lsp_document_highlight
@@ -87,17 +96,7 @@ local function lsp_autocmd(client)
       augroup END
     ]]
   end
-
-  if client.resolved_capabilities.code_lens then
-    vim.cmd [[
-      augroup lsp_code_lens
-        autocmd! <buffer>
-        autocmd BufEnter,CursorHold,InsertLeave lua vim.lsp.buf.clear_references()
-      augroup END
-    ]]
-  end
 end
---]=]
 
 local function lsp_keymaps(_, bufnr)
   local buf = { buffer = bufnr }
@@ -108,11 +107,12 @@ local function lsp_keymaps(_, bufnr)
   nnoremap("gd", "<cmd>LspDefinition<CR>", "LSP: go to definition", buf)
   nnoremap("gr", "<cmd>Telescope lsp_references<CR>", "LSP: references", buf)
   nnoremap("gl", "<cmd>LspLineDiagnostic<CR>", "LSP: line diagnostic", buf)
+  nnoremap("gT", "<cmd>LspTypeDefinition<CR>", "LSP: go to type definition", buf)
 
   nnoremap("[d", "<cmd>LspPrevDiagnostic<CR>", "LSP: prev diagnostic", buf)
   nnoremap("]d", "<cmd>LspNextDiagnostic<CR>", "LSP: next diagnostic", buf)
 
-  inoremap("<C-x><C-x>", "<cmd>LspSignature<CR>")
+  inoremap("<C-x><C-x>", "<cmd>vim.lsp.buf.signature_help()<CR>")
 
   map.nname("<leader>l", "LSP")
   nnoremap("<leader>lR", "<cmd>LspRestart<CR>", "Restart", buf)
@@ -133,7 +133,7 @@ local function lsp_keymaps(_, bufnr)
 end
 
 local custom_on_attach = function(client, bufnr)
-  -- lsp_autocmd(client)
+  document_highlight(client)
   lsp_keymaps(client, bufnr)
 end
 

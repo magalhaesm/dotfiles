@@ -36,7 +36,7 @@ nnoremap("<leader>gd", "<cmd>Gitsigns diffthis HEAD<CR>", "Diff")
 
 local opts = { expr = true }
 nnoremap("]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Git: next hunk", opts)
-nnoremap("[c", "&diff ? '[c' : '<cmd>Gitsig[s prev_hunk<CR>'", "Git: prev hunk", opts)
+nnoremap("[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Git: prev hunk", opts)
 
 -- ToggleTerm
 nnoremap("<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit")

@@ -148,15 +148,6 @@ function mm.edit_tmux()
   }
 end
 
--- TODO: would be better
-function mm.cookbook()
-  builtin.live_grep {
-    prompt_title = "Cookbook",
-    cwd = "~/Dev/Cookbook",
-    file_ignore_patterns = { "LICENSE" },
-  }
-end
-
 function mm.search_by_filetype()
   builtin.find_files {
     find_command = {

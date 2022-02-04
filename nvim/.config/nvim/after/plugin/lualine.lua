@@ -40,8 +40,8 @@ local filename = {
 local diff = {
   "diff",
   colored = true,
-  symbols = { added = " ", modified = " ", removed = " " },
-  -- symbols = { added = " ", modified = " ", removed = " " },
+  -- symbols = { added = " ", modified = " ", removed = " " },
+  symbols = { added = " ", modified = " ", removed = " " },
   cond = hide_in_width,
 }
 
@@ -54,7 +54,6 @@ local diagnostics = {
 lualine.setup {
   options = {
     icons_enabled = true,
-    -- theme = "codedark",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },

@@ -10,7 +10,7 @@ end
 
 local tabout_ok, tabout = pcall(require, "tabout")
 if tabout_ok then
-  tabout.setup {}
+  tabout.setup()
 end
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -23,9 +23,7 @@ local check_backspace = function()
 end
 
 local tab = function(fallback)
-  if cmp.visible() then
-    cmp.select_next_item()
-  elseif luasnip.expandable() then
+  if luasnip.expandable() then
     luasnip.expand()
   elseif luasnip.expand_or_jumpable() then
     luasnip.expand_or_jump()
@@ -37,43 +35,12 @@ local tab = function(fallback)
 end
 
 local shift_tab = function(fallback)
-  if cmp.visible() then
-    cmp.select_prev_item()
-  elseif luasnip.jumpable(-1) then
+  if luasnip.jumpable(-1) then
     luasnip.jump(-1)
   else
     fallback()
   end
 end
-
-local kind_icons = {
-  Text = "",
-  Method = "",
-  Function = "",
-  Constructor = "",
-  Field = "ﰠ",
-  Variable = "",
-  Class = "ﴯ",
-  Interface = "",
-  Module = "",
-  Property = "ﰠ",
-  Unit = "",
-  Value = "",
-  Enum = "",
-  Keyword = "",
-  Snippet = "",
-  Color = "",
-  File = "",
-  Reference = "",
-  Folder = "",
-  EnumMember = "",
-  Constant = "",
-  Struct = "",
-  Event = "",
-  Operator = "",
-  TypeParameter = "",
-}
--- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup {
   snippet = {
@@ -85,13 +52,13 @@ cmp.setup {
   mapping = {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
+    ["<C-y>"] = cmp.config.disable,
+    ["<C-e>"] = cmp.mapping.close(),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-    ["<C-e>"] = cmp.mapping {
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
     },
-    ["<CR>"] = cmp.mapping.confirm { select = true },
     ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "s" }),
   },
@@ -99,7 +66,7 @@ cmp.setup {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
       -- Kind icons
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+      vim_item.kind = string.format("%s", mm.lsp.kind_icons[vim_item.kind])
       -- Source
       vim_item.menu = ({
         nvim_lsp = "[LSP]",

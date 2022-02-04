@@ -3,8 +3,6 @@ if not status_ok then
   return
 end
 
-vim.cmd [[ hi link IndentBlanklineContextChar Comment ]]
-
 indent_blankline.setup {
   char = "│", -- ┆ ┊ 
   show_foldtext = false,

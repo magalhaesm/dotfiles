@@ -9,38 +9,70 @@
 
 local ok, monokai = pcall(require, "monokai")
 if ok then
-  local palette = monokai.classic
+  local colors = monokai.classic
 
   monokai.setup {
+    palette = colors,
+
     custom_hlgroups = {
+
+      DiagnosticError = {
+        colors.red,
+      },
+      DiagnosticSignWarn = {
+        fg = colors.orange,
+      },
+
+      -- Lsp
+      LspReferenceText = {
+        bg = colors.base4,
+      },
+      LspReferenceRead = {
+        bg = colors.base4,
+      },
+      LspReferenceWrite = {
+        bg = colors.base4,
+      },
+
+      -- GitSigns
       GitSignsChange = {
-        fg = palette.yellow,
-        bg = palette.base2,
+        fg = colors.yellow,
+        bg = colors.base2,
       },
       TelescopeNormal = {
-        bg = palette.base2,
+        bg = colors.base2,
       },
+
+      -- Treesitter
       TSNote = {
-        fg = palette.aqua,
+        fg = colors.aqua,
         style = "bold",
       },
       TSWarning = {
-        fg = palette.orange,
+        fg = colors.orange,
         style = "bold",
       },
       TSDanger = {
-        fg = palette.pink,
+        fg = colors.pink,
         style = "bold",
       },
-      DiagnosticError = {},
       TSParameter = {
-        fg = palette.orange,
-      },
-      TSArgument = {
-        fg = palette.white,
+        fg = colors.orange,
+        style = "italic",
       },
       TSVariableBuiltin = {
-        fg = palette.purple,
+        fg = colors.purple,
+      },
+
+      -- NvimTree
+      PanelHeading = {
+        fg = colors.orange,
+        style = "bold",
+      },
+
+      -- IndentBlankline
+      IndentBlanklineContextChar = {
+        fg = colors.base6,
       },
     },
   }

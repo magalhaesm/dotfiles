@@ -10,6 +10,8 @@ _G.nnoremap = mapx.nnoremap
 _G.inoremap = mapx.inoremap
 _G.xnoremap = mapx.xnoremap
 _G.cnoremap = mapx.cnoremap
+_G.onoremap = mapx.onoremap
+_G.vnoremap = mapx.vnoremap
 
 _G.map = mapx
 _G.cmd = mapx.cmd
@@ -69,7 +71,6 @@ nnoremap("<BS>", "<cmd>nohlsearch<CR>")
 -- Insert --
 -- Exit insert mode
 inoremap("kj", "<ESC>")
-inoremap("<C-l>", "<Right>")  -- TODO: Tabout?
 
 ------------------------------------------------------------------------------
 -- Shift highlighted lines
@@ -79,9 +80,6 @@ xnoremap("<", "<gv")
 
 -- Better paste
 xnoremap("p", '"_dP', opts)
-
--- Matchit
--- nnoremap("<Tab>", "%")
 
 ------------------------------------------------------------------------------
 -- Move lines up and down
@@ -98,6 +96,10 @@ xnoremap("<A-k>", "<cmd>m .-2<CR>==")
 xnoremap("<A-j>", ":move '>+1<CR>gv-gv", opts)
 xnoremap("<A-k>", ":move '<-2<CR>gv-gv", opts)
 
+-- Select all
+onoremap("ae", ":<C-U>normal! ggVG<CR>", opts)
+vnoremap("ae", ":<C-U>normal! ggVG<CR>", opts)
+
 ------------------------------------------------------------------------------
 -- Quickfix
 ------------------------------------------------------------------------------
@@ -109,8 +111,5 @@ nnoremap("[l", "<cmd>lprev<cr>zz", "Loclist: prev")
 ------------------------------------------------------------------------------
 -- Command-line
 ------------------------------------------------------------------------------
--- Enter
-nnoremap(";", ":")
-xnoremap(";", ":")
 -- Paste
-cnoremap("<C-v>", "<C-r>0")
+cnoremap("<C-v>", "<C-r>+")

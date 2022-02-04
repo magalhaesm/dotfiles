@@ -51,7 +51,7 @@ return packer.startup {
     -- Colorschemes
     use "lunarvim/darkplus.nvim"
     use "tanvirtin/monokai.nvim"
-    -- use "ful1e5/onedark.nvim"
+    use "olimorris/onedarkpro.nvim"
 
     -- cmp plugins
     use "hrsh7th/nvim-cmp"
