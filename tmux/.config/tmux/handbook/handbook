@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+HANDBOOK="$HOME/Documentos/handbook/"
+
+tmux-window() {
+  tmux new-window -n "$(basename "$0")" "$SHELL" -c "$1 | less -iR"
+}
+
+selected=$(find "$HANDBOOK" -type f | fzf -e -i --delimiter '/' --with-nth '-1' --prompt="Handbook: ")
+
+if [ -n "$selected" ]; then
+  DIR="$(dirname "$0%")"
+  tmux-window "${DIR}/show $selected"
+fi

@@ -6,12 +6,12 @@
 # Credits: Primeagen
 # source: https://www.youtube.com/watch?v=hJzqEAf2U4I
 
-languages="$HOME/.config/tmux/cht/languages.txt"
-commands="$HOME/.config/tmux/cht/commands.txt"
-pages="$HOME/.config/tmux/cht/pages.txt"
+languages="$HOME/.config/tmux/cheat/languages.txt"
+commands="$HOME/.config/tmux/cheat/commands.txt"
+pages="$HOME/.config/tmux/cheat/pages.txt"
 
 tmux-window() {
-  tmux new-window -n info "$SHELL" -c "$1 | less"
+  tmux new-window -n "$(basename "$0")" "$SHELL" -c "$1 | less -R"
 }
 
 get_query() {
@@ -23,7 +23,7 @@ is_tool() {
   ! grep -qw "$pages" -e "$1"
 }
 
-selected=$(cat "$languages" "$commands" "$pages" | fzf)
+selected=$(cat "$languages" "$commands" "$pages" | fzf --prompt="Select one: ")
 
 if is_tool "$selected"; then
   tmux-window "curl -s cht.sh/$selected/$(get_query)"
