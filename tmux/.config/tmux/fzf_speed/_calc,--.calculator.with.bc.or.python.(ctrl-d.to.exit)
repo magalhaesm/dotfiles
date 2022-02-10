@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 helpmsg() {
   printf "%s\n" "desc: commandline calculator (ctrl+d to exit)"
   printf "%s\n" "demo: http://www.youtube.com/watch?v=JkyodHenTuc"

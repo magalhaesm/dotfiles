@@ -1,10 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # CREDITS: gotbletu
 # DEMO:   https://youtu.be/41JxYe70Xwo
 
 # DESC:   launch other fzf scripts in tmux
-# REQD:   bind-key for tmux
 
 DIR="${0%/*}"
 SELECTED="$(find "$DIR" -maxdepth 1 -type f -exec basename {} \; |\
