@@ -1,7 +1,7 @@
 vim.cmd [[
   augroup _general_settings
     autocmd!
-    autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
+    autocmd FileType qf,help,man,lspinfo,null-ls-info nnoremap <silent> <buffer> q :close<CR>
     autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 400})
     autocmd FileType qf set nobuflisted
     autocmd BufWinEnter * :set formatoptions-=o
