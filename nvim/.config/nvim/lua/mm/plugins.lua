@@ -47,6 +47,7 @@ return packer.startup {
     use "b0o/mapx.nvim"
     use "norcalli/nvim-colorizer.lua"
     use "abecodes/tabout.nvim"
+    use "karb94/neoscroll.nvim"
 
     -- Colorschemes
     use "lunarvim/darkplus.nvim"
