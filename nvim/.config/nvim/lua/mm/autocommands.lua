@@ -17,11 +17,6 @@ vim.cmd [[
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
   augroup end
 
-  augroup _restore_cursor
-    autocmd!
-    autocmd! BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif
-  augroup end
-
   augroup _nvimtree
     autocmd!
     autocmd BufWinEnter NvimTree :set cursorlineopt=line
