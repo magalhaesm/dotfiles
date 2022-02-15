@@ -1,5 +1,6 @@
 # Usa neovim se houver na máquina
-[ -x "$(command -v nvim)" ] && alias v='vim' vim='nvim' vimdiff='nvim -d'
+alias v='vim' vim='nvim'
+alias cn='${EDITOR} ~/.config/nvim/init.lua'
 
 [ -x "$(command -v bat)" ] && alias cat='bat'
 
