@@ -1,7 +1,7 @@
-# Usa neovim se houver na máquina
 alias v='vim' vim='nvim'
 alias cn='${EDITOR} ~/.config/nvim/init.lua'
 alias cz='${EDITOR} ${ZDOTDIR}/zshrc'
+alias ct='${EDITOR} ${TMUX_CONFIG}'
 
 [ -x "$(command -v bat)" ] && alias cat='bat'
 
