@@ -36,7 +36,6 @@ fi
 
 alias listen='sudo lsof -i -P -n | grep LISTEN'
 alias python='python3.8'
-alias g='git'
 alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 alias sqlite3='sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc'
 
@@ -67,3 +66,9 @@ alias icat="kitty +kitten icat"
 
 # Open
 alias o='xdg-open'
+
+# Git
+alias g='git'
+alias gs='git status -s'
+alias gst='git status'
+alias gl='git log --oneline --decorate --graph'
