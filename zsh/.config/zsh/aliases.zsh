@@ -2,6 +2,7 @@ alias v='vim' vim='nvim'
 alias cn='${EDITOR} ~/.config/nvim/init.lua'
 alias cz='${EDITOR} ${ZDOTDIR}/zshrc'
 alias ct='${EDITOR} ${TMUX_CONFIG}'
+alias f='file=$(fzf --height 40%); if [ -n "$file" ]; then $EDITOR $file; fi'
 
 [ -x "$(command -v bat)" ] && alias cat='bat'
 
