@@ -26,29 +26,30 @@ export COLORTERM="truecolor"
 export BROWSER="brave"
 
 export HISTSIZE=30000
-export SAVEHIST=10000
-export HISTFILE="${XDG_CACHE_HOME}/zsh/history"
-
-# -- Fd ------------------------------------------------------------------------
-
-export FD_COMMAND="fd"
-export FD_OPTIONS="--follow --exclude .git --exclude node_modules"
+export HISTFILE="${XDG_CACHE_HOME}/history"
 
 # -- Fzf -----------------------------------------------------------------------
 
-export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f"
-export FZF_DEFAULT_OPTS=${FZF_DEFAULT_OPTS}'
---color=dark
---color=fg:-1,bg:-1,hl:#bd93f9,fg+:#f8f8f2,bg+:-1,hl+:#bd93f9
---color=info:#50fa7b,prompt:#61afef,pointer:#ff5555,marker:#ffb86c,spinner:#61afef,header:#61afef
---height 100% --layout=reverse --border --cycle --info=inline
-'
+export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS}
+  --color=dark
+  --color=fg:-1,bg:-1,hl:#ae81ff,fg+:#f8f8f0,bg+:-1,hl+:#ae81ff
+  --color=info:#a6e22e,prompt:#66d9ef,pointer:#e95678
+  --color=marker:#fd971f,spinner:#66d9ef,header:#66d9ef
+  --height 100% --layout=reverse --no-border --cycle --info=inline
+  --bind=ctrl-d:preview-page-down
+  --bind=ctrl-u:preview-page-up
+"
+export FZF_BAT_PREVIEW="'bat --style=numbers --color=always --line-range :500 {}'"
+export FZF_COMPLETION_OPTS="--border"
 
-export FZF_ALT_C_COMMAND="${FD_COMMAND} --type d"
-export FZF_ALT_C_OPTS="--preview 'tree -L 1 -C --dirsfirst {} | head -200'"
+export FZF_ALT_C_COMMAND="fd --type d"
+export FZF_ALT_C_OPTS="--border --preview 'tree -L 1 -C --dirsfirst {} | head -200'"
+
+export FZF_CTRL_R_OPTS="--height 40%"
 
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
-export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}'"
+export FZF_CTRL_T_OPTS="--border --preview ${FZF_BAT_PREVIEW}"
 
 # -- Less -----------------------------------------------------------------------
 
