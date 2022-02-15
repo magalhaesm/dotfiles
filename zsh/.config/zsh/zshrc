@@ -10,10 +10,6 @@ zsh_add_file "$ZDOTDIR/key-bindings.zsh"
 zsh_add_file "$HOME/Dropbox/dotfiles/secrets"
 zsh_add_file "$HOME/Dropbox/dotfiles/aliases.zsh"
 
-# -- Terminal Colors -----------------------------------------------------------
-
-zsh_add_file "$XDG_CONFIG_HOME/terminal/integrate"
-
 # -- Plugins -------------------------------------------------------------------
 
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
