@@ -1,6 +1,7 @@
 awk
 chmod
 chown
+curl
 docker
 docker-compose
 fd
