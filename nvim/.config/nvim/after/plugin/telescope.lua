@@ -15,8 +15,6 @@ local function large_preview(_, cols, _)
   end
 end
 
-local CONFIG_HOME = vim.env.XDG_CONFIG_HOME
-
 telescope.setup {
   defaults = {
 
