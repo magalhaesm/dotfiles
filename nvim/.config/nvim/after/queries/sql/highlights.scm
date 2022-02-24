@@ -1,3 +1,5 @@
+;;; Highlighting for SQL
+
 (comment) @comment
 
 [
@@ -15,5 +17,4 @@
   "-"
   ">"
 
-  ; "||"
 ] @Operator

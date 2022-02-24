@@ -1,4 +1,3 @@
-;;; Highlighting for lua
+;;; Highlighting for Javascript
 
-;;
 [ "." ":" ] @operator
