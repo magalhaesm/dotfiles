@@ -1,0 +1,3 @@
+;;; Highlighting for Python
+
+"." @operator
