@@ -50,6 +50,10 @@ return packer.startup {
     use "karb94/neoscroll.nvim"
     use "rmagatti/auto-session"
 
+    -- Lua Docs
+    use "nanotee/luv-vimdocs"
+    use "milisims/nvim-luaref"
+
     -- Colorschemes
     use "lunarvim/darkplus.nvim"
     use "tanvirtin/monokai.nvim"
