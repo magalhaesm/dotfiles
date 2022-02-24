@@ -28,7 +28,11 @@ dashboard.section.buttons.val = {
   dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
 }
 
--- dashboard.section.footer.opts.hl = "Type"
+local start_pack = DATA_HOME .. "/nvim/site/pack/packer/start"
+local plugins_count = vim.fn.len(vim.fn.globpath(start_pack, "*", 0, 1))
+dashboard.section.footer.val = {
+  plugins_count .. " plugins loaded ",
+}
 -- dashboard.section.header.opts.hl = "Include"
 -- dashboard.section.buttons.opts.hl = "Type"
 
