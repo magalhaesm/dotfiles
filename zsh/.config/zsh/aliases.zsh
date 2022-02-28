@@ -17,6 +17,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 alias path='echo $PATH | tr -s ":" "\n"'
+alias ip='ip -color=auto'
 
 if [ -x "$(command -v exa)" ]
 then
