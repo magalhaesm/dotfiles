@@ -67,6 +67,12 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 
+# -- ASDF ----------------------------------------------------------------------
+
+export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdfrc"
+export ASDF_DIR="/opt/asdf-vm"
+export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
+
 # -- Misc ----------------------------------------------------------------------
 
 export BAT_PAGER="less"

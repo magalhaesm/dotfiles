@@ -28,6 +28,10 @@ zsh_add_file "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 
 zsh_add_file "$XDG_DATA_HOME/cargo/env"
 
+# -- ASDF --------------------------------------------------------------------
+
+zsh_add_file "/opt/asdf-vm/asdf.sh"
+
 # -- Zoxide --------------------------------------------------------------------
 
 eval "$(zoxide init --cmd j zsh)"
