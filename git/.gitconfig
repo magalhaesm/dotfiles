@@ -11,6 +11,9 @@
   editor = nvim
   pager = delta
 
+[init]
+  defaultBranch = main
+
 [merge]
   tool = vimdiff
 
