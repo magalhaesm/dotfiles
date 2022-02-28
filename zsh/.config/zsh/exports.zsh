@@ -91,6 +91,7 @@ export TASKDATA="${XDG_DATA_HOME}/task"
 export NODE_REPL_HISTORY="${XDG_DATA_HOME}/node_repl_history"
 export NPM_CONFIG_USERCONFIG="~/.config/npm/npmrc"
 
+export PYTHONSTARTUP="${XDG_CONFIG_HOME}/pythonrc"
 export IPYTHONDIR="${XDG_CONFIG_HOME}/jupyter"
 export JUPYTER_CONFIG_DIR="${XDG_CONFIG_HOME}/jupyter"
 export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
