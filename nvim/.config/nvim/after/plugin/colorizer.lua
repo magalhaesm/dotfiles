@@ -9,4 +9,6 @@ colorizer.setup {
   "lua",
   "tmux",
   "zsh",
+  "javascript",
+  "typescript",
 }

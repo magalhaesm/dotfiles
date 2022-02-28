@@ -8,7 +8,7 @@ nnoremap("<F3>", "<cmd>TSPlaygroundToggle<CR>")
 
 configs.setup {
   -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = { "bash", "c", "comment", "cpp", "lua", "python", "query" },
+  ensure_installed = { "bash", "c", "comment", "cpp", "lua", "python", "query", "javascript", "typescript" },
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { "" },
   highlight = {
