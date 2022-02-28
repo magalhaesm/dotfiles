@@ -75,6 +75,9 @@ export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 
 # -- Misc ----------------------------------------------------------------------
 
+# Armazena credenciais de login automático para serviços de rede
+export NETRC="${XDG_CONFIG_HOME}/netrc"
+
 export BAT_PAGER="less"
 export WGETRC="${XDG_CONFIG_HOME}/wget/wgetrc"
 export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
