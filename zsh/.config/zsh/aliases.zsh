@@ -36,7 +36,6 @@ else
 fi
 
 alias listen='sudo lsof -i -P -n | grep LISTEN'
-alias python='python3.8'
 alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 alias sqlite3='sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc'
 
