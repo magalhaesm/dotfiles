@@ -74,6 +74,14 @@ if ok then
       IndentBlanklineContextChar = {
         fg = colors.base6,
       },
+
+      -- Toml
+      tomlTable = {
+        fg = colors.green,
+      },
+      tomlKey = {
+        fg = colors.pink,
+      },
     },
   }
 end
