@@ -47,5 +47,6 @@ indent_blankline.setup {
     "Trouble",
     "man",
     "norg",
+    "sql",
   },
 }
