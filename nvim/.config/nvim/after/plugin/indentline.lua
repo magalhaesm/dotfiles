@@ -48,5 +48,6 @@ indent_blankline.setup {
     "man",
     "norg",
     "sql",
+    ""
   },
 }
