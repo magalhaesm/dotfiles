@@ -3,7 +3,7 @@
 # Inside Tmux, run cheat.sh queries
 # Trigger on tmux config
 #
-# Credits: Primeagen
+# Inspired by Primeagen
 # source: https://www.youtube.com/watch?v=hJzqEAf2U4I
 
 languages="$HOME/.config/tmux/cheat/languages.txt"
@@ -23,7 +23,7 @@ is_tool() {
   ! grep -qw "$pages" -e "$1"
 }
 
-selected=$(cat "$languages" "$commands" "$pages" | fzf --prompt="Select one: ")
+selected=$(cat "$languages" "$commands" "$pages" | fzf --prompt="cheat.sh: ")
 
 if is_tool "$selected"; then
   tmux-window "curl -s cht.sh/$selected/$(get_query)"

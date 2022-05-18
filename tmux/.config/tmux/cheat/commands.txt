@@ -11,6 +11,7 @@ git
 grep
 make
 sed
+sqlite
 ssh
 stow
 tar
