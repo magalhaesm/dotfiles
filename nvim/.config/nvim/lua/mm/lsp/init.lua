@@ -43,48 +43,28 @@ cmd("LspFormat", function()
 end)
 
 cmd("LspNextDiagnostic", function()
-  vim.diagnostic.goto_prev(border_opts)
+  vim.diagnostic.goto_next(border_opts)
 end)
 
 cmd("LspPrevDiagnostic", function()
-  vim.diagnostic.goto_next(border_opts)
+  vim.diagnostic.goto_prev(border_opts)
 end)
 
 cmd("LspLineDiagnostic", function()
   vim.diagnostic.open_float(nil, border_opts)
 end)
 
-cmd("LspImplementation", function()
-  vim.lsp.buf.implementation()
-end)
-
-cmd("LspTypeDefinition", function()
-  vim.lsp.buf.type_definition()
-end)
-
-cmd("LspHover", function()
-  vim.lsp.buf.hover()
-end)
-
-cmd("LspDeclaration", function()
-  vim.lsp.buf.declaration()
-end)
-
-cmd("LspDefinition", function()
-  vim.lsp.buf.definition()
-end)
-
 cmd("LspReferences", function()
   vim.lsp.buf.references()
-end)
-
-cmd("LspRename", function()
-  vim.lsp.buf.rename()
 end)
 
 -----------------------------------------------------------------------------
 -- LSP Config
 -----------------------------------------------------------------------------
+
+local function document_formatting(client)
+  client.resolved_capabilities.document_formatting = false
+end
 
 local function document_highlight(client)
   if client.resolved_capabilities.document_highlight then
@@ -98,43 +78,42 @@ local function document_highlight(client)
   end
 end
 
-local function lsp_keymaps(_, bufnr)
-  local buf = { buffer = bufnr }
+local function lsp_keymaps()
+  nnoremap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+  nnoremap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "LSP: go to implementation")
+  nnoremap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "LSP: go to declaration")
+  nnoremap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "LSP: go to definition")
+  nnoremap("gr", "<cmd>Telescope lsp_references<CR>", "LSP: references")
+  nnoremap("gl", "<cmd>LspLineDiagnostic<CR>", "LSP: line diagnostic")
+  nnoremap("gT", "<cmd>lua vim.lsp.buf.type_definition()<CR>", "LSP: go to type definition")
 
-  nnoremap("K", "<cmd>LspHover<CR>", buf)
-  nnoremap("gi", "<cmd>LspImplementation<CR>", "LSP: go to implementation", buf)
-  nnoremap("gD", "<cmd>LspDeclaration<CR>", "LSP: go to declaration", buf)
-  nnoremap("gd", "<cmd>LspDefinition<CR>", "LSP: go to definition", buf)
-  nnoremap("gr", "<cmd>Telescope lsp_references<CR>", "LSP: references", buf)
-  nnoremap("gl", "<cmd>LspLineDiagnostic<CR>", "LSP: line diagnostic", buf)
-  nnoremap("gT", "<cmd>LspTypeDefinition<CR>", "LSP: go to type definition", buf)
+  nnoremap("[d", "<cmd>LspPrevDiagnostic<CR>", "LSP: prev diagnostic")
+  nnoremap("]d", "<cmd>LspNextDiagnostic<CR>", "LSP: next diagnostic")
 
-  nnoremap("[d", "<cmd>LspPrevDiagnostic<CR>", "LSP: prev diagnostic", buf)
-  nnoremap("]d", "<cmd>LspNextDiagnostic<CR>", "LSP: next diagnostic", buf)
-
-  inoremap("<C-x><C-x>", "<cmd>vim.lsp.buf.signature_help()<CR>")
+  -- inoremap("<C-x><C-x>", "<cmd>vim.lsp.buf.signature_help()<CR>")
 
   map.nname("<leader>l", "LSP")
-  nnoremap("<leader>lR", "<cmd>LspRestart<CR>", "Restart", buf)
-  nnoremap("<leader>lf", "<cmd>LspFormat<CR>", "Format", buf)
-  nnoremap("<leader>lr", "<cmd>LspRename<CR>", "Rename", buf)
+  nnoremap("<leader>lR", "<cmd>LspRestart<CR>", "Restart")
+  nnoremap("<leader>lf", "<cmd>LspFormat<CR>", "Format")
+  nnoremap("<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 
-  nnoremap("<leader>la", "<cmd>Telescope lsp_code_actions<CR>", "Code Action", buf)
-  nnoremap("<leader>ld", "<cmd>Telescope diagnostics bufnr=0<CR>", "Document Diagnostics", buf)
-  nnoremap("<leader>ll", "<cmd>lua vim.lsp.codelens.run()<CR>", "CodeLens Action", buf)
-  nnoremap("<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", "Quickfix", buf)
+  nnoremap("<leader>la", "<cmd>Telescope lsp_code_actions<CR>", "Code Action")
+  nnoremap("<leader>ld", "<cmd>Telescope diagnostics bufnr=0<CR>", "Document Diagnostics")
+  nnoremap("<leader>ll", "<cmd>lua vim.lsp.codelens.run()<CR>", "CodeLens Action")
+  nnoremap("<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", "Quickfix")
 
   map.nname("<leader>li", "Info")
-  nnoremap("<leader>lia", "<cmd>LspInfo<CR>", "Attached", buf)
-  nnoremap("<leader>lii", "<cmd>LspInstallInfo<CR>", "Installed", buf)
+  nnoremap("<leader>lia", "<cmd>LspInfo<CR>", "Attached")
+  nnoremap("<leader>lii", "<cmd>LspInstallInfo<CR>", "Installed")
 
-  nnoremap("<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols", buf)
-  nnoremap("<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols", buf)
+  nnoremap("<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols")
+  nnoremap("<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols")
 end
 
-local custom_on_attach = function(client, bufnr)
+local custom_on_attach = function(client)
+  document_formatting(client)
   document_highlight(client)
-  lsp_keymaps(client, bufnr)
+  lsp_keymaps()
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
