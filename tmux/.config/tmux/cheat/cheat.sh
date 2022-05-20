@@ -23,7 +23,7 @@ is_tool() {
   ! grep -qw "$pages" -e "$1"
 }
 
-selected=$(cat "$languages" "$commands" "$pages" | fzf --prompt="cheat.sh: ")
+selected=$(\cat "$languages" "$commands" "$pages" | fzf --prompt="cheat.sh: ")
 
 if is_tool "$selected"; then
   tmux-window "curl -s cht.sh/$selected/$(get_query)"
