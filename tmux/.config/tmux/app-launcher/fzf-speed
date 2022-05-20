@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
 # CREDITS: gotbletu
-# DEMO:   https://youtu.be/41JxYe70Xwo
-
-# DESC:   launch other fzf scripts in tmux
 
 DIR="${0%/*}"
 SELECTED="$(find "$DIR" -maxdepth 1 -type f -exec basename {} \; |\
   sort | grep '^_' | sed 's@\.@ @g' | column -s ',' -t |\
-  fzf -e -i --delimiter _ --with-nth='2..' --prompt="fzf-speed: " --info=default --layout=reverse --tiebreak=index |\
+  fzf -e -i --delimiter _ --with-nth='2..' --prompt="fzf-speed: " \
+  --info=default --layout=reverse --tiebreak=index |\
   cut -d ' ' -f1)"
 eval "${DIR}/${SELECTED},*"
