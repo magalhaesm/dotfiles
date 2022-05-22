@@ -1,0 +1,22 @@
+# DESCRIPTION: gdb configuration file.
+# NOTES: 'help user' in gdb will list the commands/descriptions in this file
+
+# *****************************************************
+# gdb options
+
+# Prompt
+set prompt \033[1;35m>>> \033[0m
+
+# Display instructions in Intel format
+set disassembly-flavor intel
+
+
+# *****************************************************
+# layout aliases
+
+define code
+  layout src
+end
+document code
+Apply the "src" layout.
+end
