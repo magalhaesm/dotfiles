@@ -46,7 +46,6 @@ return packer.startup {
     use "nvim-neorg/neorg"
     use "b0o/mapx.nvim"
     use "norcalli/nvim-colorizer.lua"
-    use "abecodes/tabout.nvim"
     use "karb94/neoscroll.nvim"
     use "rmagatti/auto-session"
 

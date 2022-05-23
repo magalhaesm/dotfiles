@@ -8,11 +8,6 @@ if not snip_status_ok then
   return
 end
 
-local tabout_ok, tabout = pcall(require, "tabout")
-if tabout_ok then
-  tabout.setup()
-end
-
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 require("luasnip/loaders/from_vscode").lazy_load()
@@ -57,7 +52,7 @@ cmp.setup {
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<CR>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+      select = false,
     },
     ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "s" }),
@@ -86,8 +81,10 @@ cmp.setup {
     { name = "nvim_lua" },
     { name = "neorg" },
   },
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  window = {
+    documentation = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    },
   },
   experimental = {
     ghost_text = false,
