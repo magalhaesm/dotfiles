@@ -6,8 +6,8 @@ tmux-window() {
   tmux new-window -n "$(basename "$0")" "$SHELL" -c "$1 | less -iR"
 }
 
-# TODO: excluir LICENSE e README.md
-selected=$(find "$HANDBOOK" -type f -maxdepth 1 |\
+selected=$(find "$HANDBOOK" -maxdepth 1 -type f \
+  ! \( -name "README.md" -o -name "LICENSE" \) |\
   fzf -e -i --delimiter '/' --with-nth '-1' --prompt="Handbook: ")
 
 if [ -n "$selected" ]; then
