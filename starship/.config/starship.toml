@@ -4,6 +4,9 @@
 symbol = "🐍 "
 python_binary = "python3"
 
+[c]
+disabled = true
+
 [rust]
 symbol = "🦀 "
 
