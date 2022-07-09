@@ -1,7 +1,7 @@
 # DESCRIPTION: gdb configuration file.
 # NOTES: 'help user' in gdb will list the commands/descriptions in this file
 
-# *****************************************************
+# #####################################################
 # gdb options
 
 # Prompt
@@ -10,8 +10,10 @@ set prompt \033[1;35m>>> \033[0m
 # Display instructions in Intel format
 set disassembly-flavor intel
 
+# Disable download debug info
+set debuginfod enabled off
 
-# *****************************************************
+# #####################################################
 # layout aliases
 
 define code
