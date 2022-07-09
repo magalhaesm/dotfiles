@@ -33,9 +33,8 @@ info() {
   echo -e "\n${CYAN}info:${NC} $1"
 }
 
-
-erro() {
-  echo -e "\n${RED}ERRO:${NC} $1"
+error() {
+  echo -e "\n${RED}ERROR:${NC} $1"
 }
 
 installed() {
@@ -64,7 +63,7 @@ check_deps() {
   for dep in "${dependencies[@]}"; do
     ! installed "$dep" && missing+=("$dep")
   done
-  [ "${#missing[@]}" -gt 0 ] && { erro "Dependências faltando."; exit 1; }
+  [ "${#missing[@]}" -gt 0 ] && { error "Dependências faltando."; exit 1; }
 }
 
 install_missing() {
