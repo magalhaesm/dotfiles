@@ -34,6 +34,7 @@
 
 [push]
   followTags = true
+  autoSetupRemote = true
 
 [delta]
   features = line-numbers decorations
