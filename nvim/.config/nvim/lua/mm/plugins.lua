@@ -36,7 +36,6 @@ return packer.startup {
     use "akinsho/bufferline.nvim"
     use "moll/vim-bbye"
     use "nvim-lualine/lualine.nvim"
-    use "akinsho/toggleterm.nvim"
     use "ahmedkhalf/project.nvim"
     use "lewis6991/impatient.nvim"
     use "lukas-reineke/indent-blankline.nvim"
@@ -47,7 +46,6 @@ return packer.startup {
     use "b0o/mapx.nvim"
     use "norcalli/nvim-colorizer.lua"
     use "karb94/neoscroll.nvim"
-    use "rmagatti/auto-session"
 
     -- Lua Docs
     use "nanotee/luv-vimdocs"
@@ -56,7 +54,6 @@ return packer.startup {
     -- Colorschemes
     use "lunarvim/darkplus.nvim"
     use "tanvirtin/monokai.nvim"
-    use "olimorris/onedarkpro.nvim"
 
     -- cmp plugins
     use "hrsh7th/nvim-cmp"
@@ -79,8 +76,6 @@ return packer.startup {
     -- Telescope
     use "nvim-telescope/telescope.nvim"
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-    use { "nvim-telescope/telescope-frecency.nvim" }
-    use { "tami5/sqlite.lua" }
 
     -- Treesitter
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
@@ -90,6 +85,8 @@ return packer.startup {
     -- Git
     use "lewis6991/gitsigns.nvim"
 
+    -- 42
+    use "magalhaesm/42header.nvim"
     use "andweeb/presence.nvim"
 
     -- Automatically set up your configuration after cloning packer.nvim

@@ -29,7 +29,7 @@ local function python_env()
 end
 
 local function position()
-  return "☰ %3l/%-3L ln :%3v "
+  return "≡ %3l/%-3L ln :%3v "
 end
 
 local filename = {

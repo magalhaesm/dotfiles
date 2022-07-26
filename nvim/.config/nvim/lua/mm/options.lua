@@ -36,9 +36,10 @@ local options = {
   showcmd = false,                         -- show command in the last line of the screen
   list = true,                             -- show invisible characters
   showbreak = "⤷ ",
+  foldlevel = 3,
 }
 
-vim.opt.listchars = { tab = "»∙" }
+vim.opt.listchars = { tab = "∙∙" }
 vim.opt.listchars:append { nbsp = "␣" }
 vim.opt.listchars:append { trail = "•" }
 vim.opt.listchars:append { extends = "»" }
@@ -50,6 +51,5 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
--- palavra-teste
-vim.opt.whichwrap:append "<,>,[,],h,l"
+vim.opt.whichwrap:append "<,>,[,]"
 vim.opt.iskeyword:append "-"

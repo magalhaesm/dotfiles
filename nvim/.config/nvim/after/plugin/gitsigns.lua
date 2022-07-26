@@ -38,9 +38,6 @@ local opts = { expr = true }
 nnoremap("]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Git: next hunk", opts)
 nnoremap("[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Git: prev hunk", opts)
 
--- ToggleTerm
-nnoremap("<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit")
-
 -- Telescope
 nnoremap("<leader>gs", "<cmd>Telescope git_status<CR>", "Status")
 nnoremap("<leader>gb", "<cmd>Telescope git_branches<CR>", "Branchs")

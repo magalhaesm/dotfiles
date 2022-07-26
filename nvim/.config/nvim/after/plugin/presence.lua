@@ -3,4 +3,6 @@ if not ok then
   return
 end
 
-presence:setup()
+presence:setup({
+  -- auto_update = false,
+})

@@ -82,6 +82,11 @@ if ok then
       tomlKey = {
         fg = colors.pink,
       },
+
+      -- Makefile
+      TSSymbol = {
+        fg = colors.pink,
+      }
     },
   }
 end

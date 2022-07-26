@@ -97,7 +97,7 @@ local function lsp_keymaps()
   nnoremap("<leader>lf", "<cmd>LspFormat<CR>", "Format")
   nnoremap("<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 
-  nnoremap("<leader>la", "<cmd>Telescope lsp_code_actions<CR>", "Code Action")
+  -- nnoremap("<leader>la", "<cmd>Telescope lsp_code_actions<CR>", "Code Action")
   nnoremap("<leader>ld", "<cmd>Telescope diagnostics bufnr=0<CR>", "Document Diagnostics")
   nnoremap("<leader>ll", "<cmd>lua vim.lsp.codelens.run()<CR>", "CodeLens Action")
   nnoremap("<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", "Quickfix")

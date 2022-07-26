@@ -7,6 +7,7 @@ npairs.setup {
   check_ts = false,
   fast_wrap = {
     map = "<M-e>",
+    check_comma = true,
     -- highlight = "PmenuSel",
     -- highlight_grey = "LineNr",
   },

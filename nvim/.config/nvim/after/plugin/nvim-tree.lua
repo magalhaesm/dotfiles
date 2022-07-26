@@ -1,15 +1,3 @@
-vim.g.nvim_tree_icons = {
-  git = {
-    unstaged = "",
-    staged = "",
-    unmerged = "",
-    renamed = "",
-    untracked = "",
-    deleted = "",
-  },
-}
-vim.g.nvim_tree_root_folder_modifier = ":t"
-
 local status_ok, nvim_tree = pcall(require, "nvim-tree")
 if not status_ok then
   return
@@ -21,11 +9,28 @@ if not config_status_ok then
 end
 
 nnoremap("<leader>e", "<cmd>NvimTreeToggle<CR>", "Explorer")
+nnoremap("<leader>E", "<cmd>NvimTreeRefresh<CR>", "Refresh Explorer")
 
 local action = nvim_tree_config.nvim_tree_callback
 
 nvim_tree.setup {
+  renderer = {
+    root_folder_modifier = ":t",
+    icons = {
+      glyphs = {
+        git = {
+          unstaged = "",
+          staged = "",
+          unmerged = "",
+          renamed = "",
+          untracked = "",
+          deleted = "",
+        },
+      },
+    },
+  },
   open_on_setup = true,
+  auto_reload_on_write = true,
   ignore_ft_on_setup = {
     "startify",
     "dashboard",
@@ -43,7 +48,6 @@ nvim_tree.setup {
     custom = { "__pycache__" },
   },
   view = {
-    auto_resize = true,
     mappings = {
       custom_only = false,
       list = {

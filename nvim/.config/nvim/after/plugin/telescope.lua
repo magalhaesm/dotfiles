@@ -24,7 +24,16 @@ telescope.setup {
 
     winblend = 3,
     path_display = { "smart", "absolute", "truncate" },
-    file_ignore_patterns = { "%.jpg", "%.jpeg", "%.png", "%.otf", "%.ttf", "%.gif", ".git/" },
+    file_ignore_patterns = {
+      "%.o",
+      "%.jpg",
+      "%.jpeg",
+      "%.png",
+      "%.otf",
+      "%.ttf",
+      "%.gif",
+      ".git/",
+    },
 
     -- selection_strategy = "reset",
     -- sorting_strategy = "ascending",
@@ -105,7 +114,6 @@ telescope.setup {
 }
 
 require("telescope").load_extension "fzf"
-require("telescope").load_extension "frecency"
 
 function mm.search_files()
   local opts = themes.get_dropdown {
@@ -166,18 +174,9 @@ function mm.vim_options()
   }
 end
 
-function mm.frecency()
-  local opts = themes.get_dropdown {
-    hidden = false,
-    previewer = false,
-    shorten_path = true,
-  }
-  require("telescope").extensions.frecency.frecency(opts)
-end
-
 nnoremap("<leader>b", "<cmd>Telescope buffers<CR>", "Buffers")
 nnoremap("<leader>f", "<cmd>lua mm.search_files()<CR>", "Files")
-nnoremap("<leader>r", "<cmd>lua mm.frecency()<CR>", "Recents")
+nnoremap("<leader>r", "<cmd>Telescope oldfiles<CR>", "Recent")
 nnoremap("<leader>F", "<cmd>Telescope live_grep<CR>", "Text")
 
 map.nname("<leader>s", "Search")

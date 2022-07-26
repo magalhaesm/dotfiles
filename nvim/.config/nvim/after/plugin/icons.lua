@@ -26,13 +26,13 @@ icons.setup {
       name = "js",
     },
     ts = {
-      icon = "ﯤ",
+      icon = "",
       color = "#519aba",
       name = "ts",
     },
     db = {
-      color = "#ffca28",
       icon = "",
+      color = "#ffca28",
       name = "Db",
     },
     ["sh"] = {
@@ -41,23 +41,23 @@ icons.setup {
       name = "Sh",
     },
     [".gitignore"] = {
-      color = "#e64a19",
       icon = "",
+      color = "#e64a19",
       name = "GitIgnore",
     },
     [".flake8"] = {
-      color = "#42a5f5",
       icon = "",
+      color = "#42a5f5",
       name = "Flake8",
     },
     [".pylintrc"] = {
-      color = "#42a5f5",
       icon = "",
+      color = "#42a5f5",
       name = "Pylint",
     },
     [".pre-commit-config.yaml"] = {
-      color = "#ff5252",
       icon = "",
+      color = "#ff5252",
       name = "PreCommit",
     },
     ["zshrc"] = {
