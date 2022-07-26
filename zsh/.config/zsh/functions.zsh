@@ -1,4 +1,8 @@
-__define_session() {
+open() {
+  nohup xdg-open "$1" > /dev/null
+}
+
+__dir_name() {
   WORKSPACE=$(basename "$PWD")
   [[ ${WORKSPACE:0:1} == "." ]] && echo "${WORKSPACE:1}" || echo "${WORKSPACE}"
 }
@@ -6,7 +10,7 @@ __define_session() {
 # Init tmux session which name is the current directory
 # https://github.com/tmux-python/tmuxp ??
 ide() {
-  SESSION=$(__define_session)
+  SESSION=$(__dir_name)
   if ! tmux has-session -t "$SESSION" 2> /dev/null
   then
     tmux -f "$TMUX_CONFIG" new-session -s "$SESSION" -n editor -d

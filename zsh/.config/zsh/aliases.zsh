@@ -4,8 +4,6 @@ alias cz='${EDITOR} ${ZDOTDIR}/zshrc'
 alias ct='${EDITOR} ${TMUX_CONFIG}'
 alias f='file=$(fzf --height 40%); if [ -n "$file" ]; then $EDITOR $file; fi'
 
-[ -x "$(command -v bat)" ] && alias cat='bat'
-
 # Por segurança, pergunta antes de sobrescrever algo
 alias cp='cp -iv'
 alias mv='mv -iv'
@@ -21,10 +19,11 @@ alias ip='ip -color=auto'
 
 if [ -x "$(command -v exa)" ]
 then
-  alias l='exa --color=always --group-directories-first'
+  # alias l='exa --color=always --group-directories-first'
+  alias l='exa --color=always'
   alias ls='l'
   alias la='l -a'
-  alias ll='l -l'
+  alias ll='l -lH --git'
   alias lla='ll -a'
   alias lst='l -T -L2 --git -I ".git|.vim|node_modules|coverage|__pycache__"'
   alias lat='lst -a'
@@ -38,7 +37,6 @@ fi
 
 alias listen='sudo lsof -i -P -n | grep LISTEN'
 alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
-alias sqlite3='sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc'
 
 alias corona='curl https://corona-stats.online\?top\=10'
 
@@ -70,6 +68,7 @@ alias o='xdg-open'
 
 # Git
 alias g='git'
+alias gc='git commit'
 alias gs='git status -s'
 alias gst='git status'
 alias gl='git log --oneline --decorate --graph'

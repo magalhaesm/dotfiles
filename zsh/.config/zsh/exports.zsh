@@ -30,7 +30,7 @@ export HISTFILE="${XDG_CACHE_HOME}/history"
 
 # -- Fzf -----------------------------------------------------------------------
 
-export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_DEFAULT_COMMAND="fd --type f --exclude '*.o'"
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS}
   --color=dark
   --color=fg:-1,bg:-1,hl:#ae81ff,fg+:#f8f8f0,bg+:-1,hl+:#ae81ff
@@ -85,13 +85,9 @@ export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
 export TMUX_CONFIG="${XDG_CONFIG_HOME}/tmux/tmux.conf"
 export TMUX_TMPDIR="${XDG_RUNTIME_DIR}"
 
-export TASKRC="${XDG_CONFIG_HOME}/taskrc"
-export TASKDATA="${XDG_DATA_HOME}/task"
-
 export NODE_REPL_HISTORY="${XDG_DATA_HOME}/node_repl_history"
 export NPM_CONFIG_USERCONFIG="~/.config/npm/npmrc"
 
-export PYTHONSTARTUP="${XDG_CONFIG_HOME}/pythonrc"
 export IPYTHONDIR="${XDG_CONFIG_HOME}/jupyter"
 export JUPYTER_CONFIG_DIR="${XDG_CONFIG_HOME}/jupyter"
 export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
