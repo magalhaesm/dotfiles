@@ -25,11 +25,9 @@ packer.init {
 
 return packer.startup {
   function(use)
-    -- Plugins here
     use "wbthomason/packer.nvim"
-    use "nvim-lua/popup.nvim"
-    use "nvim-lua/plenary.nvim"
     use "windwp/nvim-autopairs"
+    use "kylechui/nvim-surround"
     use "numToStr/Comment.nvim"
     use "kyazdani42/nvim-web-devicons"
     use "kyazdani42/nvim-tree.lua"
@@ -47,10 +45,6 @@ return packer.startup {
     use "norcalli/nvim-colorizer.lua"
     use "karb94/neoscroll.nvim"
 
-    -- Lua Docs
-    use "nanotee/luv-vimdocs"
-    use "milisims/nvim-luaref"
-
     -- Colorschemes
     use "lunarvim/darkplus.nvim"
     use "tanvirtin/monokai.nvim"
@@ -59,21 +53,21 @@ return packer.startup {
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
-    use "hrsh7th/cmp-cmdline"
-    use "saadparwaiz1/cmp_luasnip"
     use "hrsh7th/cmp-nvim-lsp"
-    use "hrsh7th/cmp-nvim-lua"
 
     -- snippets
     use "L3MON4D3/LuaSnip"
-    use "rafamadriz/friendly-snippets"
 
     -- LSP
-    use "neovim/nvim-lspconfig"
-    use "williamboman/nvim-lsp-installer"
+    use {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
+    }
     use "jose-elias-alvarez/null-ls.nvim"
 
     -- Telescope
+    use "nvim-lua/plenary.nvim"
     use "nvim-telescope/telescope.nvim"
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
 

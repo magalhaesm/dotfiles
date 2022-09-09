@@ -19,7 +19,7 @@ dashboard.section.header.val = {
   [[    Produzir só o essencial e redistribuir tudo.]],
 }
 dashboard.section.buttons.val = {
-  dashboard.button("f", "  Find file", ":lua mm.search_files()<CR>"),
+  dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
   dashboard.button("r", "  Recently used files", ":Telescope oldfiles<CR>"),
   dashboard.button("e", "  New file", ":ene <BAR> startinsert<CR>"),
   dashboard.button("t", "  Find text", ":Telescope live_grep<CR>"),

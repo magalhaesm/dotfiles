@@ -2,7 +2,7 @@ local options = {
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
   cmdheight = 1,                           -- more space in the neovim command line for displaying messages
-  conceallevel = 0,                        -- so that `` is visible in markdown files
+  conceallevel = 2,                        -- so that `` is visible in markdown files
   fileencoding = "utf-8",                  -- the encoding written to a file
   hlsearch = true,                         -- highlight all matches on previous search pattern
   ignorecase = true,                       -- ignore case in search patterns
@@ -37,6 +37,7 @@ local options = {
   list = true,                             -- show invisible characters
   showbreak = "⤷ ",
   foldlevel = 3,
+  laststatus = 3,
 }
 
 vim.opt.listchars = { tab = "∙∙" }

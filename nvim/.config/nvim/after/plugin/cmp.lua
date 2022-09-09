@@ -38,7 +38,6 @@ cmp.setup {
   mapping = {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
-    ["<C-y>"] = cmp.config.disable,
     ["<C-e>"] = cmp.mapping.close(),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<CR>"] = cmp.mapping.confirm { select = false },
@@ -70,14 +69,6 @@ cmp.setup {
     { name = "neorg" },
   },
   window = {
-    documentation = {
-      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-    },
+    documentation = cmp.config.window.bordered(),
   },
-  -- Use buffer source for searches with `/`
-  cmp.setup.cmdline("/", {
-    sources = {
-      { name = "buffer", keyword_length = 3 },
-    },
-  }),
 }

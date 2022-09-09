@@ -1,5 +1,15 @@
-local status_ok, _ = pcall(require, "lspconfig")
-if not status_ok then
+local status, mason = pcall(require, "mason")
+if not status then
+  return
+end
+
+local status2, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not status2 then
+  return
+end
+
+local status3, nvim_lsp = pcall(require, "lspconfig")
+if not status3 then
   return
 end
 
@@ -38,10 +48,6 @@ lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, border_opts)
 -- LSP Commands
 -----------------------------------------------------------------------------//
 
-cmd("LspFormat", function()
-  vim.lsp.buf.formatting()
-end)
-
 cmd("LspNextDiagnostic", function()
   vim.diagnostic.goto_next(border_opts)
 end)
@@ -52,10 +58,6 @@ end)
 
 cmd("LspLineDiagnostic", function()
   vim.diagnostic.open_float(nil, border_opts)
-end)
-
-cmd("LspReferences", function()
-  vim.lsp.buf.references()
 end)
 
 -----------------------------------------------------------------------------
@@ -84,27 +86,22 @@ local function lsp_keymaps()
   nnoremap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "LSP: go to declaration")
   nnoremap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "LSP: go to definition")
   nnoremap("gr", "<cmd>Telescope lsp_references<CR>", "LSP: references")
-  nnoremap("gl", "<cmd>LspLineDiagnostic<CR>", "LSP: line diagnostic")
   nnoremap("gT", "<cmd>lua vim.lsp.buf.type_definition()<CR>", "LSP: go to type definition")
 
+  nnoremap("gl", "<cmd>LspLineDiagnostic<CR>", "LSP: line diagnostic")
   nnoremap("[d", "<cmd>LspPrevDiagnostic<CR>", "LSP: prev diagnostic")
   nnoremap("]d", "<cmd>LspNextDiagnostic<CR>", "LSP: next diagnostic")
 
-  -- inoremap("<C-x><C-x>", "<cmd>vim.lsp.buf.signature_help()<CR>")
-
   map.nname("<leader>l", "LSP")
   nnoremap("<leader>lR", "<cmd>LspRestart<CR>", "Restart")
-  nnoremap("<leader>lf", "<cmd>LspFormat<CR>", "Format")
+  nnoremap("<leader>lf", "<cmd>vim.lsp.buf.formatting()<CR>", "Format")
   nnoremap("<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 
-  -- nnoremap("<leader>la", "<cmd>Telescope lsp_code_actions<CR>", "Code Action")
   nnoremap("<leader>ld", "<cmd>Telescope diagnostics bufnr=0<CR>", "Document Diagnostics")
   nnoremap("<leader>ll", "<cmd>lua vim.lsp.codelens.run()<CR>", "CodeLens Action")
   nnoremap("<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", "Quickfix")
 
-  map.nname("<leader>li", "Info")
-  nnoremap("<leader>lia", "<cmd>LspInfo<CR>", "Attached")
-  nnoremap("<leader>lii", "<cmd>LspInstallInfo<CR>", "Installed")
+  nnoremap("<leader>li", "<cmd>LspInfo<CR>", "Info")
 
   nnoremap("<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols")
   nnoremap("<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols")
@@ -119,25 +116,71 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-local function get_lsp_settings(server, opts)
-  local lsp_settings = "mm.lsp.settings." .. server.name
-  local ok, server_opts = pcall(require, lsp_settings)
-  if ok then
-    opts = vim.tbl_deep_extend("force", server_opts, opts)
-  end
-  return opts
-end
-
--- Not handled by nvim-lsp-installer
 require "mm.lsp.null-ls"
 
--- Register a handler that will be called for all installed servers.
-require("nvim-lsp-installer").on_server_ready(function(server)
-  local opts = {
-    on_attach = custom_on_attach,
-    capabilities = capabilities,
-  }
-  server:setup(get_lsp_settings(server, opts))
-end)
+mason.setup()
+mason_lspconfig.setup {
+  ensure_installed = { "clangd", "sumneko_lua", "bashls" },
+}
 
--- vim:foldmethod=marker
+nvim_lsp.clangd.setup {
+  on_attach = custom_on_attach,
+  capabilities = capabilities,
+  settings = {
+    cmd = {
+      "clangd",
+      "--background-index",
+      "--suggest-missing-includes",
+      "--clang-tidy",
+      --[[ "--header-insertion=iwyu", ]]
+    },
+  },
+  filetypes = { "c", "cpp" },
+}
+
+nvim_lsp.sumneko_lua.setup {
+  on_attach = custom_on_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+      },
+      diagnostics = {
+        globals = {
+          "vim",
+        },
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.stdpath "config" .. "/lua"] = true,
+        },
+      },
+    },
+  },
+}
+
+nvim_lsp.jdtls.setup {
+  on_attach = custom_on_attach,
+  capabilities = capabilities,
+}
+
+nvim_lsp.bashls.setup {
+  on_attach = custom_on_attach,
+  capabilities = capabilities,
+}
+
+nvim_lsp.pyright.setup {
+  on_attach = custom_on_attach,
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = "off",
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+      },
+    },
+  },
+}

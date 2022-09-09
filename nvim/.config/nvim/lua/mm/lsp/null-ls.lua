@@ -12,32 +12,20 @@ end
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 
-local sources = {
-  -- Python
-  formatting.black,
-  formatting.isort,
-  diagnostics.flake8.with { condition = has_file ".flake8" },
-  diagnostics.pylint.with { condition = has_file ".pylintrc" },
-
-  -- Lua
-  formatting.stylua.with {
-    extra_args = { "--config-path", vim.fn.expand "$XDG_CONFIG_HOME/stylua.toml" },
-  },
-
-  -- Bash
-  diagnostics.shellcheck,
-
-  -- Javascript/TypeScript
-  formatting.prettier.with {
-    extra_args = {
-      "--no-semi",
-      "--single-quote",
-      "--jsx-single-quote",
-    },
-  },
-}
-
 null_ls.setup {
-  -- debug = true,
-  sources = sources,
+  sources = {
+    -- Python
+    formatting.black,
+    formatting.isort,
+    diagnostics.flake8.with { condition = has_file ".flake8" },
+    diagnostics.pylint.with { condition = has_file ".pylintrc" },
+
+    -- Lua
+    formatting.stylua.with {
+      extra_args = { "--config-path", vim.fn.expand "$XDG_CONFIG_HOME/stylua.toml" },
+    },
+
+    -- Bash
+    diagnostics.shellcheck,
+  },
 }

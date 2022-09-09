@@ -102,26 +102,18 @@ telescope.setup {
       override_generic_sorter = true, -- override the generic sorter
       override_file_sorter = true, -- override the file sorter
     },
-    frecency = {
-      workspaces = {
-        -- conf = CONFIG_HOME,
-        nvim = CONFIG_HOME .. "/nvim",
-        zsh = CONFIG_HOME .. "/zsh",
-        tmux = CONFIG_HOME .. "/tmux",
-      },
-    },
   },
 }
 
 require("telescope").load_extension "fzf"
 
-function mm.search_files()
-  local opts = themes.get_dropdown {
-    previewer = false,
-    hidden = true,
-  }
-  builtin.find_files(opts)
-end
+-- function mm.search_files()
+--   local opts = themes.get_dropdown {
+--     previewer = false,
+--     hidden = true,
+--   }
+--   builtin.find_files(opts)
+-- end
 
 function mm.search_recents()
   local opts = themes.get_dropdown {
@@ -175,24 +167,25 @@ function mm.vim_options()
 end
 
 nnoremap("<leader>b", "<cmd>Telescope buffers<CR>", "Buffers")
-nnoremap("<leader>f", "<cmd>lua mm.search_files()<CR>", "Files")
+-- nnoremap("<leader>f", "<cmd>lua mm.search_files()<CR>", "Files")
 nnoremap("<leader>r", "<cmd>Telescope oldfiles<CR>", "Recent")
 nnoremap("<leader>F", "<cmd>Telescope live_grep<CR>", "Text")
 
-map.nname("<leader>s", "Search")
-nnoremap("<leader>sf", "<cmd>Telescope find_files<CR>", "Files")
-nnoremap("<leader>sg", "<cmd>Telescope git_files<CR>", "Git files")
-nnoremap("<leader>sr", "<cmd>Telescope oldfiles<CR>", "Recent")
-nnoremap("<leader>sp", "<cmd>Telescope projects<CR>", "Projects")
-nnoremap("<leader>sC", "<cmd>Telescope commands<CR>", "Commands")
-nnoremap("<leader>sm", "<cmd>Telescope man_pages<CR>", "Manual")
-nnoremap("<leader>sR", "<cmd>Telescope registers<CR>", "Registers")
-nnoremap("<leader>s?", "<cmd>Telescope help_tags<CR>", "Help")
-nnoremap("<leader>sk", "<cmd>Telescope keymaps<CR>", "Keymaps")
-nnoremap("<leader>so", "<cmd>lua mm.vim_options()<CR>", "Vim options")
-nnoremap("<leader>st", "<cmd>lua mm.search_by_filetype()<CR>", "Filetype")
+map.nname("<leader>f", "Find")
+nnoremap("<leader>ff", "<cmd>Telescope find_files<CR>", "Files")
+nnoremap("<leader>fo", "<cmd>Telescope grep_string<CR>", "Occurrences")
+nnoremap("<leader>fg", "<cmd>Telescope git_files<CR>", "Git files")
+nnoremap("<leader>fr", "<cmd>Telescope oldfiles<CR>", "Recent")
+nnoremap("<leader>fp", "<cmd>Telescope projects<CR>", "Projects")
+nnoremap("<leader>fC", "<cmd>Telescope commands<CR>", "Commands")
+nnoremap("<leader>fm", "<cmd>Telescope man_pages<CR>", "Manual")
+nnoremap("<leader>fR", "<cmd>Telescope registers<CR>", "Registers")
+nnoremap("<leader>f?", "<cmd>Telescope help_tags<CR>", "Help")
+nnoremap("<leader>fk", "<cmd>Telescope keymaps<CR>", "Keymaps")
+nnoremap("<leader>fO", "<cmd>lua mm.vim_options()<CR>", "Vim options")
+nnoremap("<leader>ft", "<cmd>lua mm.search_by_filetype()<CR>", "Filetype")
 
-nnoremap("<leader>sz", "<cmd>lua mm.edit_zsh()<CR>", "Zsh")
-nnoremap("<leader>sn", "<cmd>lua mm.edit_nvim()<CR>", "Nvim")
-nnoremap("<leader>sT", "<cmd>lua mm.edit_tmux()<CR>", "Tmux")
-nnoremap("<leader>sc", "<cmd>lua mm.cookbook()<CR>", "Cookbook")
+nnoremap("<leader>fz", "<cmd>lua mm.edit_zsh()<CR>", "Zsh")
+nnoremap("<leader>fn", "<cmd>lua mm.edit_nvim()<CR>", "Nvim")
+nnoremap("<leader>fT", "<cmd>lua mm.edit_tmux()<CR>", "Tmux")
+nnoremap("<leader>fc", "<cmd>lua mm.cookbook()<CR>", "Cookbook")
