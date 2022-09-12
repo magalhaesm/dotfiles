@@ -13,7 +13,7 @@ if not status3 then
   return
 end
 
-require "mm.lsp.null-ls"
+require "mm.lsp.null_ls"
 local custom_on_attach = require "mm.lsp.config".on_attach
 local capabilities = require "mm.lsp.config".capabilities
 
