@@ -80,7 +80,7 @@ local function lsp_keymaps()
 
   map.nname("<leader>l", "LSP")
   nnoremap("<leader>lR", "<cmd>LspRestart<CR>", "Restart")
-  nnoremap("<leader>lf", "<cmd>vim.lsp.buf.formatting()<CR>", "Format")
+  nnoremap("<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format")
   nnoremap("<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 
   nnoremap("<leader>ld", "<cmd>Telescope diagnostics bufnr=0<CR>", "Document Diagnostics")
