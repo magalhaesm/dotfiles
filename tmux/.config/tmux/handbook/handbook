@@ -2,15 +2,35 @@
 
 HANDBOOK="$(xdg-user-dir DOCUMENTS)/handbook/"
 
+show_file() {
+  syntax=$(grep "syntax" "$1" | cut -d : -f2 | tr -d ' ')
+  if [ -n "$syntax" ]; then
+    bat "$1" -l "$syntax" -r 3:
+  else
+    bat "$1" -l "sh"
+  fi
+}
+
 tmux-window() {
   tmux new-window -n "$(basename "$0")" "$SHELL" -c "$1 | less -iR"
 }
 
-selected=$(find "$HANDBOOK" -maxdepth 1 -type f \
-  ! \( -name "README.md" -o -name "LICENSE" \) |\
-  fzf -e -i --delimiter '/' --with-nth '-1' --prompt="Handbook: ")
+open_handbook() {
+  selected=$(find "$HANDBOOK" -maxdepth 1 -type f \
+    ! \( -name "README.md" -o -name "LICENSE" \) |\
+    fzf -e -i --delimiter '/' --with-nth '-1' --prompt="Handbook: ")
 
-if [ -n "$selected" ]; then
-  DIR="$(dirname "$0%")"
-  tmux-window "${DIR}/show $selected"
-fi
+  if [ -n "$selected" ]; then
+    tmux-window "$(realpath "$0") $selected"
+  fi
+}
+
+main() {
+  if [ -z "$1" ]; then
+    open_handbook
+  else
+    show_file "$1"
+  fi
+}
+
+main "$@"
