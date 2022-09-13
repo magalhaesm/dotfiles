@@ -19,4 +19,27 @@ bufferline.setup {
       },
     },
   },
+  highlights = {
+    separator = {
+      fg = "#222426",
+      bg = "#222426",
+    },
+    separator_selected = {
+      fg = "#222426",
+    },
+    separator_visible = {
+      fg = "#222426",
+      bg = "#272a30",
+    },
+    buffer_visible = {
+      bg = "#272a30",
+    },
+    background = {
+      fg = "#a1b5b1",
+      bg = "#222426",
+    },
+    fill = {
+      bg = "#222426",
+    },
+  },
 }
