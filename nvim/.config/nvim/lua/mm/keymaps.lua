@@ -18,14 +18,6 @@ _G.cmd = mapx.cmd
 
 local opts = { silent = true }
 
--- Packer
-map.nname("<leader>p", "Packer")
-nnoremap("<leader>pc", "<cmd>PackerCompile<CR>", "Compile")
-nnoremap("<leader>pi", "<cmd>PackerInstall<CR>", "Install")
-nnoremap("<leader>ps", "<cmd>PackerSync<CR>", "Sync")
-nnoremap("<leader>pS", "<cmd>PackerStatus<CR>", "Status")
-nnoremap("<leader>pu", "<cmd>PackerUpdate<CR>", "Update")
-
 -- Save, quit and close
 nnoremap("<leader>w", "<cmd>w!<CR>", "Save")
 nnoremap("<leader>q", "<cmd>q!<CR>", "Quit")
@@ -86,3 +78,7 @@ nnoremap("-", '<C-x>')
 -- Split window
 nnoremap("<leader>ss", "<cmd>split<CR>")
 nnoremap("<leader>sv", "<cmd>vsplit<CR>")
+
+xnoremap("<leader>p", "\"_dP");
+inoremap("<C-l>", "<Right>")
+inoremap("<C-h>", "<Left>")
