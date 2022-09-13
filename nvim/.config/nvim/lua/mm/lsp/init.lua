@@ -14,16 +14,20 @@ if not status3 then
 end
 
 require "mm.lsp.null_ls"
-local custom_on_attach = require "mm.lsp.config".on_attach
-local capabilities = require "mm.lsp.config".capabilities
+local on_attach = require("mm.lsp.handlers").on_attach
+local capabilities = require("mm.lsp.handlers").capabilities
 
-mason.setup()
+mason.setup {
+  ui = {
+    border = "rounded",
+  },
+}
 mason_lspconfig.setup {
   ensure_installed = { "clangd", "sumneko_lua", "bashls" },
 }
 
 nvim_lsp.clangd.setup {
-  on_attach = custom_on_attach,
+  on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     cmd = {
@@ -38,7 +42,7 @@ nvim_lsp.clangd.setup {
 }
 
 nvim_lsp.sumneko_lua.setup {
-  on_attach = custom_on_attach,
+  on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -61,17 +65,17 @@ nvim_lsp.sumneko_lua.setup {
 }
 
 nvim_lsp.jdtls.setup {
-  on_attach = custom_on_attach,
+  on_attach = on_attach,
   capabilities = capabilities,
 }
 
 nvim_lsp.bashls.setup {
-  on_attach = custom_on_attach,
+  on_attach = on_attach,
   capabilities = capabilities,
 }
 
 nvim_lsp.pyright.setup {
-  on_attach = custom_on_attach,
+  on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     python = {

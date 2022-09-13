@@ -95,6 +95,9 @@ end
 
 local custom_on_attach = function(client)
   document_formatting(client)
+  if client.name == "jdtls" then
+    client.resolved_capabilities.document_formatting = true
+  end
   document_highlight(client)
   lsp_keymaps()
 end
