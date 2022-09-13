@@ -26,6 +26,9 @@ if ok then
       LspReferenceWrite = {
         bg = palette.base4,
       },
+      LspInfoBorder = {
+        fg = palette.border,
+      },
 
       -- GitSigns
       GitSignsChange = {
@@ -62,6 +65,7 @@ if ok then
       -- NvimTree
       PanelHeading = {
         fg = palette.orange,
+        bg = palette.base0,
         style = "bold",
       },
       NvimTreeNormal = {

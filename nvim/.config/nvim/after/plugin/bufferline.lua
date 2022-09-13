@@ -38,6 +38,9 @@ bufferline.setup {
       fg = "#a1b5b1",
       bg = "#222426",
     },
+    modified = {
+      bg = "#222426",
+    },
     fill = {
       bg = "#222426",
     },

@@ -17,6 +17,9 @@ require "mm.lsp.null_ls"
 local on_attach = require("mm.lsp.handlers").on_attach
 local capabilities = require("mm.lsp.handlers").capabilities
 
+-- LspInfo border
+require("lspconfig.ui.windows").default_options.border = "rounded"
+
 mason.setup {
   ui = {
     border = "rounded",
