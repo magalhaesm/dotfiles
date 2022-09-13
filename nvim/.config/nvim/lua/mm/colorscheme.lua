@@ -1,79 +1,94 @@
 local ok, monokai = pcall(require, "monokai")
 if ok then
-  local colors = monokai.classic
+  local palette = monokai.classic
   monokai.setup {
     custom_hlgroups = {
       DiagnosticError = {
-        colors.red,
+        palette.red,
       },
       DiagnosticSignWarn = {
-        fg = colors.orange,
+        fg = palette.orange,
+      },
+      NormalFloat = {
+        bg = palette.base2,
+      },
+      FloatBorder = {
+        fg = palette.border,
       },
 
       -- Lsp
       LspReferenceText = {
-        bg = colors.base4,
+        bg = palette.base4,
       },
       LspReferenceRead = {
-        bg = colors.base4,
+        bg = palette.base4,
       },
       LspReferenceWrite = {
-        bg = colors.base4,
+        bg = palette.base4,
       },
 
       -- GitSigns
       GitSignsChange = {
-        fg = colors.yellow,
-        bg = colors.base2,
+        fg = palette.yellow,
+        bg = palette.base2,
       },
+
+      -- Telescope
       TelescopeNormal = {
-        bg = colors.base2,
+        bg = palette.base2,
       },
 
       -- Treesitter
       TSNote = {
-        fg = colors.aqua,
+        fg = palette.aqua,
         style = "bold",
       },
       TSWarning = {
-        fg = colors.orange,
+        fg = palette.orange,
         style = "bold",
       },
       TSDanger = {
-        fg = colors.pink,
+        fg = palette.pink,
         style = "bold",
       },
       TSParameter = {
-        fg = colors.orange,
+        fg = palette.orange,
         style = "italic",
       },
       TSVariableBuiltin = {
-        fg = colors.purple,
+        fg = palette.purple,
       },
 
       -- NvimTree
       PanelHeading = {
-        fg = colors.orange,
+        fg = palette.orange,
         style = "bold",
+      },
+      NvimTreeNormal = {
+        bg = palette.base0,
+      },
+      NvimTreeVertSplit = {
+        fg = palette.base0,
+        bg = palette.base0,
       },
 
       -- IndentBlankline
       IndentBlanklineContextChar = {
-        fg = colors.base6,
+        fg = palette.base6,
       },
 
       -- Toml
       tomlTable = {
-        fg = colors.green,
+        fg = palette.green,
       },
       tomlKey = {
-        fg = colors.pink,
+        fg = palette.pink,
       },
 
       -- Makefile
       TSSymbol = {
-        fg = colors.pink,
-      }
+        fg = palette.pink,
+      },
     },
   }
 end
