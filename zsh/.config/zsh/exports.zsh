@@ -96,4 +96,4 @@ export GOPATH="${XDG_DATA_HOME}/go"
 
 export _ZO_DATA_DIR="${XDG_DATA_HOME}/zoxide"
 
-export GNUPGHOME="${XDG_DATA_HOME}"
+# export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
