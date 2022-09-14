@@ -17,8 +17,7 @@ alias fgrep='fgrep --color=auto'
 alias path='echo $PATH | tr -s ":" "\n"'
 alias ip='ip -color=auto'
 
-if [ -x "$(command -v exa)" ]
-then
+if [ -x "$(command -v exa)" ]; then
   # alias l='exa --color=always --group-directories-first'
   alias l='exa --color=always'
   alias ls='l'
@@ -43,25 +42,13 @@ alias corona='curl https://corona-stats.online\?top\=10'
 # Easier to read disk
 alias df='df -h'                          # human-readable sizes
 alias du='du -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
+# alias free='free -m'                      # show sizes in MB
 
 # Get top process eating memory
 alias psmem='ps auxf | sort -nr -k 4 | head -5'
 
 # Get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
-
-# Gpg encryption
-# Verify signature for isos
-alias gpg-check='gpg2 --keyserver-options auto-key-retrieve --verify'
-# Receive the key of a developer
-alias gpg-retrieve='gpg2 --keyserver-options auto-key-retrieve --receive-keys'
-
-# Nvim startup time
-alias nvim-startup="nvim --startuptime /tmp/startup.log +q && nvim /tmp/startup.log"
-
-# Kitty
-alias icat="kitty +kitten icat"
 
 # Open
 alias o='xdg-open'

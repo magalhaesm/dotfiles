@@ -2,15 +2,8 @@ open() {
   nohup xdg-open "$1" > /dev/null
 }
 
-__dir_name() {
-  WORKSPACE=$(basename "$PWD")
-  [[ ${WORKSPACE:0:1} == "." ]] && echo "${WORKSPACE:1}" || echo "${WORKSPACE}"
-}
-
-# Init tmux session which name is the current directory
-# https://github.com/tmux-python/tmuxp ??
 ide() {
-  SESSION=$(__dir_name)
+  SESSION=$(basename "$PWD" | tr -d .)
   if ! tmux has-session -t "$SESSION" 2> /dev/null
   then
     tmux -f "$TMUX_CONFIG" new-session -s "$SESSION" -n editor -d
@@ -32,6 +25,7 @@ __error() {
   echo -e "\n\033[1;31mERROR:\033[m $1"
 }
 
+# TODO: testar!!!
 zsh_add_plugin() {
   PLUGIN_NAME=$(basename "$1")
   if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
@@ -39,7 +33,6 @@ zsh_add_plugin() {
     zsh_add_file "$ZDOTDIR/plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
     zsh_add_file "$ZDOTDIR/plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
   else
-    # TODO: why is it repeating?
     __info "Installing plugin $PLUGIN_NAME"
     if ! git clone "https://username:password@github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"; then
       __error "$1 not found"
@@ -59,7 +52,7 @@ zsh_add_completion() {
   else
     __info "Installing completions for $PLUGIN_NAME"
     if ! git clone "https://username:password@github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"; then
-      __error "$1 not found" 
+      __error "$1 not found"
     else
       fpath+=$(ls "$ZDOTDIR/plugins/$PLUGIN_NAME/_*")
       [ -f "$ZDOTDIR/.zccompdump" ] && $"ZDOTDIR/.zccompdump"
