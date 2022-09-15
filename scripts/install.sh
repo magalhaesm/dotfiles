@@ -25,6 +25,9 @@ dependencies=(
   xsel
   zoxide
   zsh
+  unzip
+  shellcheck
+  stylua
 )
 
 missing=()
