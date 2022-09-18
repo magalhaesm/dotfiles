@@ -29,7 +29,7 @@ local function python_env()
 end
 
 local function position()
-  return "≡ %3l/%-3L ln :%3v "
+  return "☰ %3l/%-3L ln :%3v "
 end
 
 local filename = {
@@ -40,8 +40,8 @@ local filename = {
 local diff = {
   "diff",
   colored = true,
-  -- symbols = { added = " ", modified = " ", removed = " " },
-  symbols = { added = " ", modified = " ", removed = " " },
+  symbols = { added = " ", modified = " ", removed = " " },
+  --[[ symbols = { added = " ", modified = " ", removed = " " }, ]]
   cond = hide_in_width,
 }
 

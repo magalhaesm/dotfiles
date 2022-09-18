@@ -38,7 +38,7 @@ nvim_lsp.clangd.setup {
       "--background-index",
       "--suggest-missing-includes",
       "--clang-tidy",
-      --[[ "--header-insertion=iwyu", ]]
+      "--header-insertion=iwyu",
     },
   },
   filetypes = { "c", "cpp" },
