@@ -51,11 +51,11 @@ end)
 -----------------------------------------------------------------------------
 
 local function document_formatting(client)
-  client.resolved_capabilities.document_formatting = false
+  client.server_capabilities.document_formatting = false
 end
 
 local function document_highlight(client)
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.cmd [[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -95,9 +95,6 @@ end
 
 local custom_on_attach = function(client)
   document_formatting(client)
-  if client.name == "jdtls" then
-    client.resolved_capabilities.document_formatting = true
-  end
   document_highlight(client)
   lsp_keymaps()
 end

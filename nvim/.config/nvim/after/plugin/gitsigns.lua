@@ -9,8 +9,8 @@ gitsigns.setup {
     -- add = { hl = "GitSignsAdd", text = "+", numhl = "" },
     change = { hl = "GitSignsChange", text = "▎", numhl = "" },
     -- change = { hl = "GitSignsChange", text = "~", numhl = "" },
-    delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr" },
-    topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr" },
+    delete = { hl = "GitSignsDelete", text = "▸", numhl = "GitSignsDeleteNr" },
+    topdelete = { hl = "GitSignsDelete", text = "▸", numhl = "GitSignsDeleteNr" },
     -- changedelete = { hl = "GitSignsChange", text = "▎", numhl = "GitSignsChangeNr" },
 
     -- add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr" },

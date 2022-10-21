@@ -3,6 +3,8 @@ if not status_ok then
   return
 end
 
+local background = "#222426"
+
 bufferline.setup {
   options = {
     modified_icon = "",
@@ -21,14 +23,14 @@ bufferline.setup {
   },
   highlights = {
     separator = {
-      fg = "#222426",
-      bg = "#222426",
+      fg = background,
+      bg = background,
     },
     separator_selected = {
-      fg = "#222426",
+      fg = background,
     },
     separator_visible = {
-      fg = "#222426",
+      fg = background,
       bg = "#272a30",
     },
     buffer_visible = {
@@ -36,13 +38,13 @@ bufferline.setup {
     },
     background = {
       fg = "#a1b5b1",
-      bg = "#222426",
+      bg = background,
     },
     modified = {
-      bg = "#222426",
+      bg = background,
     },
     fill = {
-      bg = "#222426",
+      bg = background,
     },
   },
 }

@@ -29,6 +29,13 @@ mason_lspconfig.setup {
   ensure_installed = { "clangd", "sumneko_lua", "bashls" },
 }
 
+require("rust-tools").setup {
+  server = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  },
+}
+
 nvim_lsp.clangd.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -65,11 +72,6 @@ nvim_lsp.sumneko_lua.setup {
       },
     },
   },
-}
-
-nvim_lsp.jdtls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
 }
 
 nvim_lsp.bashls.setup {

@@ -83,6 +83,10 @@ return packer.startup {
     use "magalhaesm/42header.nvim"
     use "andweeb/presence.nvim"
 
+    -- Rust
+    use "simrat39/rust-tools.nvim"
+    --[[ use "rcarriga/nvim-notify" ]]
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

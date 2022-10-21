@@ -34,12 +34,14 @@ cmp.setup {
       luasnip.lsp_expand(args.body)
     end,
   },
-  completion = { keyword_length = 2 },
+  completion = { keyword_length = 1 },
   mapping = {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
+    ["<C-d>"] = cmp.mapping.scroll_docs(4),
+    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     ["<C-e>"] = cmp.mapping.close(),
-    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<C-Space>"] = cmp.mapping.complete(),
     ["<CR>"] = cmp.mapping.confirm { select = false },
     ["<C-n>"] = cmp.mapping(ctrl_n, { "i", "s" }),
     ["<C-p>"] = cmp.mapping(ctrl_p, { "i", "s" }),
@@ -70,5 +72,6 @@ cmp.setup {
   },
   window = {
     documentation = cmp.config.window.bordered(),
+    --[[ completion = cmp.config.window.bordered(), ]]
   },
 }

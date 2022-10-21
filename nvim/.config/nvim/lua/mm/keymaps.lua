@@ -60,7 +60,8 @@ xnoremap("<A-j>", ":move '>+1<CR>gv-gv", opts)
 xnoremap("<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Select all
-nnoremap("<C-a>", "gg<S-v>G")
+onoremap("ae", ":normal! ggVG<CR>", opts)
+vnoremap("ae", ":normal! ggVG<CR>", opts)
 
 -- Quickfix
 nnoremap("]q", "<cmd>cnext<CR>zz", "Quickfix: next")
@@ -70,10 +71,6 @@ nnoremap("[l", "<cmd>lprev<cr>zz", "Loclist: prev")
 
 -- Paste on command line
 cnoremap("<C-v>", "<C-r>+")
-
--- Increment/Decrement
-nnoremap("+", '<C-a>')
-nnoremap("-", '<C-x>')
 
 -- Split window
 nnoremap("<leader>ss", "<cmd>split<CR>")
