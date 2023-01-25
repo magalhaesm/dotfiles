@@ -21,7 +21,7 @@ gitsigns.setup {
   },
 
   -- signcolumn = true,
-  numhl = true,
+  numhl = false,
   linehl = false,
 
   current_line_blame = false,

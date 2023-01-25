@@ -80,7 +80,7 @@ local function lsp_keymaps()
 
   map.nname("<leader>l", "LSP")
   nnoremap("<leader>lR", "<cmd>LspRestart<CR>", "Restart")
-  nnoremap("<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format")
+  nnoremap("<leader>lf", "<cmd>lua vim.lsp.buf.format { async = true }<CR>", "Format")
   nnoremap("<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 
   nnoremap("<leader>ld", "<cmd>Telescope diagnostics bufnr=0<CR>", "Document Diagnostics")
@@ -100,7 +100,7 @@ local custom_on_attach = function(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 M.on_attach = custom_on_attach
 M.capabilities = capabilities

@@ -48,6 +48,7 @@ return packer.startup {
     -- Colorschemes
     use "lunarvim/darkplus.nvim"
     use "tanvirtin/monokai.nvim"
+    use "ellisonleao/gruvbox.nvim"
 
     -- cmp plugins
     use "hrsh7th/nvim-cmp"
@@ -85,7 +86,6 @@ return packer.startup {
 
     -- Rust
     use "simrat39/rust-tools.nvim"
-    --[[ use "rcarriga/nvim-notify" ]]
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

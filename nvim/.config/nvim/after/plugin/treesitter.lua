@@ -7,9 +7,11 @@ nnoremap("<F2>", "<cmd>TSHighlightCapturesUnderCursor<CR>")
 nnoremap("<F3>", "<cmd>TSPlaygroundToggle<CR>")
 
 configs.setup {
-  -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = { "bash", "c", "comment", "cpp", "lua", "python", "query", "javascript", "typescript" },
-  sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+  ensure_installed = {
+    "bash", "c", "comment", "cpp", "lua",
+    "python", "query", "javascript", "typescript"
+  },
+  sync_install = false, -- install languages synchronously
   ignore_install = { "" },
   highlight = {
     enable = true,
