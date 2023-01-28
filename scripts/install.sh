@@ -142,4 +142,4 @@ main() {
   set_shell
 }
 
-main "$@"
+main
