@@ -48,22 +48,30 @@ return packer.startup {
     -- Colorschemes
     use "lunarvim/darkplus.nvim"
     use "tanvirtin/monokai.nvim"
-    use "ellisonleao/gruvbox.nvim"
+    use "gruvbox-community/gruvbox"
 
-    -- cmp plugins
+    -- Completion
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
     use "hrsh7th/cmp-nvim-lsp"
-
-    -- snippets
-    use "L3MON4D3/LuaSnip"
+    use {
+      "L3MON4D3/LuaSnip",
+      tag = "v<CurrentMajor>.*",
+      run = "make install_jsregexp"
+    }
+    use "saadparwaiz1/cmp_luasnip"
+    use "onsails/lspkind.nvim"
+    use "rafamadriz/friendly-snippets"
 
     -- LSP
     use {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
+      requires = {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "j-hui/fidget.nvim",
+      },
     }
     use "jose-elias-alvarez/null-ls.nvim"
 
