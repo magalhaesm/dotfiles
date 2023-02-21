@@ -29,13 +29,7 @@ nvim_tree.setup {
       },
     },
   },
-  open_on_setup = true,
   auto_reload_on_write = true,
-  ignore_ft_on_setup = {
-    "startify",
-    "dashboard",
-    "alpha",
-  },
   diagnostics = {
     enable = true,
   },

@@ -1,3 +1,18 @@
+-- vim.cmd [[ colorscheme darkplus ]]
+
+--[[ local colors = require "darkplus.palette" ]]
+--[[ vim.api.nvim_set_hl(0, "NormalFloat", { bg = colors.bg }) ]]
+--[[ vim.api.nvim_set_hl(0, "FloatBorder", { bg = colors.bg }) ]]
+--[[ vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = colors.bg }) ]]
+
+--[[ local colorscheme = "gruvbox" ]]
+--[[]]
+--[[ local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme) --> protected call example ]]
+--[[ if not status_ok then ]]
+--[[   vim.notify("colorscheme " .. colorscheme .. " not found!") ]]
+--[[   return ]]
+--[[ end ]]
+
 local ok, monokai = pcall(require, "monokai")
 if not ok then
   return
@@ -102,12 +117,12 @@ local custom_hlgroups = {
   -- NvimTree
   PanelHeading = {
     fg = palette.orange,
-    bg = palette.base0,
+    --[[ bg = palette.base0, ]]
     style = "bold",
   },
-  NvimTreeNormal = {
-    bg = palette.base0,
-  },
+  --[[ NvimTreeNormal = { ]]
+  --[[   bg = palette.base0, ]]
+  --[[ }, ]]
   NvimTreeVertSplit = {
     fg = palette.base0,
     bg = palette.base0,

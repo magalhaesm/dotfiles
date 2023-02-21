@@ -20,11 +20,6 @@ icons.setup {
       color = "#563d7c",
       name = "css",
     },
-    js = {
-      icon = "",
-      color = "#cbcb41",
-      name = "js",
-    },
     ts = {
       icon = "",
       color = "#519aba",

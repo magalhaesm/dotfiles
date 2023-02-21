@@ -13,6 +13,12 @@ if not status3 then
   return
 end
 
+local status4, fidget = pcall(require, "fidget")
+if not status4 then
+  return
+end
+fidget.setup()
+
 require "mm.lsp.null_ls"
 local on_attach = require("mm.lsp.handlers").on_attach
 local capabilities = require("mm.lsp.handlers").capabilities
@@ -23,10 +29,11 @@ require("lspconfig.ui.windows").default_options.border = "rounded"
 mason.setup {
   ui = {
     border = "rounded",
+    height = 0.8,
   },
 }
 mason_lspconfig.setup {
-  ensure_installed = { "clangd", "sumneko_lua", "bashls" },
+  ensure_installed = { "clangd", "lua_ls", "bashls", "pyright", "tsserver" },
 }
 
 require("rust-tools").setup {
@@ -51,7 +58,7 @@ nvim_lsp.clangd.setup {
   filetypes = { "c", "cpp" },
 }
 
-nvim_lsp.sumneko_lua.setup {
+nvim_lsp.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -59,15 +66,15 @@ nvim_lsp.sumneko_lua.setup {
       runtime = {
         version = "LuaJIT",
       },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      telemetry = { enable = false },
+      format = { enable = false },
       diagnostics = {
         globals = {
           "vim",
-        },
-      },
-      workspace = {
-        library = {
-          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.stdpath "config" .. "/lua"] = true,
         },
       },
     },
@@ -91,4 +98,9 @@ nvim_lsp.pyright.setup {
       },
     },
   },
+}
+
+nvim_lsp.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
 }
