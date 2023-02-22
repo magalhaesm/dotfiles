@@ -32,18 +32,19 @@ return packer.startup {
     use "kyazdani42/nvim-web-devicons"
     use "kyazdani42/nvim-tree.lua"
     use "akinsho/bufferline.nvim"
-    use "moll/vim-bbye"
+    use "moll/vim-bbye" --[[ sai ]]
     use "nvim-lualine/lualine.nvim"
-    use "ahmedkhalf/project.nvim"
-    use "lewis6991/impatient.nvim"
+    use "ahmedkhalf/project.nvim" --[[ sai ]]
+    use "lewis6991/impatient.nvim" --[[ sai ]]
     use "lukas-reineke/indent-blankline.nvim"
     use "goolord/alpha-nvim"
-    use "antoinemadec/FixCursorHold.nvim"
+    use "antoinemadec/FixCursorHold.nvim" --[[ sai ]]
     use "folke/which-key.nvim"
-    use "nvim-neorg/neorg"
-    use "b0o/mapx.nvim"
+    use "nvim-neorg/neorg" --[[ sai ]]
+    use "b0o/mapx.nvim" --[[ sai ]]
     use "norcalli/nvim-colorizer.lua"
     use "karb94/neoscroll.nvim"
+    use "stevearc/dressing.nvim"
 
     -- Colorschemes
     use "lunarvim/darkplus.nvim"
@@ -58,7 +59,7 @@ return packer.startup {
     use {
       "L3MON4D3/LuaSnip",
       tag = "v<CurrentMajor>.*",
-      run = "make install_jsregexp"
+      run = "make install_jsregexp",
     }
     use "saadparwaiz1/cmp_luasnip"
     use "onsails/lspkind.nvim"
@@ -82,12 +83,16 @@ return packer.startup {
 
     -- Treesitter
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-    use "JoosepAlviste/nvim-ts-context-commentstring"
+    use "nvim-treesitter/nvim-treesitter-textobjects"
     use "nvim-treesitter/playground"
 
     -- Git
     use "lewis6991/gitsigns.nvim"
 
+    use {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+    }
     -- 42
     use "magalhaesm/42header.nvim"
     use "andweeb/presence.nvim"

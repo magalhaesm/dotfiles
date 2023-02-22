@@ -5,7 +5,6 @@ end
 
 local builtin = require "telescope.builtin"
 local actions = require "telescope.actions"
-local themes = require "telescope.themes"
 
 local function large_preview(_, cols, _)
   if cols > 200 then
@@ -17,11 +16,8 @@ end
 
 telescope.setup {
   defaults = {
-
-    prompt_prefix = "❯ ",
-    selection_caret = " ",
-    color_devicons = true,
-
+    prompt_prefix = " ",
+    selection_caret = " ",
     winblend = 3,
     path_display = { "smart", "absolute", "truncate" },
     file_ignore_patterns = {
@@ -34,40 +30,31 @@ telescope.setup {
       "%.gif",
       ".git/",
     },
-
-    -- selection_strategy = "reset",
-    -- sorting_strategy = "ascending",
-    -- scroll_strategy = "cycle",
-
     layout_strategy = "horizontal",
     layout_config = {
       width = 0.95,
       height = 0.85,
-
       horizontal = {
         preview_width = large_preview,
       },
-
       vertical = {
         width = 0.9,
         height = 0.95,
         preview_height = 0.5,
       },
-
       flex = {
         horizontal = {
           preview_width = 0.9,
         },
       },
     },
-
     mappings = {
       i = {
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-n>"] = actions.move_selection_next,
+        ["<C-p>"] = actions.move_selection_previous,
 
-        ["<C-n>"] = actions.cycle_history_next,
-        ["<C-p>"] = actions.cycle_history_prev,
+        ["<C-j>"] = actions.cycle_history_next,
+        ["<C-k>"] = actions.cycle_history_prev,
 
         ["<c-s>"] = actions.select_horizontal,
         ["<c-v>"] = actions.select_vertical,
@@ -79,9 +66,6 @@ telescope.setup {
     },
   },
   pickers = {
-    -- find_files = {
-    --   hidden = true,
-    -- },
     buffers = {
       sort_mru = true,
       sort_lastused = true,
@@ -91,9 +75,6 @@ telescope.setup {
     },
     live_grep = {
       hidden = true,
-    },
-    lsp_code_actions = {
-      theme = "cursor",
     },
   },
   extensions = {
@@ -107,22 +88,7 @@ telescope.setup {
 
 require("telescope").load_extension "fzf"
 
--- function mm.search_files()
---   local opts = themes.get_dropdown {
---     previewer = false,
---     hidden = true,
---   }
---   builtin.find_files(opts)
--- end
-
-function mm.search_recents()
-  local opts = themes.get_dropdown {
-    previewer = false,
-  }
-  builtin.oldfiles(opts)
-end
-
-function mm.edit_zsh()
+function mm.config_zsh()
   builtin.git_files {
     prompt_title = "Zsh Config",
     cwd = "~/.config/zsh/",
@@ -130,7 +96,7 @@ function mm.edit_zsh()
   }
 end
 
-function mm.edit_nvim()
+function mm.config_nvim()
   builtin.git_files {
     prompt_title = "Nvim Config",
     cwd = "~/.config/nvim/",
@@ -138,7 +104,7 @@ function mm.edit_nvim()
   }
 end
 
-function mm.edit_tmux()
+function mm.config_tmux()
   builtin.git_files {
     prompt_title = "Tmux Config",
     cwd = "~/.config/tmux/",
@@ -146,33 +112,12 @@ function mm.edit_tmux()
   }
 end
 
-function mm.search_by_filetype()
-  builtin.find_files {
-    find_command = {
-      "rg",
-      "--files",
-      "--type",
-      vim.fn.input "Type: ",
-    },
-  }
-end
-
-function mm.vim_options()
-  builtin.vim_options {
-    prompt_title = "Option",
-    layout_config = {
-      width = 0.5,
-    },
-  }
-end
-
 nnoremap("<leader>b", "<cmd>Telescope buffers<CR>", "Buffers")
--- nnoremap("<leader>f", "<cmd>lua mm.search_files()<CR>", "Files")
 nnoremap("<leader>r", "<cmd>Telescope oldfiles<CR>", "Recent")
 nnoremap("<leader>F", "<cmd>Telescope live_grep<CR>", "Text")
 
 map.nname("<leader>f", "Find")
-nnoremap("<leader>ff", "<cmd>Telescope find_files<CR>", "Files")
+nnoremap("<leader>ff", mm.telescope "find_files", "Files")
 nnoremap("<leader>fo", "<cmd>Telescope grep_string<CR>", "Occurrences")
 nnoremap("<leader>fg", "<cmd>Telescope git_files<CR>", "Git files")
 nnoremap("<leader>fr", "<cmd>Telescope oldfiles<CR>", "Recent")
@@ -180,12 +125,44 @@ nnoremap("<leader>fp", "<cmd>Telescope projects<CR>", "Projects")
 nnoremap("<leader>fC", "<cmd>Telescope commands<CR>", "Commands")
 nnoremap("<leader>fm", "<cmd>Telescope man_pages<CR>", "Manual")
 nnoremap("<leader>fR", "<cmd>Telescope registers<CR>", "Registers")
-nnoremap("<leader>f?", "<cmd>Telescope help_tags<CR>", "Help")
+nnoremap("<leader>/", "<cmd>Telescope help_tags<CR>", "Help")
 nnoremap("<leader>fk", "<cmd>Telescope keymaps<CR>", "Keymaps")
-nnoremap("<leader>fO", "<cmd>lua mm.vim_options()<CR>", "Vim options")
-nnoremap("<leader>ft", "<cmd>lua mm.search_by_filetype()<CR>", "Filetype")
+nnoremap("<leader>fO", "<cmd>Telescope vim_options<CR>", "Vim options")
+nnoremap(
+  "<leader>ss",
+  mm.telescope("lsp_document_symbols", {
+    symbols = {
+      "Class",
+      "Function",
+      "Method",
+      "Constructor",
+      "Interface",
+      "Module",
+      "Struct",
+      "Trait",
+      "Field",
+      "Property",
+    },
+  }), "Goto Symbols"
+)
+nnoremap(
+  "<leader>sS",
+  mm.telescope("lsp_workspace_symbols", {
+    symbols = {
+      "Class",
+      "Function",
+      "Method",
+      "Constructor",
+      "Interface",
+      "Module",
+      "Struct",
+      "Trait",
+      "Field",
+      "Property",
+    },
+  }), "Goto Symbols (Workspace)"
+)
 
-nnoremap("<leader>fz", "<cmd>lua mm.edit_zsh()<CR>", "Zsh")
-nnoremap("<leader>fn", "<cmd>lua mm.edit_nvim()<CR>", "Nvim")
-nnoremap("<leader>fT", "<cmd>lua mm.edit_tmux()<CR>", "Tmux")
-nnoremap("<leader>fc", "<cmd>lua mm.cookbook()<CR>", "Cookbook")
+nnoremap("<leader>fz", "<cmd>lua mm.config_zsh()<CR>", "Zsh")
+nnoremap("<leader>fn", "<cmd>lua mm.config_nvim()<CR>", "Nvim")
+nnoremap("<leader>ft", "<cmd>lua mm.config_tmux()<CR>", "Tmux")

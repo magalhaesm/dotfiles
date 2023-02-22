@@ -88,6 +88,10 @@ local custom_hlgroups = {
     fg = palette.green,
     style = "italic",
   },
+  ["@method.call"] = {
+    fg = palette.green,
+    style = "italic",
+  },
   ["@constructor"] = {
     fg = palette.aqua,
   },

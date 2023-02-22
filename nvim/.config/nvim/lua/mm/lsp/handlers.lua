@@ -91,6 +91,7 @@ local function lsp_keymaps()
 
   nnoremap("<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols")
   nnoremap("<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols")
+  nnoremap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action")
 end
 
 local custom_on_attach = function(client)
