@@ -27,7 +27,7 @@ return {
   -- [[ Fuzzy Finder ]]
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", lazy = true },
     cmd = "Telescope",
     version = "*",
     keys = {
@@ -131,6 +131,7 @@ return {
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
+    lazy = true,
     build = "make",
     cond = function()
       return vim.fn.executable("make") == 1

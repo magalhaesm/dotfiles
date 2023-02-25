@@ -51,7 +51,7 @@ return {
       wk.register(keymaps)
     end,
   },
-  -- todo comments
+  -- Todo Comments
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
@@ -83,25 +83,25 @@ return {
         end,
         desc = "Previous todo comment",
       },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
+      { "<leader>xt", "<cmd>TodoTrouble<cr>",                         desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+      { "<leader>st", "<cmd>TodoTelescope<cr>",                       desc = "Todo" },
     },
   },
-  -- better diagnostics list and others
+  -- Better Diagnostics
   {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
-      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
+      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-      { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-      { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
+      { "<leader>xL", "<cmd>TroubleToggle loclist<cr>",               desc = "Location List (Trouble)" },
+      { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>",              desc = "Quickfix List (Trouble)" },
     },
   },
 
-  -- buffer remove
+  -- Buffer Remove
   {
     "echasnovski/mini.bufremove",
     keys = {
@@ -133,7 +133,7 @@ return {
       "MunifTanjim/nui.nvim",
     },
     keys = {
-      { "<leader>ft", "<cmd>Neotree toggle<cr>", desc = "Neo[T]ree" },
+      { "<leader>ft", "<cmd>Neotree toggle<CR>", desc = "Neo[T]ree" },
     },
     config = function()
       require("neo-tree").setup({
@@ -143,7 +143,41 @@ return {
       })
     end,
   },
-  -- 42
+  -- GitSigns
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      signs = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "契" },
+        topdelete = { text = "契" },
+        changedelete = { text = "▎" },
+        untracked = { text = "▎" },
+      },
+      numhl = false,
+      linehl = false,
+      current_line_blame = false,
+      current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = "eol",
+        -- delay = 2000,
+      },
+      preview_config = {
+        border = "rounded",
+      },
+      on_attach = function(buffer)
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+        end
+        map("n", "<leader>gl", "<cmd>Gitsigns blame_line<CR>", "Blame line")
+        map("n", "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle blame")
+        map("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<CR>", "Diff")
+      end
+      },
+    },
+  -- École 42
   { "magalhaesm/42header.nvim", ft = { "c", "cpp" } },
-  { "andweeb/presence.nvim", opts = {} }
+  { "andweeb/presence.nvim", opts = {}, event = "VeryLazy" },
 }

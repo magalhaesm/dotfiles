@@ -75,7 +75,7 @@ return {
     }
     end
   },
-  -- indent guides for Neovim
+  -- Indent Guides
   {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost", "BufNewFile" },
@@ -86,9 +86,9 @@ return {
       show_current_context = false,
     },
   },
-  -- icons
+  -- Icons
   { "nvim-tree/nvim-web-devicons", lazy = true },
-  -- dashboard
+  -- Dashboard
   {
     "goolord/alpha-nvim",
     event = "VimEnter",

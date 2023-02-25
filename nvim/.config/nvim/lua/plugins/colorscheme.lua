@@ -1,5 +1,6 @@
 return {
   "tanvirtin/monokai.nvim",
+  event = "VimEnter",
   opts = function()
     local palette = require("monokai").pro
     local custom_hlgroups = {
@@ -135,7 +136,6 @@ return {
       },
     }
     return {
-      lazy = true,
       palette = palette,
       custom_hlgroups = custom_hlgroups
     }
