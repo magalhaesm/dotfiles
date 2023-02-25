@@ -41,16 +41,16 @@ local options = {
 }
 
 vim.opt.listchars = { tab = "∙∙" }
-vim.opt.listchars:append { nbsp = "␣" }
-vim.opt.listchars:append { trail = "•" }
-vim.opt.listchars:append { extends = "»" }
-vim.opt.listchars:append { precedes = "«" }
+vim.opt.listchars:append({ nbsp = "␣" })
+vim.opt.listchars:append({ trail = "•" })
+vim.opt.listchars:append({ extends = "»" })
+vim.opt.listchars:append({ precedes = "«" })
 
-vim.opt.shortmess:append "c"
+vim.opt.shortmess:append("c")
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.opt.whichwrap:append "<,>,[,]"
-vim.opt.iskeyword:append "-"
+vim.opt.whichwrap:append("<,>,[,]")
+vim.opt.iskeyword:append("-")

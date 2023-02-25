@@ -1,42 +1,6 @@
------------------------------------------------------------------------------//
--- Global namespace
------------------------------------------------------------------------------//
-_G.mm = {}
+local M = {}
 
-CONFIG_HOME = vim.env.XDG_CONFIG_HOME
-DATA_HOME = vim.env.XDG_DATA_HOME
-
-mm.root_patterns = { ".git", "lua" }
-
-mm.lsp = {
-  kind_icons = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "ﰠ",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "ﰠ",
-    Unit = "",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-  },
-}
+M.root_patterns = { ".git", "lua" }
 
 -- returns the root directory based on:
 -- * lsp workspace folders
@@ -44,7 +8,7 @@ mm.lsp = {
 -- * root pattern of filename of the current buffer
 -- * root pattern of cwd
 ---@return string
-function mm.get_root()
+function M.get_root()
   ---@type string?
   local path = vim.api.nvim_buf_get_name(0)
   path = path ~= "" and vim.loop.fs_realpath(path) or nil
@@ -58,7 +22,7 @@ function mm.get_root()
       end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
       for _, p in ipairs(paths) do
         local r = vim.loop.fs_realpath(p)
-        if path:find(r, 1, true) then
+        if r and path:find(r, 1, true) then
           roots[#roots + 1] = r
         end
       end
@@ -72,7 +36,7 @@ function mm.get_root()
   if not root then
     path = path and vim.fs.dirname(path) or vim.loop.cwd()
     ---@type string?
-    root = vim.fs.find(mm.root_patterns, { path = path, upward = true })[1]
+    root = vim.fs.find(M.root_patterns, { path = path, upward = true })[1]
     root = root and vim.fs.dirname(root) or vim.loop.cwd()
   end
   ---@cast root string
@@ -82,12 +46,12 @@ end
 -- this will return a function that calls telescope.
 -- cwd will default to lazyvim.util.get_root
 -- for `files`, git_files or find_files will be chosen depending on .git
-function mm.telescope(builtin, opts)
+function M.telescope(builtin, opts)
   local params = { builtin = builtin, opts = opts }
   return function()
     builtin = params.builtin
     opts = params.opts
-    opts = vim.tbl_deep_extend("force", { cwd = mm.get_root() }, opts or {})
+    opts = vim.tbl_deep_extend("force", { cwd = M.get_root() }, opts or {})
     if builtin == "files" then
       if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
         opts.show_untracked = true
@@ -99,3 +63,5 @@ function mm.telescope(builtin, opts)
     require("telescope.builtin")[builtin](opts)
   end
 end
+
+return M

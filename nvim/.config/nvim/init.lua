@@ -1,30 +1,28 @@
---------------------------------------------------------------------------------
---  ███╗   ███╗███╗   ███╗
---  ████╗ ████║████╗ ████║   Marcelo Magalhães
---  ██╔████╔██║██╔████╔██║   https://github.com/magalhaesm
---  ██║╚██╔╝██║██║╚██╔╝██║
---  ██║ ╚═╝ ██║██║ ╚═╝ ██║
---  ╚═╝     ╚═╝╚═╝     ╚═╝
---------------------------------------------------------------------------------
-
-------------------------------------------------------------------------
--- Leader bindings
-------------------------------------------------------------------------
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-------------------------------------------------------------------------
--- Plugin Configurations
-------------------------------------------------------------------------
-pcall(require, "impatient")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-require "mm.bootstrap"
-
-require "mm.globals"
-require "mm.options"
-require "mm.plugins"
-require "mm.keymaps"
-require "mm.autocommands"
-require "mm.lsp"
-require "mm.colorscheme"
-require "mm.ui"
+require("config").setup()
+require("lazy").setup({
+  spec = {
+    { import = "plugins" },
+  },
+  ui = {
+    border = "rounded",
+    icons = {
+      list = { "" }
+    }
+  }
+})
