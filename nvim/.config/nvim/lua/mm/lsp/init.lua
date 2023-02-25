@@ -63,13 +63,8 @@ nvim_lsp.lua_ls.setup {
   capabilities = capabilities,
   settings = {
     Lua = {
-      runtime = {
-        version = "LuaJIT",
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false,
-      },
+      workspace = { checkThirdParty = false, },
+      completion = { callSnippet = "Replace" },
       telemetry = { enable = false },
       format = { enable = false },
       diagnostics = {

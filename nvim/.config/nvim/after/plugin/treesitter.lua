@@ -6,7 +6,7 @@ end
 nnoremap("<F2>", "<cmd>TSHighlightCapturesUnderCursor<CR>")
 nnoremap("<F3>", "<cmd>TSPlaygroundToggle<CR>")
 
-configs.setup {
+configs.setup({
   ensure_installed = {
     "bash",
     "c",
@@ -26,13 +26,8 @@ configs.setup {
     "vim",
     "yaml",
   },
-  highlight = {
-    enable = true,
-  },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
+  highlight = { enable = true },
+  context_commentstring = { enable = true, enable_autocmd = false },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -104,4 +99,4 @@ configs.setup {
       },
     },
   },
-}
+})
