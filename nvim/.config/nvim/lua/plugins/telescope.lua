@@ -20,14 +20,27 @@ local opts = {
     "Trait",
     "Field",
     "Property",
-  }
+  },
 }
 
 return {
   -- [[ Fuzzy Finder ]]
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", lazy = true },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      lazy = true,
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        cond = function()
+          return vim.fn.executable("make") == 1
+        end,
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
+      },
+    },
     cmd = "Telescope",
     version = "*",
     keys = {
@@ -128,16 +141,5 @@ return {
         },
       },
     },
-  },
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    lazy = true,
-    build = "make",
-    cond = function()
-      return vim.fn.executable("make") == 1
-    end,
-    config = function()
-      require("telescope").load_extension("fzf")
-    end,
   },
 }

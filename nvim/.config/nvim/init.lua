@@ -16,9 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("config").setup()
 require("lazy").setup({
-  spec = {
-    { import = "plugins" },
-  },
+  spec = { { import = "plugins" } },
   ui = {
     border = "rounded",
     icons = {
@@ -27,7 +25,6 @@ require("lazy").setup({
   },
   performance = {
     rtp = {
-      -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
         -- "matchit",

@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- 42 Header
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   group = augroup("update_42header"),
-  pattern = { "*.c", "*.cpp" },
+  pattern = { "*.h", "*.hpp", "*.c", "*.cpp" },
   callback = function()
     vim.cmd("Ftupdate")
   end,

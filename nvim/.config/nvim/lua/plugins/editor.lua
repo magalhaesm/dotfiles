@@ -37,14 +37,11 @@ return {
       wk.setup(opts)
       local keymaps = {
         mode = { "n", "v" },
-        ["g"] = { name = "+goto" },
-        ["gz"] = { name = "+surround" },
-        ["]"] = { name = "+next" },
-        ["["] = { name = "+prev" },
         ["<leader>b"] = { name = "+buffer" },
         ["<leader>c"] = { name = "+code" },
         ["<leader>x"] = { name = "+diagnostics/quickfix" },
         ["<leader>f"] = { name = "+file/find" },
+        ["<leader>r"] = { name = "+rename" },
         ["<leader>g"] = { name = "+git" },
         ["<leader>s"] = { name = "+search/swap" },
       }
@@ -139,6 +136,24 @@ return {
       require("neo-tree").setup({
         window = {
           width = 35,
+        },
+        default_component_configs = {
+          git_status = {
+            symbols = {
+              -- Change type
+              added     = "✚", -- NOTE: you can set any of these to an empty string to not show them
+              deleted   = "✖",
+              modified  = "",
+              renamed   = "",
+              -- Status type
+              untracked = "",
+              ignored   = "",
+              unstaged  = "",
+              staged    = "",
+              conflict  = "",
+            },
+            align = "right",
+          }
         },
       })
     end,

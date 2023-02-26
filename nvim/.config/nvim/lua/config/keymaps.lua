@@ -1,5 +1,10 @@
+local util = require("config.util")
 local map = vim.keymap.set
 local opts = { silent = true }
+
+map("n", "<leader>gg", function()
+  util.float_term({ "lazygit" })
+end, { desc = "Lazy[G]it" })
 
 map("n", "<leader>w", "<cmd>w!<CR>", { desc = "Save" })
 map("n", "<leader>q", "<cmd>q!<CR>", { desc = "Quit" })

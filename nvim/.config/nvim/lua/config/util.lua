@@ -43,6 +43,13 @@ function M.get_root()
   return root
 end
 
+function M.float_term(cmd, opts)
+  opts = vim.tbl_deep_extend("force", {
+    size = { width = 1.0, height = 0.9 },
+  }, opts or {})
+  require("lazy.util").float_term(cmd, opts)
+end
+
 -- this will return a function that calls telescope.
 -- cwd will default to lazyvim.util.get_root
 -- for `files`, git_files or find_files will be chosen depending on .git

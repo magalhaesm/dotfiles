@@ -59,7 +59,7 @@ return {
   -- Auto pairs
   {
     "echasnovski/mini.pairs",
-    event = "VeryLazy",
+    event = "InsertEnter",
     config = function(_, opts)
       require("mini.pairs").setup(opts)
     end,
@@ -82,20 +82,21 @@ return {
     },
     opts = {
       history = true,
-      delete_check_events = "TextChanged",
+      delete_check_events = "TextChanged,TextChangedI",
       enable_autosnippets = true,
     },
-    -- stylua: ignore
     keys = {
       {
         "<C-j>",
         function()
           return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
         end,
-        expr = true, silent = true, mode = "i",
+        expr = true,
+        silent = true,
+        mode = "i",
       },
-      { "<C-j>", function() require("luasnip").jump(1) end,  mode = "s" },
-      { "<C-k>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+      { "<C-j>", function() require("luasnip").jump(1) end, mode = "s", },
+      { "<C-k>", function() require("luasnip").jump(-1) end, mode = { "i", "s" }, },
     },
   },
 }
