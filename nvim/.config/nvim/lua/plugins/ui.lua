@@ -59,16 +59,16 @@ return {
           hint = icons.diagnostics.Hint,
           info = icons.diagnostics.Info,
           warn = icons.diagnostics.Warn,
-          error = icons.diagnostics.Error
+          error = icons.diagnostics.Error,
         },
       }
       return {
         options = {
+          globalstatus = true,
           icons_enabled = true,
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
-          disabled_filetypes = { "alpha", "dashboard", "Outline", --[[ "neo-tree" ]] },
-          always_divide_middle = true,
+          disabled_filetypes = { "alpha", "Outline" },
         },
         sections = {
           lualine_a = { "mode" },
@@ -78,7 +78,6 @@ return {
           lualine_y = { "progress" },
           lualine_z = { position },
         },
-        extensions = { "neo-tree" },
       }
     end,
   },

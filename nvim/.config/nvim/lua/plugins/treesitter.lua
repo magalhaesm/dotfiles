@@ -12,7 +12,7 @@ return {
     end,
     keys = {
       { "<F2>", "<cmd>TSHighlightCapturesUnderCursor<CR>" },
-      { "<F3>", "<cmd>TSPlaygroundToggle<CR>" }
+      { "<F3>", "<cmd>TSPlaygroundToggle<CR>" },
     },
     opts = {
       highlight = { enable = true },
@@ -65,6 +65,15 @@ return {
         },
       },
       textobjects = {
+        lsp_interop = {
+          enable = true,
+          border = "none",
+          floating_preview_opts = {},
+          peek_definition_code = {
+            ["<leader>df"] = "@function.outer",
+            ["<leader>dF"] = "@class.outer",
+          },
+        },
         select = {
           enable = true,
           lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim

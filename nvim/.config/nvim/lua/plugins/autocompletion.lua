@@ -26,7 +26,7 @@ return {
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-d>"] = cmp.mapping.scroll_docs(4),
-          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-u>"] = cmp.mapping.scroll_docs( -4),
           ["<C-Space>"] = cmp.mapping.complete({}),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -56,13 +56,18 @@ return {
       }
     end,
   },
-  -- Auto pairs
+  -- Add/change/delete surrounding delimiter pairs
   {
-    "echasnovski/mini.pairs",
+    "kylechui/nvim-surround",
     event = "InsertEnter",
-    config = function(_, opts)
-      require("mini.pairs").setup(opts)
-    end,
+    opts = {},
+  },
+
+  -- Autopairs
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    opts = {},
   },
   {
     "numToStr/Comment.nvim",
@@ -95,8 +100,20 @@ return {
         silent = true,
         mode = "i",
       },
-      { "<C-j>", function() require("luasnip").jump(1) end, mode = "s", },
-      { "<C-k>", function() require("luasnip").jump(-1) end, mode = { "i", "s" }, },
+      {
+        "<C-j>",
+        function()
+          require("luasnip").jump(1)
+        end,
+        mode = "s",
+      },
+      {
+        "<C-k>",
+        function()
+          require("luasnip").jump( -1)
+        end,
+        mode = { "i", "s" },
+      },
     },
   },
 }

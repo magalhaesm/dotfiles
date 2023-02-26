@@ -61,6 +61,6 @@ map("c", "<C-v>", "<C-r>+")
 map("n", "<leader>ss", "<cmd>split<CR>")
 map("n", "<leader>sv", "<cmd>vsplit<CR>")
 
-map("x", "<leader>p", '"_dP')
+map("v", "<leader>p", '"_dP')
 map("i", "<C-l>", "<Right>")
 map("i", "<C-h>", "<Left>")
