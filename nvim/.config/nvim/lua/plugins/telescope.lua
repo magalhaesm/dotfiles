@@ -44,7 +44,7 @@ return {
     cmd = "Telescope",
     version = "*",
     keys = {
-      { "<leader>/", util.telescope("live_grep"), desc = "Find in Files (Grep)" },
+      { "<leader>/", util.telescope("live_grep"), desc = "Grep (workspace)" },
       { "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "[B]uffers" },
       { "<leader>ff", util.telescope("files"), desc = "[F]iles (root dir)" },
       { "<leader>fF", util.telescope("files", { cwd = false }), desc = "[F]iles (cwd)" },

@@ -20,9 +20,9 @@ map("n", "<C-Down>", "<cmd>resize +2<CR>")
 map("n", "<C-Left>", "<cmd>vertical resize -2<CR>")
 map("n", "<C-Right>", "<cmd>vertical resize +2<CR>")
 
--- Buffer navigation
-map("n", "<S-l>", "<cmd>bnext<CR>")
-map("n", "<S-h>", "<cmd>bprevious<CR>")
+-- Buffer navigation: force
+map("n", "<space><S-h>", "<cmd>bprev<CR>")
+map("n", "<space><S-l>", "<cmd>bnext<CR>")
 
 -- Move cursor to the first/last character of the line
 map("n", "<A-h>", "0")

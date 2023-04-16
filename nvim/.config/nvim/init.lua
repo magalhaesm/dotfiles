@@ -2,6 +2,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+-- Auto-install lazy.nvim if not present (package manager)
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -15,8 +17,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("config").setup()
-require("lazy").setup({
-  spec = { { import = "plugins" } },
+require("lazy").setup("plugins", {
   ui = {
     border = "rounded",
     icons = {
@@ -30,10 +31,10 @@ require("lazy").setup({
         -- "matchit",
         -- "matchparen",
         -- "netrwPlugin",
+        -- "zipPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
-        "zipPlugin",
       },
     },
   },

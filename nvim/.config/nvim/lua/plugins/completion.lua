@@ -5,17 +5,16 @@ return {
     version = "*",
     event = "InsertEnter",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp", -- nvim-cmp source for neovim's built-in LSP
+      "hrsh7th/cmp-buffer", -- nvim-cmp source for buffer words
+      "hrsh7th/cmp-path", -- nvim-cmp source for path words
+      "saadparwaiz1/cmp_luasnip", -- nvim-cmp source for luasnip
     },
     opts = function()
       local cmp = require("cmp")
       return {
-        preselect = "none",
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone,noselect",
         },
         snippet = {
           expand = function(args)
@@ -23,13 +22,16 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-n>"] = cmp.mapping.select_next_item(),
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-d>"] = cmp.mapping.scroll_docs(4),
-          ["<C-u>"] = cmp.mapping.scroll_docs( -4),
-          ["<C-Space>"] = cmp.mapping.complete({}),
+          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<CR>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = false,
+          }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
@@ -75,7 +77,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
   },
 
-  -- Snippets
+  -- Snippet engine
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
@@ -110,7 +112,7 @@ return {
       {
         "<C-k>",
         function()
-          require("luasnip").jump( -1)
+          require("luasnip").jump(-1)
         end,
         mode = { "i", "s" },
       },

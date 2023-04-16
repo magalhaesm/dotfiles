@@ -36,20 +36,22 @@ return {
         "tsx",
         "vim",
         "yaml",
+        "make"
       },
+      ignore_install = { "help" }, -- Solução temporária
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<CR>",
-          node_incremental = "<CR>",
-          node_decremental = "<TAB>",
+          init_selection = "<C-space>",
+          node_incremental = "<C-space>",
           scope_incremental = "<nop>",
+          node_decremental = "<BS>",
         },
       },
       playground = {
         enable = true,
         disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
         persist_queries = false, -- Whether the query persists across vim sessions
         keybindings = {
           toggle_query_editor = "o",

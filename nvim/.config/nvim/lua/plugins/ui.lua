@@ -6,6 +6,12 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
+    keys = {
+      { "<leader>bt", "<cmd>BufferLineGroupToggle tests<CR>", desc = "Group Tests" },
+      { "<leader>bx", "<cmd>BufferLineGroupToggle docs<CR>", desc = "Group Docs" },
+      { "<S-h>", "<cmd>BufferLineCyclePrev<CR>" },
+      { "<S-l>", "<cmd>BufferLineCycleNext<CR>" },
+    },
     opts = {
       options = {
         modified_icon = "",
@@ -19,6 +25,23 @@ return {
             text = " Explorer",
             highlight = "PanelHeading",
             padding = 1,
+          },
+        },
+        groups = {
+          items = {
+            {
+              name = "tests",
+              icon = "",
+              matcher = function(buf)
+                return buf.filename:match("%test_") or buf.filename:match("%_spec")
+              end,
+            },
+            {
+              name = "docs",
+              matcher = function(buf)
+                return buf.filename:match("%.md") or buf.filename:match("%.txt")
+              end,
+            },
           },
         },
       },
@@ -87,9 +110,9 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     opts = {
       char = "│",
-      filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+      filetype_exclude = { "help", "alpha", "neo-tree", "Trouble", "lazy" },
       show_trailing_blankline_indent = false,
-      show_current_context = false,
+      show_current_context = true,
     },
   },
   -- Icons

@@ -56,4 +56,4 @@ o.listchars:append({ precedes = "«" })
 o.shortmess:append { W = true, I = true, c = true }
 
 o.whichwrap:append("<,>,[,]")
-o.iskeyword:append("-")
+-- o.iskeyword:append("-")

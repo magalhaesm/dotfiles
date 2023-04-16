@@ -55,6 +55,7 @@ function M.setup()
   require("config.options")
   require("config.autocmds")
   require("config.keymaps")
+  require("config.commands")
 end
 
 return M

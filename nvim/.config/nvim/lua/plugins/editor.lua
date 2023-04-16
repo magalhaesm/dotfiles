@@ -137,23 +137,26 @@ return {
         window = {
           width = 35,
         },
+        filesystem = {
+          follow_current_file = true,
+        },
         default_component_configs = {
           git_status = {
             symbols = {
               -- Change type
-              added     = "✚", -- NOTE: you can set any of these to an empty string to not show them
-              deleted   = "✖",
-              modified  = "",
-              renamed   = "",
+              added = "✚", -- NOTE: you can set any of these to an empty string to not show them
+              deleted = "✖",
+              modified = "",
+              renamed = "",
               -- Status type
               untracked = "",
-              ignored   = "",
-              unstaged  = "",
-              staged    = "",
-              conflict  = "",
+              ignored = "",
+              unstaged = "",
+              staged = "",
+              conflict = "",
             },
             align = "right",
-          }
+          },
         },
       })
     end,
@@ -189,10 +192,25 @@ return {
         map("n", "<leader>gl", "<cmd>Gitsigns blame_line<CR>", "Blame line")
         map("n", "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle blame")
         map("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<CR>", "Diff")
-      end
-      },
+      end,
     },
+  },
+  -- color highlighter
+  {
+    "NvChad/nvim-colorizer.lua",
+    event = "BufReadPre",
+    config = function()
+      require("colorizer").setup {
+        filetypes = { "*" },
+        user_default_options = {
+          names = false,
+          tailwind = "both",
+          mode = "background"
+        }
+      }
+    end
+  },
   -- École 42
   { "magalhaesm/42header.nvim", ft = { "c", "cpp" } },
-  { "andweeb/presence.nvim", opts = {}, event = "VeryLazy" },
+  { "andweeb/presence.nvim",    opts = {},          event = "VeryLazy" },
 }
