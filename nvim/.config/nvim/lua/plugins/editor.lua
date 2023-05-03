@@ -167,12 +167,15 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       signs = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "契" },
-        topdelete = { text = "契" },
-        changedelete = { text = "▎" },
-        untracked = { text = "▎" },
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "-" },
+        -- add = { text = "▎" },
+        -- change = { text = "▎" },
+        -- delete = { text = "契" },
+        -- topdelete = { text = "契" },
+        -- changedelete = { text = "▎" },
+        -- untracked = { text = "▎" },
       },
       numhl = false,
       linehl = false,
@@ -211,6 +214,11 @@ return {
     end
   },
   -- École 42
-  { "magalhaesm/42header.nvim", ft = { "c", "cpp" } },
-  { "andweeb/presence.nvim",    opts = {},          event = "VeryLazy" },
+  { dir = "~/Projetos/42header", ft = { "c", "cpp" } },
+  {
+    "andweeb/presence.nvim",
+    opts = {},
+    event = "VeryLazy",
+    enabled = false,
+  },
 }

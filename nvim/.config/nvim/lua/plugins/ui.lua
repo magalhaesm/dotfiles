@@ -8,9 +8,9 @@ return {
     event = "VeryLazy",
     keys = {
       { "<leader>bt", "<cmd>BufferLineGroupToggle tests<CR>", desc = "Group Tests" },
-      { "<leader>bx", "<cmd>BufferLineGroupToggle docs<CR>", desc = "Group Docs" },
-      { "<S-h>", "<cmd>BufferLineCyclePrev<CR>" },
-      { "<S-l>", "<cmd>BufferLineCycleNext<CR>" },
+      { "<leader>bx", "<cmd>BufferLineGroupToggle docs<CR>",  desc = "Group Docs" },
+      { "<S-h>",      "<cmd>BufferLineCyclePrev<CR>" },
+      { "<S-l>",      "<cmd>BufferLineCycleNext<CR>" },
     },
     opts = {
       options = {
@@ -33,13 +33,13 @@ return {
               name = "tests",
               icon = "",
               matcher = function(buf)
-                return buf.filename:match("%test_") or buf.filename:match("%_spec")
+                return buf.path:match("%test_") or buf.path:match("%_spec")
               end,
             },
             {
               name = "docs",
               matcher = function(buf)
-                return buf.filename:match("%.md") or buf.filename:match("%.txt")
+                return buf.path:match("%.md") or buf.path:match("%.txt")
               end,
             },
           },

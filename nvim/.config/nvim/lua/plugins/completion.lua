@@ -5,9 +5,9 @@ return {
     version = "*",
     event = "InsertEnter",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp", -- nvim-cmp source for neovim's built-in LSP
-      "hrsh7th/cmp-buffer", -- nvim-cmp source for buffer words
-      "hrsh7th/cmp-path", -- nvim-cmp source for path words
+      "hrsh7th/cmp-nvim-lsp",     -- nvim-cmp source for neovim's built-in LSP
+      "hrsh7th/cmp-buffer",       -- nvim-cmp source for buffer words
+      "hrsh7th/cmp-path",         -- nvim-cmp source for path words
       "saadparwaiz1/cmp_luasnip", -- nvim-cmp source for luasnip
     },
     opts = function()
@@ -22,8 +22,8 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.ConfirmBehavior.Replace }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.ConfirmBehavior.Replace }),
           ["<C-d>"] = cmp.mapping.scroll_docs(4),
           ["<C-u>"] = cmp.mapping.scroll_docs(-4),
           ["<C-Space>"] = cmp.mapping.complete(),

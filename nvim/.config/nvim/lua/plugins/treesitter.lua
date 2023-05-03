@@ -24,6 +24,7 @@ return {
         "cpp",
         "lua",
         "python",
+        -- "comment",
         "query",
         "javascript",
         "typescript",
@@ -35,6 +36,7 @@ return {
         "regex",
         "tsx",
         "vim",
+        "vimdoc",
         "yaml",
         "make"
       },
@@ -69,8 +71,9 @@ return {
       textobjects = {
         lsp_interop = {
           enable = true,
-          border = "none",
-          floating_preview_opts = {},
+          floating_preview_opts = {
+            border = "rounded",
+          },
           peek_definition_code = {
             ["<leader>df"] = "@function.outer",
             ["<leader>dF"] = "@class.outer",

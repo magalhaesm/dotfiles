@@ -32,7 +32,7 @@ o.softtabstop = 2
 o.expandtab = true -- convert tabs to spaces
 o.shiftwidth = 2 -- the number of spaces inserted for each indentation
 
-o.cursorline = true -- highlight the current line
+-- o.cursorline = true -- highlight the current line
 -- opt.cursorlineopt = "number" -- how cursorline is displayed (default: number,line)
 
 o.number = true -- set numbered lines

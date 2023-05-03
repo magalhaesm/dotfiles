@@ -42,10 +42,7 @@ return {
 
         -- See `:help K` for why this keymap
         nmap("K", function()
-          require("pretty_hover").hover({
-            max_width = math.floor(vim.o.columns * 0.7),
-            max_height = math.floor(vim.o.lines * 0.3)
-          })
+          require("pretty_hover").hover()
         end, "Hover Documentation")
         vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
       end)
@@ -90,7 +87,8 @@ return {
       -- vim.diagnostic.config({ virtual_text = false, float = border_opts })
       vim.diagnostic.config({
         virtual_text = {
-          prefix = "",
+          -- prefix = "",
+          prefix = "",
           severity_sort = true,
         },
         float = {
@@ -165,7 +163,6 @@ return {
         "@param",
         "@tparam",
         "@see",
-        "@return",
       },
       header = {
         "@class",
