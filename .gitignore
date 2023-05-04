@@ -45,3 +45,5 @@ __pycache__
 *.bak
 .zcompdump*
 **/zsh/plugins
+
+watch_later
