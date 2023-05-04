@@ -2,17 +2,9 @@
 
 HANDBOOK="$(xdg-user-dir DOCUMENTS)/handbook/"
 
-show_file() {
-  syntax=$(grep "syntax" "$1" | cut -d : -f2 | tr -d ' ')
-  if [ -n "$syntax" ]; then
-    bat "$1" -l "$syntax" -r 3:
-  else
-    bat "$1" -l "sh"
-  fi
-}
-
 tmux-window() {
-  tmux new-window -n "$(basename "$0")" "$SHELL" -c "$1 | less -iR"
+  # tmux new-window -n "$(basename "$0")" "$SHELL" -c "$1"
+  tmux new-window -n "$(basename "$0")" "$SHELL" -c "$1 | glow - -s dracula"
 }
 
 open_handbook() {
@@ -29,7 +21,9 @@ main() {
   if [ -z "$1" ]; then
     open_handbook
   else
-    show_file "$1"
+    # Open on readonly mode and close just pressing `q`
+    # nvim -R "$1" -c "lua vim.keymap.set('n', 'q', '<cmd>:q<cr>')"
+    cat "$1"
   fi
 }
 

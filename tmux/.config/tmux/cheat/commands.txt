@@ -1,3 +1,4 @@
+ar
 awk
 chmod
 chown
@@ -10,7 +11,9 @@ gdb
 git
 grep
 make
+nm
 sed
+strace
 sqlite
 ssh
 stow
