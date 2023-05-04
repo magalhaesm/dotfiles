@@ -7,6 +7,9 @@ python_binary = "python3"
 [c]
 disabled = true
 
+[nodejs]
+disabled = true
+
 [rust]
 symbol = "🦀 "
 
