@@ -21,21 +21,19 @@ zsh_add_plugin "zdharma-continuum/fast-syntax-highlighting"
 bindkey "^ " autosuggest-accept
 
 # -- Fzf -----------------------------------------------------------------------
-
 zsh_add_file "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 
 # -- Rustup --------------------------------------------------------------------
-
 zsh_add_file "$XDG_DATA_HOME/cargo/env"
 
 # -- ASDF --------------------------------------------------------------------
-
 zsh_add_file "/opt/asdf-vm/asdf.sh"
 
 # -- Zoxide --------------------------------------------------------------------
-
 eval "$(zoxide init --cmd j zsh)"
 
 # -- Starship ------------------------------------------------------------------
-
 eval "$(starship init zsh)"
+
+# -- Tmuxfier ------------------------------------------------------------------
+eval "$(tmuxifier init -)"

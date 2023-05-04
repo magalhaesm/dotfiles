@@ -59,3 +59,9 @@ alias gc='git commit'
 alias gs='git status -s'
 alias gst='git status'
 alias gl='git log --oneline --decorate --graph'
+alias lg='lazygit'
+
+# Kitty terminal
+alias kssh="kitty +kitten ssh"
+
+alias C='~/Documentos/codes'

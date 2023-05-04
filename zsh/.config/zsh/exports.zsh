@@ -79,7 +79,7 @@ export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 export NETRC="${XDG_CONFIG_HOME}/netrc"
 
 export BAT_PAGER="less"
-export WGETRC="${XDG_CONFIG_HOME}/wget/wgetrc"
+# export WGETRC="${XDG_CONFIG_HOME}/wgetrc"
 export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
 
 export TMUX_CONFIG="${XDG_CONFIG_HOME}/tmux/tmux.conf"
@@ -96,4 +96,4 @@ export GOPATH="${XDG_DATA_HOME}/go"
 
 export _ZO_DATA_DIR="${XDG_DATA_HOME}/zoxide"
 
-# export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
+export PATH="$HOME/.config/tmuxifier/bin:$PATH"
