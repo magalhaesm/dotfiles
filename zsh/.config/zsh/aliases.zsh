@@ -1,4 +1,4 @@
-alias v='vim' vim='nvim'
+alias v='nvim'
 alias cn='${EDITOR} ~/.config/nvim/init.lua'
 alias cz='${EDITOR} ${ZDOTDIR}/zshrc'
 alias ct='${EDITOR} ${TMUX_CONFIG}'
@@ -51,7 +51,7 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 
 # Open
-alias o='xdg-open'
+alias o='nohup xdg-open >/dev/null'
 
 # Git
 alias g='git'
@@ -64,4 +64,8 @@ alias lg='lazygit'
 # Kitty terminal
 alias kssh="kitty +kitten ssh"
 
+# Atalhos para diretórios
+alias p='cd $HOME/Projetos'
+alias c='cd $HOME/.config'
+alias dx='cd $HOME/Dropbox'
 alias C='~/Documentos/codes'

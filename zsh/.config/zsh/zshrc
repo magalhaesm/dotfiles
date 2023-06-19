@@ -1,39 +1,53 @@
-# -- ZSHRC ---------------------------------------------------------------------
+# === Functions ===
 
-source "$ZDOTDIR/functions.zsh"
+# Source a file if it exists
+zsh_add_file() {
+  [ -f "$1" ] && source "$1"
+}
+
+# Create a TMUX session using the current directory's name as the session name.
+# The session will have two windows: "editor" and "terminal".
+# The "editor" window opens with the default command defined by the $EDITOR
+# environment variable.
+ide() {
+  SESSION=$(basename "$PWD" | tr -d .)
+  if ! tmux has-session -t "$SESSION" 2>/dev/null
+  then
+    tmux -f "$TMUX_CONFIG" new-session -s "$SESSION" -n editor -d "$EDITOR"
+    # tmux send-keys -t "$SESSION:1" "$EDITOR" C-m
+    tmux new-window -n terminal -t "$SESSION"
+    tmux select-window -t "$SESSION:1"
+  fi
+  tmux attach -t "$SESSION"
+}
+
+# === Oh-My-Zsh ===
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+plugins=(
+  zsh-autosuggestions
+  fast-syntax-highlighting
+)
 
 zsh_add_file "$ZSH/oh-my-zsh.sh"
 
-zsh_add_file "$ZDOTDIR/aliases.zsh"
-zsh_add_file "$ZDOTDIR/key-bindings.zsh"
-
-zsh_add_file "$HOME/Dropbox/dotfiles/secrets"
-zsh_add_file "$HOME/Dropbox/dotfiles/aliases.zsh"
-
-# -- Plugins -------------------------------------------------------------------
-
-zsh_add_plugin "zsh-users/zsh-autosuggestions"
-zsh_add_plugin "zdharma-continuum/fast-syntax-highlighting"
-
-# -- Plugin Preferences --------------------------------------------------------
-
-# Autosuggestions
+# === Plugin Preferences ===
+# zsh-autosuggestions
 bindkey "^ " autosuggest-accept
 
-# -- Fzf -----------------------------------------------------------------------
+# === Personal Preferences ===
+zsh_add_file "$ZDOTDIR/aliases.zsh"
+zsh_add_file "$ZDOTDIR/keybindings.zsh"
+zsh_add_file "$HOME/Dropbox/dotfiles/secrets"
+
+# === Tools ===
+
+# Fzf
 zsh_add_file "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 
-# -- Rustup --------------------------------------------------------------------
-zsh_add_file "$XDG_DATA_HOME/cargo/env"
-
-# -- ASDF --------------------------------------------------------------------
+# ASDF
 zsh_add_file "/opt/asdf-vm/asdf.sh"
+zsh_add_file "$XDG_DATA_HOME/asdf/plugins/golang/set-env.zsh"
 
-# -- Zoxide --------------------------------------------------------------------
+# Zoxide
 eval "$(zoxide init --cmd j zsh)"
-
-# -- Starship ------------------------------------------------------------------
-eval "$(starship init zsh)"
-
-# -- Tmuxfier ------------------------------------------------------------------
-eval "$(tmuxifier init -)"
