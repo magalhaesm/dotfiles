@@ -6,31 +6,26 @@ CYAN="\033[1;36m"
 GREEN="\033[1;32m"
 
 DOTFILES="$HOME/.dotfiles"
-USER_ENVS="\$HOME/.config/zsh/exports.zsh"
 
 dependencies=(
   bat
-  delta
+  delta  # required by git
   exa
-  fd
+  fd     # required by fzf
   fzf
-  gcc
+  gcc    # required by nvim (treesitter)
   kitty
-  node
+  npm    # required by nvim (Mason)
+  unzip  # required by nvim (Mason)
   nvim
-  rg
-  starship
+  rg     # required by nvim (Telescope)
   stow
   tmux
   xsel
   zoxide
   zsh
-  unzip
-  shellcheck
-  stylua
+  lazygit
 )
-
-missing=()
 
 info() {
   echo -e "\n${CYAN}info:${NC} $1"
@@ -41,105 +36,89 @@ error() {
 }
 
 installed() {
-  if [ -x "$(command -v "$1")" ]; then
+  if command -v "$1" &>/dev/null; then
     echo -e "${GREEN} ✓${NC} $1"
     return 0
   else
-    echo -e "${RED} ✗${NC} $1 <-- (não encontrado)"
+    echo -e "${RED} ✗${NC} $1 <-- (not found)"
     return 1
   fi
 }
 
 check_sys_deps() {
   if ! installed git || ! installed curl; then
-    echo -e "\nPor favor, instale e tente de novo."
+    echo -e "\nPlease install the required dependencies and try again."
     exit 1
   fi
 }
 
 clone_dotfiles() {
-  [ -d "$DOTFILES" ] && { echo "Diretório $DOTFILES já existe." && return; }
-  git clone https://github.com/magalhaesm/dotfiles.git "$DOTFILES"
+  if [ -d "$DOTFILES" ]; then
+    echo "Directory $DOTFILES already exists."
+    return
+  fi
+  git clone https://github.com/magalhaesm/dotfiles.git \
+    "$DOTFILES" || error "Failed to clone dotfiles repository."
 }
 
 check_deps() {
   for dep in "${dependencies[@]}"; do
-    ! installed "$dep" && missing+=("$dep")
+    ! installed "$dep" && exit 1
   done
-  [ "${#missing[@]}" -gt 0 ] && { error "Dependências faltando."; exit 1; }
-}
-
-install_missing() {
-  if [ "${#missing[@]}" != 0 ]; then
-    read -p " Instalar dependências faltando? [y/N] " -r install
-    [ "$install" != "y" ] && exit
-
-    info "Instalando dependências..."
-    for tool in "${missing[@]}"; do
-      echo -e " ==> ${GREEN}${tool}${NC}"
-      "$DOTFILES/scripts/install-$tool"
-    done
-  fi
 }
 
 config() {
-  [ -d "$1" ] && stow -vt "$HOME" "$1"
+  if [ -d "$1" ]; then
+    stow -vt "$HOME" "$1"
+  fi
 }
 
 stow_configs() {
-  pushd "$DOTFILES" &>/dev/null || exit
-
-  config git
+  (cd "$DOTFILES" && config git)
   for tool in "${dependencies[@]}"; do
-    config "$tool"
+    (cd "$DOTFILES" && config "$tool")
   done
-
-  popd &>/dev/null || exit
-}
-
-set_zshenv() {
-  local file="/etc/zsh/zshenv"
-  if ! grep -q $USER_ENVS $file; then
-    echo "Editando $file"
-
-    echo -e "\n# Variáveis de ambiente do usuário" | sudo tee -a $file
-    echo "[ -f $USER_ENVS ] && source $USER_ENVS" | sudo tee -a $file
-    info "Reinicie a sessão para que as modificações tenham efeito."
-  fi
 }
 
 set_shell() {
   local zsh
+
   zsh=$(command -v zsh)
-  [ "$SHELL" != "$zsh" ] && sudo chsh -s "$zsh" "$USER" || echo "Já configurado."
+  if [ "$SHELL" != "$zsh" ]; then
+    if [ "$EUID" -eq 0 ]; then
+      sudo chsh -s "$zsh" "$USER"
+    else
+      echo "You need administrative privileges to change the default shell."
+    fi
+  else
+    echo "Shell already configured."
+  fi
 }
 
 main() {
   echo "---------------------------------------------------------"
-  echo " ==> Instalando terminal, ferramentas e configurações"
+  echo " ==> Installing terminal, tools, and configurations"
   echo "---------------------------------------------------------"
 
-  info "Verificando dependências de instalação..."
+  info "Checking installation dependencies..."
   check_sys_deps
 
-  info "Obtendo repositório..."
+  info "Cloning dotfiles repository..."
   clone_dotfiles
 
-  info "Verificando dependências do ambiente..."
+  info "Checking environment dependencies..."
   check_deps
-  # install_missing
 
-  info "Vinculando arquivos de configuração..."
+  info "Linking configuration files..."
   stow_configs
 
-  info "Configurando variáveis de ambiente..."
-  set_zshenv
-
-  info "Instalando Oh-my-zsh..."
+  info "Installing Oh-my-zsh..."
   "$DOTFILES/scripts/install-omz"
 
-  info "Configurando zsh como shell padrão..."
+  info "Setting zsh as the default shell..."
   set_shell
+
+  info "Installation completed successfully."
 }
 
 main
