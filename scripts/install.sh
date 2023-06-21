@@ -46,7 +46,7 @@ installed() {
 }
 
 check_sys_deps() {
-  if ! installed git || ! installed curl; then
+  if ! installed git || ! installed wget; then
     echo -e "\nPlease install the required dependencies and try again."
     exit 1
   fi
