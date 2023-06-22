@@ -9,7 +9,10 @@ return {
       { "williamboman/mason.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
       { "jose-elias-alvarez/null-ls.nvim" },
-
+      -- { -- For renaming
+      --   "stevearc/dressing.nvim",
+      --   event = { "BufReadPost", "BufNewFile" },
+      -- },
       -- Autocompletion
       { "hrsh7th/nvim-cmp" },
       { "hrsh7th/cmp-nvim-lsp" },
@@ -61,12 +64,14 @@ return {
         "bashls",
         "pyright",
         "tsserver",
-        "lua_ls"
+        "lua_ls",
+        "gopls"
       })
 
       lsp.format_on_save({
         servers = {
-          ['lua_ls'] = { 'lua' },
+          ["lua_ls"] = { "lua" },
+          ["gopls"] = { "go" },
         }
       })
 
@@ -104,9 +109,7 @@ return {
   },
   {
     "williamboman/mason.nvim",
-    build = function()
-      pcall(vim.cmd, "MasonUpdate")
-    end,
+    build = ":MasonUpdate",
     cmd = "Mason",
     keys = {
       { "<leader>cm", "<cmd>Mason<CR>", desc = "Mason" }
@@ -127,12 +130,9 @@ return {
   {
     "j-hui/fidget.nvim",
     event = "LspAttach",
+    tag = 'legacy',
     config = function()
-      require("fidget").setup {
-        -- window = {
-        --   blend = 0 -- set 0 if using transparent background, otherwise set 100
-        -- },
-      }
+      require("fidget").setup {}
     end
   },
   {

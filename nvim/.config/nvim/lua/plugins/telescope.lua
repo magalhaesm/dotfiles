@@ -45,7 +45,7 @@ return {
     version = "*",
     keys = {
       { "<leader>/",       util.telescope("live_grep"),                    desc = "Grep (workspace)" },
-      { "<leader>fb",      "<cmd>Telescope buffers<CR>",                   desc = "[B]uffers" },
+      { "<C-b>",           "<cmd>Telescope buffers<CR>",                   desc = "[B]uffers" },
       { "<leader>ff",      util.telescope("files"),                        desc = "[F]iles (root dir)" },
       { "<C-p>",           util.telescope("files"),                        desc = "[F]iles (root dir)" },
       { "<leader><space>", util.telescope("files"),                        desc = "[F]ind Files (root dir)" },
