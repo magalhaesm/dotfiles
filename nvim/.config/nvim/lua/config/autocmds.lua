@@ -1,15 +1,16 @@
+local autocmd = vim.api.nvim_create_autocmd
 local function augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
 -- Check if we need to reload the file when it changed
-vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   group = augroup("checktime"),
   command = "checktime",
 })
 
 -- Highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
   callback = function()
     vim.highlight.on_yank()
@@ -17,7 +18,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- resize splits if window got resized
-vim.api.nvim_create_autocmd({ "VimResized" }, {
+autocmd({ "VimResized" }, {
   group = augroup("resize_splits"),
   callback = function()
     vim.cmd("tabdo wincmd =")
@@ -25,7 +26,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 })
 
 -- close some filetypes with <q>
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
     "qf",
@@ -45,7 +46,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- go to last loc when opening a buffer
-vim.api.nvim_create_autocmd("BufReadPost", {
+autocmd("BufReadPost", {
   group = augroup("last_loc"),
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
@@ -57,7 +58,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- wrap and check for spell in text filetypes
--- vim.api.nvim_create_autocmd("FileType", {
+-- autocmd("FileType", {
 --   group = augroup("wrap_spell"),
 --   pattern = { "gitcommit", "markdown" },
 --   callback = function()
@@ -67,7 +68,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- })
 
 -- 42 Header
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+autocmd({ "BufWritePre" }, {
   group = augroup("update_42header"),
   pattern = { "*.h", "*.hpp", "*.c", "*.cpp" },
   callback = function()
@@ -75,12 +76,8 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   end,
 })
 
--- Run gofmt on save
-local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    vim.lsp.buf.format()
-  end,
-  group = format_sync_grp,
+autocmd({ "BufWritePre" }, {
+  group = augroup("i_hate_trailing_whitespace"),
+  pattern = "*",
+  command = [[%s/\s\+$//e]],
 })
