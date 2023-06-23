@@ -3,10 +3,8 @@ return {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
     keys = {
-      { "<leader>bt", "<cmd>BufferLineGroupToggle tests<CR>", desc = "Group Tests" },
-      { "<leader>bx", "<cmd>BufferLineGroupToggle docs<CR>",  desc = "Group Docs" },
-      { "<S-h>",      "<cmd>BufferLineCyclePrev<CR>" },
-      { "<S-l>",      "<cmd>BufferLineCycleNext<CR>" },
+      { "<S-h>", "<cmd>BufferLineCyclePrev<CR>" },
+      { "<S-l>", "<cmd>BufferLineCycleNext<CR>" },
     },
     opts = {
       options = {
@@ -21,23 +19,6 @@ return {
             text = " Explorer",
             highlight = "PanelHeading",
             padding = 1,
-          },
-        },
-        groups = {
-          items = {
-            {
-              name = "tests",
-              icon = "",
-              matcher = function(buf)
-                return buf.path:match("%test_") or buf.path:match("%_spec")
-              end,
-            },
-            {
-              name = "docs",
-              matcher = function(buf)
-                return buf.path:match("%.md") or buf.path:match("%.txt")
-              end,
-            },
           },
         },
       },
