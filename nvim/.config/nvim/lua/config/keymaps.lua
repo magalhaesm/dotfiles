@@ -58,8 +58,8 @@ map("n", "[l", "<cmd>lprev<cr>zz", { desc = "Loclist: prev" })
 map("c", "<C-v>", "<C-r>+")
 
 -- Split window
-map("n", "<leader>ss", "<cmd>split<CR>")
-map("n", "<leader>sv", "<cmd>vsplit<CR>")
+-- map("n", "<leader>ss", "<cmd>split<CR>")
+-- map("n", "<leader>sv", "<cmd>vsplit<CR>")
 
 map("v", "<leader>p", '"_dP')
 map("i", "<C-l>", "<Right>")

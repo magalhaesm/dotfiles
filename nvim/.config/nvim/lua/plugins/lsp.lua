@@ -5,18 +5,11 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       -- LSP Support
-      { "neovim/nvim-lspconfig" },
-      { "williamboman/mason.nvim" },
-      { "williamboman/mason-lspconfig.nvim" },
-      { "jose-elias-alvarez/null-ls.nvim" },
-      -- { -- For renaming
-      --   "stevearc/dressing.nvim",
-      --   event = { "BufReadPost", "BufNewFile" },
-      -- },
-      -- Autocompletion
-      { "hrsh7th/nvim-cmp" },
-      { "hrsh7th/cmp-nvim-lsp" },
-      { "L3MON4D3/LuaSnip" },
+      "neovim/nvim-lspconfig",
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
+      "stevearc/dressing.nvim",
     },
     config = function()
       local lsp = require("lsp-zero").preset({ "minimal" })
@@ -134,23 +127,6 @@ return {
     config = function()
       require("fidget").setup {}
     end
-  },
-  {
-    "folke/neodev.nvim",
-    event = "LspAttach",
-    config = function()
-      require("neodev").setup({
-        library = {
-          enabled = true,  -- when not enabled, neodev will not change any settings to the LSP server
-          -- these settings will be used for your Neovim config directory
-          runtime = true,  -- runtime path
-          types = true,    -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
-          plugins = false, -- installed opt or start plugins in packpath
-          -- you can also specify the list of plugins to make available as a workspace library
-          -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
-        },
-      })
-    end,
   },
   {
     "Fildo7525/pretty_hover",
