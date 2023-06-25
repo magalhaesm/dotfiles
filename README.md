@@ -34,3 +34,7 @@ The script will check for the required dependencies and inform you if any are mi
 > Note: If prompted, enter your password to change the default shell.
 
 3. After the installation is complete, restart your terminal for the changes to take effect.
+
+## License
+
+[GPL-3.0](https://github.com/magalhaesm/dotfiles/blob/main/LICENSE)
