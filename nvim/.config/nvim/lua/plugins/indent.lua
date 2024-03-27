@@ -2,12 +2,11 @@ return {
   -- Indent Guides
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost", "BufNewFile" },
+    main = "ibl",
     opts = {
-      char = "│",
-      filetype_exclude = { "help", "alpha", "neo-tree", "Trouble", "lazy" },
-      show_trailing_blankline_indent = false,
-      show_current_context = true,
-    },
-  },
+      indent = { char = "│", tab_char = "│" },
+      scope = { enabled = true, show_start = false, },
+      whitespace = { highlight = { "Whitespace", "NonText" } },
+    }
+  }
 }

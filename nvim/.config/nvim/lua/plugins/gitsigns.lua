@@ -1,38 +1,27 @@
 return {
   -- GitSigns
   {
-    "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    'lewis6991/gitsigns.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       signs = {
-        add = { text = "+" },
-        change = { text = "~" },
-        delete = { text = "-" },
-        -- add = { text = "▎" },
-        -- change = { text = "▎" },
-        -- delete = { text = "契" },
-        -- topdelete = { text = "契" },
-        -- changedelete = { text = "▎" },
-        -- untracked = { text = "▎" },
-      },
-      numhl = false,
-      linehl = false,
-      current_line_blame = false,
-      current_line_blame_opts = {
-        virt_text = true,
-        virt_text_pos = "eol",
-        -- delay = 2000,
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
       },
       preview_config = {
-        border = "rounded",
+        border = 'rounded',
       },
       on_attach = function(buffer)
         local function map(mode, l, r, desc)
           vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
         end
-        map("n", "<leader>gl", "<cmd>Gitsigns blame_line<CR>", "Blame line")
-        map("n", "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle blame")
-        map("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<CR>", "Diff")
+        map('n', '<leader>gb', '<cmd>Gitsigns blame_line<CR>', '[G]it [B]lame')
+        map('n', '<leader>gt', '<cmd>Gitsigns toggle_current_line_blame<CR>', '[G]it blame [T]oggle')
+        map('n', '<leader>gr', '<cmd>Gitsigns reset_hunk<CR>', '[R]eset Hunk')
+        map('n', '<leader>gp', '<cmd>Gitsigns preview_hunk<CR>', '[P]review Hunk')
       end,
     },
   },

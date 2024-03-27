@@ -1,28 +1,36 @@
 return {
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+
+    init = function()
+      -- Load the colorscheme here.
+      vim.cmd.colorscheme 'catppuccin'
+    end,
+
     config = function()
-      require("catppuccin").setup({
-        flavour = "mocha", -- latte, frappe, macchiato, mocha
+      require('catppuccin').setup {
+        flavour = 'mocha', -- latte, frappe, macchiato, mocha
         background = {
           -- :h background
-          light = "latte",
-          dark = "mocha",
+          light = 'latte',
+          dark = 'mocha',
         },
         transparent_background = false,
         show_end_of_buffer = false, -- show the '~' characters after the end of buffers
         term_colors = true,
         dim_inactive = {
           enabled = false,
-          shade = "dark",
+          shade = 'dark',
           percentage = 0.15,
         },
         no_italic = false, -- Force no italic
-        no_bold = false,   -- Force no bold
+        no_bold = false, -- Force no bold
+        -- no_underline = true, -- Force no underline
         styles = {
-          comments = { "italic" },
-          conditionals = { "italic" },
+          comments = { 'italic' },
+          conditionals = { 'italic' },
           loops = {},
           functions = {},
           keywords = {},
@@ -46,7 +54,7 @@ return {
           lsp_trouble = false,
           -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
         },
-      })
-    end
+      }
+    end,
   },
 }
