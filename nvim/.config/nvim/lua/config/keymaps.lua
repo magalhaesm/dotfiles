@@ -2,8 +2,8 @@ local map = vim.keymap.set
 local opts = { silent = true }
 
 -- Save and Quit mappings
--- map('n', '<leader>w', '<cmd>w!<CR>', { desc = 'Save' })
--- map('n', '<leader>q', '<cmd>q!<CR>', { desc = 'Quit' })
+map('n', '<leader>w', '<cmd>w!<CR>', { desc = 'Save' })
+map('n', '<leader>q', '<cmd>q!<CR>', { desc = 'Quit' })
 
 -- Use CTRL+<hjkl> to switch between windows
 --  See `:help wincmd` for a list of all window commands
@@ -49,7 +49,7 @@ map('v', 'ae', ':normal! ggVG<CR>', { desc = 'Select all lines in visual mode' }
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous [D]iagnostic' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next [D]iagnostic' })
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = '[L]ine Diagnostic' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '[Q]uickfix List' })
+vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = '[Q]uickfix List' })
 
 -- Paste on command line mapping
 map('c', '<C-v>', '<C-r>+', { desc = 'Paste on command line' })

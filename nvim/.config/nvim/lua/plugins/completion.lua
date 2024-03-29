@@ -2,7 +2,6 @@ return {
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
-    version = '*',
     event = 'InsertEnter',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- nvim-cmp source for neovim's built-in LSP
@@ -11,7 +10,7 @@ return {
       'saadparwaiz1/cmp_luasnip', -- nvim-cmp source for luasnip
     },
     opts = function()
-      local cmp = require 'cmp'
+      local cmp = require('cmp')
       return {
         completion = {
           completeopt = 'menu,menuone,noselect',
@@ -21,19 +20,16 @@ return {
             require('luasnip').lsp_expand(args.body)
           end,
         },
-        mapping = cmp.mapping.preset.insert {
+        mapping = cmp.mapping.preset.insert({
           ['<C-n>'] = cmp.mapping.select_next_item(),
           ['<C-p>'] = cmp.mapping.select_prev_item(),
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-Space>'] = cmp.mapping.complete {},
+          ['<C-Space>'] = cmp.mapping.complete({}),
           ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
-          },
-        },
-        sources = cmp.config.sources {
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           {
@@ -42,7 +38,7 @@ return {
             -- keyword_length = 3,
           },
           { name = 'path' },
-        },
+        }),
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),

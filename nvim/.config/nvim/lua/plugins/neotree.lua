@@ -1,20 +1,17 @@
 return {
   {
     'nvim-neo-tree/neo-tree.nvim',
-    version = '*',
-    init = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
-    end,
+    branch = 'v3.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons',
+      -- 'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
     },
     keys = {
       { '<leader>e', '<cmd>Neotree toggle<CR>', desc = '[E]xplorer' },
     },
     config = function()
-      require('neo-tree').setup {
+      require('neo-tree').setup({
         window = {
           width = 35,
         },
@@ -28,18 +25,18 @@ return {
               added = '✚', -- NOTE: you can set any of these to an empty string to not show them
               deleted = '✖',
               modified = '',
-              renamed = '',
+              renamed = '󰁕', -- this can only be used in the git_status source
               -- Status type
               untracked = '',
               ignored = '',
-              unstaged = '',
+              unstaged = '',
               staged = '',
               conflict = '',
             },
             align = 'right',
           },
         },
-      }
+      })
     end,
   },
 }

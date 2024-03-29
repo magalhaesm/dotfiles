@@ -13,12 +13,12 @@ return {
         keyword = 'fg',
         after = '',
       },
-      { signs = false },
+      signs = false,
     },
     event = { 'BufReadPost', 'BufNewFile' },
     keys = {
-      { '<leader>tq', '<cmd>TodoQuickFix<CR>' },
-      { '<leader>tt', '<cmd>TodoTelescope<CR>' },
+      { '<leader>tq', '<cmd>TodoQuickFix<CR>', desc = '[T]odo [Q]uickFix' },
+      -- { '<leader>tt', '<cmd>TodoTelescope<CR>' },
     },
   },
 }

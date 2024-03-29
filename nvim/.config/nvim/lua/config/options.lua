@@ -22,10 +22,9 @@ o.undofile = true -- enable persistent undo
 o.timeoutlen = 300 -- time to wait for a mapped sequence to complete (in milliseconds)
 o.updatetime = 250 -- faster completion (4000ms default)
 
-o.tabstop = 2 -- insert 2 spaces for a tab
-o.softtabstop = 2
-o.expandtab = true -- convert tabs to spaces
-o.shiftwidth = 2 -- the number of spaces inserted for each indentation
+-- o.expandtab = true -- convert tabs to spaces
+o.tabstop = 4 -- insert 4 spaces for a tab
+o.shiftwidth = 4 -- the number of spaces inserted for each indentation
 
 o.cursorline = true -- highlight the current line
 
@@ -39,9 +38,9 @@ o.scrolloff = 10 -- lines to keep above and below the cursor
 o.showcmd = false -- show command in the last line of the screen
 
 o.list = true -- show invisible characters
-o.listchars = { tab = '∙∙', nbsp = '␣', trail = '•', extends = '»', precedes = '«' }
+o.listchars = { tab = '» ', nbsp = '␣', trail = '•', extends = '»', precedes = '«' }
 o.showbreak = '⤷ '
 
-o.shortmess:append { W = true, I = true, c = true }
+o.shortmess:append({ W = true, I = true, c = true })
 
-o.whichwrap:append '<,>,[,]'
+o.whichwrap:append('<,>,[,]')

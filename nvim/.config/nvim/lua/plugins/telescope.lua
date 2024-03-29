@@ -1,4 +1,4 @@
-local util = require 'config.util'
+local util = require('config.util')
 
 local function large_preview(_, cols, _)
   if cols > 200 then
@@ -9,9 +9,9 @@ local function large_preview(_, cols, _)
 end
 
 return {
-  -- [[ Fuzzy Finder ]]
   {
     'nvim-telescope/telescope.nvim',
+    tag = '0.1.6',
     dependencies = {
       'nvim-lua/plenary.nvim',
       lazy = true,
@@ -19,15 +19,14 @@ return {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
         cond = function()
-          return vim.fn.executable 'make' == 1
+          return vim.fn.executable('make') == 1
         end,
         config = function()
-          require('telescope').load_extension 'fzf'
+          require('telescope').load_extension('fzf')
         end,
       },
     },
     cmd = 'Telescope',
-    version = '*',
     keys = {
       -- git
       { '<leader>gc', '<cmd>Telescope git_commits<CR>', desc = '[G]it [C]ommits' },
@@ -37,17 +36,17 @@ return {
       {
         '<C-p>',
         function()
-          require('telescope.builtin').find_files(require('telescope.themes').get_dropdown {
+          require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({
             winblend = 10,
             previewer = false,
-          })
+          }))
         end,
         desc = '[F]iles (root)',
       },
       { '<C-b>', '<cmd>Telescope buffers<CR>', desc = '[B]uffers' },
-      { '<leader>sf', util.telescope 'files', desc = '[S]earch [F]iles (root)' },
+      { '<leader>sf', util.telescope('files'), desc = '[S]earch [F]iles (root)' },
       { '<leader>sF', util.telescope('files', { cwd = false }), desc = '[S]earch [F]iles (cwd)' },
-      { '<leader>sg', util.telescope 'live_grep', desc = '[S]earch by [G]rep' },
+      { '<leader>sg', util.telescope('live_grep'), desc = '[S]earch by [G]rep' },
       { '<leader>sw', '<cmd>Telescope grep_string<CR>', desc = '[S]earch current [W]ord' },
       { '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = '[S]earch [H]elp' },
       { '<leader>so', '<cmd>Telescope oldfiles<CR>', desc = '[S]earch [O]ld Files' },
@@ -58,20 +57,20 @@ return {
       {
         '<leader>/',
         function()
-          require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
             winblend = 10,
             previewer = false,
-          })
+          }))
         end,
         desc = '[/] Fuzzily search in current buffer',
       },
       {
         '<leader>s/',
         function()
-          require('telescope.builtin').live_grep {
+          require('telescope.builtin').live_grep({
             grep_open_files = true,
             prompt_title = 'Live Grep in Open Files',
-          }
+          })
         end,
         desc = '[S]earch [/] in Open Files',
       },

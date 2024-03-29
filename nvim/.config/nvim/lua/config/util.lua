@@ -1,6 +1,6 @@
 local M = {}
 
-M.root_patterns = { ".git", "lua" }
+M.root_patterns = { '.git', 'lua' }
 
 -- returns the root directory based on:
 -- * lsp workspace folders
@@ -11,15 +11,18 @@ M.root_patterns = { ".git", "lua" }
 function M.get_root()
   ---@type string?
   local path = vim.api.nvim_buf_get_name(0)
-  path = path ~= "" and vim.loop.fs_realpath(path) or nil
+  path = path ~= '' and vim.loop.fs_realpath(path) or nil
   ---@type string[]
   local roots = {}
   if path then
     for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
       local workspace = client.config.workspace_folders
-      local paths = workspace and vim.tbl_map(function(ws)
+      local paths = workspace
+          and vim.tbl_map(function(ws)
             return vim.uri_to_fname(ws.uri)
-          end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
+          end, workspace)
+        or client.config.root_dir and { client.config.root_dir }
+        or {}
       for _, p in ipairs(paths) do
         local r = vim.loop.fs_realpath(p)
         if r and path:find(r, 1, true) then
@@ -44,10 +47,10 @@ function M.get_root()
 end
 
 function M.float_term(cmd, opts)
-  opts = vim.tbl_deep_extend("force", {
+  opts = vim.tbl_deep_extend('force', {
     size = { width = 1.0, height = 0.9 },
   }, opts or {})
-  require("lazy.util").float_term(cmd, opts)
+  require('lazy.util').float_term(cmd, opts)
 end
 
 -- this will return a function that calls telescope.
@@ -58,16 +61,16 @@ function M.telescope(builtin, opts)
   return function()
     builtin = params.builtin
     opts = params.opts
-    opts = vim.tbl_deep_extend("force", { cwd = M.get_root() }, opts or {})
-    if builtin == "files" then
-      if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
+    opts = vim.tbl_deep_extend('force', { cwd = M.get_root() }, opts or {})
+    if builtin == 'files' then
+      if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. '/.git') then
         opts.show_untracked = true
-        builtin = "git_files"
+        builtin = 'git_files'
       else
-        builtin = "find_files"
+        builtin = 'find_files'
       end
     end
-    require("telescope.builtin")[builtin](opts)
+    require('telescope.builtin')[builtin](opts)
   end
 end
 

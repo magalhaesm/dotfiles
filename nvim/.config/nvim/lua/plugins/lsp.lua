@@ -177,8 +177,7 @@ return {
 
       -- Configuration for Vim diagnostics.
       -- Here, options for virtual text and diagnostic floating windows are set.
-      -- vim.diagnostic.config({ virtual_text = false, float = border_opts })
-      vim.diagnostic.config {
+      vim.diagnostic.config({
         virtual_text = {
           -- prefix = "",
           prefix = '',
@@ -192,7 +191,7 @@ return {
           max_height = math.floor(vim.o.lines * 0.3),
           source = 'always',
         },
-      }
+      })
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
@@ -208,9 +207,9 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
-      require('mason-lspconfig').setup {
+      require('mason-lspconfig').setup({
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -221,7 +220,7 @@ return {
             require('lspconfig')[server_name].setup(server)
           end,
         },
-      }
+      })
     end,
   },
   { -- Autoformat

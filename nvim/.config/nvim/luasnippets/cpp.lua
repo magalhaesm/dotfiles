@@ -1,4 +1,4 @@
-local ls = require "luasnip"
+local ls = require('luasnip')
 
 local cpp_main = [[
 int	main(int argc, const char **argv)
@@ -15,7 +15,7 @@ public:
 };
 ]]
 
-ls.add_snippets("cpp", {
-  ls.parser.parse_snippet({ trig = "main", dscr = "Standard main function" }, cpp_main),
-  ls.parser.parse_snippet({ trig = "class" }, cpp_class),
+ls.add_snippets('cpp', {
+  ls.parser.parse_snippet({ trig = 'main', dscr = 'Standard main function' }, cpp_main),
+  ls.parser.parse_snippet({ trig = 'class' }, cpp_class),
 })

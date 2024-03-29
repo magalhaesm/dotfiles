@@ -1,12 +1,16 @@
 return {
-  -- Indent Guides
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    events = { 'BufferEnter' },
     opts = {
-      indent = { char = "│", tab_char = "│" },
-      scope = { enabled = true, show_start = false, },
-      whitespace = { highlight = { "Whitespace", "NonText" } },
-    }
-  }
+      indent = { char = '│' },
+      scope = {
+        enabled = false,
+        show_start = false,
+        show_end = false,
+      },
+      exclude = { filetypes = { 'startify' } },
+    },
+  },
 }
