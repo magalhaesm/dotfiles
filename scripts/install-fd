@@ -1,18 +1,13 @@
 #!/usr/bin/env bash
 
-URL="https://github.com/sharkdp/fd/releases"
-RELEASES="$URL/latest"
-DOWNLOAD="$URL/download"
-
-LATEST=$(curl -s $RELEASES | cut -d'"' -f2)
-VERSION=$(basename "$LATEST")
-
-ARCH="amd64"
-DEB_AMD64="fd_${VERSION:1}_${ARCH}.deb"
+URL="https://github.com/sharkdp/fd/releases/download"
+VERSION="v9.0.0"
+FD="fd-${VERSION}-x86_64-unknown-linux-gnu.tar.gz"
 
 pushd "$(mktemp -d)" &>/dev/null || exit 1
 
-curl -L "$DOWNLOAD/$VERSION/$DEB_AMD64" -o "$DEB_AMD64"
-sudo dpkg -i "$DEB_AMD64"
+curl -L "$URL/$VERSION/$FD" -o "$FD"
+tar -xvf "$FD"
+cp "$(basename $FD .tar.gz)" ~/.local/bin
 
 popd &>/dev/null || exit 1
