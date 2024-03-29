@@ -1,5 +1,8 @@
 # ~/.config/starship.toml
 
+scan_timeout = 1
+command_timeout = 200
+
 [python]
 symbol = "🐍 "
 python_binary = "python3"
@@ -16,3 +19,6 @@ symbol = "🦀 "
 [jobs]
 symbol = " !"
 style = "bold blue"
+
+[hostname]
+disabled = true
