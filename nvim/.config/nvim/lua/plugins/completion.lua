@@ -43,7 +43,35 @@ return {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
+        formatting = {
+          format = function(entry, vim_item)
+            -- Source
+            vim_item.menu = ({
+              buffer = '[Buffer]',
+              nvim_lsp = '[LSP]',
+              luasnip = '[LuaSnip]',
+              nvim_lua = '[Lua]',
+              path = '[Path]',
+            })[entry.source.name]
+            return vim_item
+          end,
+        },
       }
+    end,
+  },
+  {
+    'ray-x/lsp_signature.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    config = function(_, _)
+      -- Get signatures (and _only_ signatures) when in argument lists.
+      require('lsp_signature').setup({
+        doc_lines = 0,
+        hint_enable = false,
+        handler_opts = {
+          border = 'rounded',
+        },
+      })
     end,
   },
   -- Add/change/delete surrounding delimiter pairs
