@@ -1,3 +1,0 @@
-;;; Highlighting for Lua
-
-[ "." ":" ] @operator
