@@ -28,8 +28,8 @@ return {
       },
       key_labels = {
         ['<space>'] = 'SPC',
-        -- ["<cr>"] = "RET",
-        -- ["<tab>"] = "TAB",
+        ['<cr>'] = 'RET',
+        ['<tab>'] = 'TAB',
       },
       triggers_blacklist = {
         i = { 'j', 'k' },

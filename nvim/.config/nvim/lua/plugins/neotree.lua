@@ -19,13 +19,17 @@ return {
           follow_current_file = { enabled = true },
         },
         default_component_configs = {
+          icon = {
+            folder_open = '',
+            default = '',
+          },
           git_status = {
             symbols = {
               -- Change type
-              added = '✚', -- NOTE: you can set any of these to an empty string to not show them
+              added = '✚',
               deleted = '✖',
               modified = '',
-              renamed = '󰁕', -- this can only be used in the git_status source
+              renamed = '󰁕',
               -- Status type
               untracked = '',
               ignored = '',
@@ -33,7 +37,7 @@ return {
               staged = '',
               conflict = '',
             },
-            align = 'right',
+            -- align = 'right',
           },
         },
       })

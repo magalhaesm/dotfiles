@@ -1,59 +1,28 @@
-local util = require('config.util')
-
-local function large_preview(_, cols, _)
-  if cols > 200 then
-    return math.floor(cols * 0.4)
-  else
-    return math.floor(cols * 0.6)
-  end
-end
-
 return {
   {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.6',
+    cmd = 'Telescope',
+    version = false,
+    lazy = true,
     dependencies = {
       'nvim-lua/plenary.nvim',
-      lazy = true,
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-        cond = function()
-          return vim.fn.executable('make') == 1
-        end,
-        config = function()
-          require('telescope').load_extension('fzf')
-        end,
-      },
+      'nvim-tree/nvim-web-devicons',
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      'nvim-telescope/telescope-ui-select.nvim',
     },
-    cmd = 'Telescope',
     keys = {
-      -- git
-      { '<leader>gc', '<cmd>Telescope git_commits<CR>', desc = '[G]it [C]ommits' },
-      { '<leader>gs', '<cmd>Telescope git_status<CR>', desc = '[G]it [S]tatus' },
-
-      -- search
-      {
-        '<C-p>',
-        function()
-          require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({
-            winblend = 10,
-            previewer = false,
-          }))
-        end,
-        desc = '[F]iles (root)',
-      },
       { '<C-b>', '<cmd>Telescope buffers<CR>', desc = '[B]uffers' },
-      { '<leader>sf', util.telescope('files'), desc = '[S]earch [F]iles (root)' },
-      { '<leader>sF', util.telescope('files', { cwd = false }), desc = '[S]earch [F]iles (cwd)' },
-      { '<leader>sg', util.telescope('live_grep'), desc = '[S]earch by [G]rep' },
-      { '<leader>sw', '<cmd>Telescope grep_string<CR>', desc = '[S]earch current [W]ord' },
+      { '<C-p>', '<cmd>Telescope git_files<CR>', desc = '[S]earch [G]it Files' },
+      { '<leader>sf', '<cmd>Telescope find_files<CR>', desc = '[S]earch [F]iles' },
       { '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = '[S]earch [H]elp' },
       { '<leader>so', '<cmd>Telescope oldfiles<CR>', desc = '[S]earch [O]ld Files' },
-      -- { '<leader>sc', '<cmd>Telescope commands<CR>', desc = '[S]earch [C]ommands' },
-      -- { '<leader>sk', '<cmd>Telescope keymaps<CR>', desc = '[S]earch [K]eymaps' },
-      -- { '<leader>sm', '<cmd>Telescope man_pages<CR>', desc = '[S]earch [M]anpages' },
-      -- { '<leader>sO', '<cmd>Telescope vim_options<CR>', desc = '[S]earch [O]ptions' },
+      {
+        '<leader>sw',
+        function()
+          require('telescope.builtin').grep_string({ search = vim.fn.input('Grep: ') })
+        end,
+        desc = '[S]earch [W]ord',
+      },
       {
         '<leader>/',
         function()
@@ -62,7 +31,7 @@ return {
             previewer = false,
           }))
         end,
-        desc = '[/] Fuzzily search in current buffer',
+        desc = '[/] Search in current buffer',
       },
       {
         '<leader>s/',
@@ -75,70 +44,164 @@ return {
         desc = '[S]earch [/] in Open Files',
       },
     },
-    opts = {
-      defaults = {
-        prompt_prefix = ' ',
-        selection_caret = ' ',
-        winblend = 3,
-        path_display = { 'smart', 'absolute', 'truncate' },
-        file_ignore_patterns = {
-          '%.o',
-          '%.jpg',
-          '%.jpeg',
-          '%.png',
-          '%.otf',
-          '%.ttf',
-          '%.gif',
-          '.git/',
-        },
-        layout_strategy = 'horizontal',
-        layout_config = {
-          width = 0.95,
-          height = 0.85,
-          horizontal = {
-            preview_width = large_preview,
-          },
-          vertical = {
-            width = 0.9,
-            height = 0.95,
-            preview_height = 0.5,
-          },
-          flex = {
-            horizontal = {
-              preview_width = 0.9,
+    config = function()
+      local telescope = require('telescope')
+      local actions = require('telescope.actions')
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'TelescopeResults',
+        callback = function(ctx)
+          vim.api.nvim_buf_call(ctx.buf, function()
+            vim.fn.matchadd('TelescopeParent', '\t\t.*$')
+            vim.api.nvim_set_hl(0, 'TelescopeParent', { link = 'Comment' })
+          end)
+        end,
+      })
+
+      local function formatted_name(_, path)
+        local tail = vim.fs.basename(path)
+        local parent = vim.fs.dirname(path)
+        if parent == '.' then
+          return tail
+        end
+        return string.format('%s\t\t%s', tail, parent)
+      end
+
+      telescope.setup({
+        file_ignore_patterns = { '%.git/.' },
+        defaults = {
+          mappings = {
+            i = {
+              ['<esc>'] = actions.close,
+            },
+            n = {
+              ['q'] = actions.close,
             },
           },
-        },
-        mappings = {
-          i = {
-            ['<C-j>'] = function(...)
-              return require('telescope.actions').cycle_history_next(...)
-            end,
-            ['<C-k>'] = function(...)
-              return require('telescope.actions').cycle_history_prev(...)
-            end,
+          previewer = false,
+          prompt_prefix = ' ',
+          selection_caret = ' ',
+          file_ignore_patterns = { 'node_modules', 'package-lock.json' },
+          initial_mode = 'insert',
+          select_strategy = 'reset',
+          sorting_strategy = 'ascending',
+          color_devicons = true,
+          set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+
+          layout_config = {
+            prompt_position = 'top',
+            preview_cutoff = 120,
+          },
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--hidden',
+            '--glob=!.git/',
           },
         },
-      },
-      pickers = {
-        buffers = {
-          sort_mru = true,
-          sort_lastused = true,
-          show_all_buffers = true,
-          theme = 'dropdown',
-          previewer = false,
+
+        pickers = {
+          find_files = {
+            previewer = false,
+            path_display = formatted_name,
+            layout_config = {
+              height = 0.4,
+              width = 0.6,
+              prompt_position = 'top',
+              preview_cutoff = 120,
+            },
+          },
+          git_files = {
+            previewer = false,
+            path_display = formatted_name,
+            layout_config = {
+              height = 0.4,
+              width = 0.6,
+              prompt_position = 'top',
+              preview_cutoff = 120,
+            },
+          },
+          buffers = {
+            path_display = formatted_name,
+            mappings = {
+              i = {
+                ['<c-d>'] = actions.delete_buffer,
+              },
+              n = {
+                ['<c-d>'] = actions.delete_buffer,
+                ['<C-b>'] = actions.close,
+              },
+            },
+            previewer = false,
+            initial_mode = 'normal',
+            layout_config = {
+              height = 0.4,
+              width = 0.6,
+              prompt_position = 'top',
+              preview_cutoff = 120,
+            },
+          },
+          oldfiles = {
+            path_display = formatted_name,
+            layout_config = {
+              height = 0.6,
+              prompt_position = 'top',
+              preview_cutoff = 120,
+              preview_width = 0.6,
+            },
+          },
+          current_buffer_fuzzy_find = {
+            previewer = true,
+            layout_config = {
+              prompt_position = 'top',
+              preview_cutoff = 120,
+            },
+          },
+          live_grep = {
+            only_sort_text = true,
+            previewer = true,
+          },
+          grep_string = {
+            only_sort_text = true,
+            previewer = true,
+          },
+          lsp_references = {
+            show_line = false,
+            previewer = true,
+          },
         },
-        live_grep = {
-          hidden = true,
+
+        extensions = {
+          fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+          },
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown({
+              previewer = false,
+              initial_mode = 'normal',
+              sorting_strategy = 'ascending',
+              layout_strategy = 'horizontal',
+              layout_config = {
+                horizontal = {
+                  width = 0.5,
+                  height = 0.4,
+                  preview_width = 0.6,
+                },
+              },
+            }),
+          },
         },
-      },
-      extensions = {
-        fzf = {
-          fuzzy = true,
-          override_generic_sorter = true,
-          override_file_sorter = true,
-        },
-      },
-    },
+      })
+      telescope.load_extension('fzf')
+      telescope.load_extension('ui-select')
+    end,
   },
 }
