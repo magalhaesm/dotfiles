@@ -3,12 +3,6 @@ local function augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
--- Check if we need to reload the file when it changed
-autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
-  group = augroup('checktime'),
-  command = 'checktime',
-})
-
 -- Highlight on yank
 autocmd('TextYankPost', {
   group = augroup('highlight_yank'),
@@ -57,17 +51,36 @@ autocmd('BufReadPost', {
   end,
 })
 
--- 42 Header
--- autocmd({ "BufWritePre" }, {
---   group = augroup("update_42header"),
---   pattern = { "*.h", "*.hpp", "*.c", "*.cpp" },
---   callback = function()
---     vim.cmd("Ftupdate")
---   end,
--- })
-
 autocmd({ 'BufWritePre' }, {
   group = augroup('I_hate_trailing_whitespace'),
   pattern = '*',
   command = [[%s/\s\+$//e]],
 })
+
+autocmd('BufEnter', {
+  group = augroup('set_c_filetype'),
+  pattern = {
+    '*.c',
+    '*.h',
+  },
+  callback = function(event)
+    vim.bo[event.buf].filetype = 'c'
+  end,
+})
+
+-- autocmd({ 'BufEnter' }, {
+--   group = augroup('semicolon'),
+--   pattern = {
+--     '*.c',
+--     '*.h',
+--     '*.hpp',
+--     '*.cpp',
+--     '*.rs',
+--   },
+--   callback = function(event)
+--     vim.keymap.set('n', '<leader>;', 'A;<ESC>', {
+--       buffer = event.buf,
+--       desc = 'Insert semicolon at the end of line',
+--     })
+--   end,
+-- })
