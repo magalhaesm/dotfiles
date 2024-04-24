@@ -67,7 +67,7 @@ return {
       -- Get signatures (and _only_ signatures) when in argument lists.
       require('lsp_signature').setup({
         doc_lines = 0,
-        hint_enable = false,
+        hint_enable = true,
         handler_opts = {
           border = 'rounded',
         },

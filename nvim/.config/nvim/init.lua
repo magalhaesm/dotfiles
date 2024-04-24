@@ -20,22 +20,16 @@ require('config').setup()
 require('lazy').setup('plugins', {
   ui = {
     border = 'rounded',
-    icons = {
-      list = { '' },
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        'gzip',
+        'zipPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+      },
     },
   },
-  -- performance = {
-  --   rtp = {
-  --     disabled_plugins = {
-  --       'gzip',
-  --       "matchit",
-  --       "matchparen",
-  --       "zipPlugin",
-  --       'netrwPlugin',
-  --       'tarPlugin',
-  --       'tohtml',
-  --       'tutor',
-  --     },
-  --   },
-  -- },
 })

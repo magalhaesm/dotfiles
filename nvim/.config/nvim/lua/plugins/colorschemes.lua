@@ -108,7 +108,7 @@ return {
           dap_ui = true,
           telescope = {
             enabled = true,
-            style = 'nvchad',
+            -- style = 'nvchad',
           },
         },
         highlight_overrides = {
