@@ -10,11 +10,14 @@ zsh_add_file() {
 # The "editor" window opens with the default command defined by the $EDITOR
 # environment variable.
 ide() {
-  SESSION=$(basename "$PWD" | tr -d .)
+  SESSION=$(basename "$PWD")
   if ! tmux has-session -t "$SESSION" 2>/dev/null
   then
-    tmux -f "$TMUX_CONFIG" new-session -s "$SESSION" -n editor -d "$EDITOR"
+    # tmux -f "$TMUX_CONFIG" new-session -s "$SESSION" -n editor -d "$EDITOR"
+    # tmux -f "$TMUX_CONFIG" new-session -s "$SESSION" -n editor -d
+    tmux new-session -s "$SESSION" -n editor -d
     # tmux send-keys -t "$SESSION:1" "$EDITOR" C-m
+    tmux send-keys -t "$SESSION:1"
     tmux new-window -n terminal -t "$SESSION"
     tmux select-window -t "$SESSION:1"
   fi
@@ -22,7 +25,7 @@ ide() {
 }
 
 # === Oh-My-Zsh ===
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
   zsh-autosuggestions
@@ -50,4 +53,8 @@ zsh_add_file "/opt/asdf-vm/asdf.sh"
 zsh_add_file "$XDG_DATA_HOME/asdf/plugins/golang/set-env.zsh"
 
 # Zoxide
-eval "$(zoxide init --cmd j zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+
+zsh_add_file "$HOME/.opam/opam-init/init.zsh"
+
+eval "$(starship init zsh)"

@@ -35,7 +35,7 @@ export FZF_BAT_PREVIEW="'bat --style=numbers --color=always --line-range :500 {}
 export FZF_COMPLETION_OPTS="--border"
 
 export FZF_ALT_C_COMMAND="fd --type d"
-export FZF_ALT_C_OPTS="--border --preview 'tree -L 1 -C --dirsfirst {} | head -200'"
+export FZF_ALT_C_OPTS="--border --preview 'eza -T -L2 -C --dirsfirst {} | head -200'"
 
 export FZF_CTRL_R_OPTS="--height 40%"
 
@@ -43,14 +43,18 @@ export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 export FZF_CTRL_T_OPTS="--border --preview ${FZF_BAT_PREVIEW}"
 
 # === Less ===
+export PAGER="less"
 export LESSHISTFILE="-"
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+export LESS_TERMCAP_mb=$'\e[1;32m'   # Negrito verde
+export LESS_TERMCAP_md=$'\e[1;32m'   # Negrito verde
+export LESS_TERMCAP_me=$'\e[0m'      # Reset de formatação
+export LESS_TERMCAP_so=$'\e[01;33m'  # Negrito amarelo
+export LESS_TERMCAP_se=$'\e[0m'      # Reset de formatação
+export LESS_TERMCAP_us=$'\e[1;4;31m' # Negrito, sublinhado, vermelho
+export LESS_TERMCAP_ue=$'\e[0m'      # Reset de formatação
+
+export GROFF_NO_SGR=1   # Desabilita SGR (Select Graphic Rendition)
 
 # === ASDF ===
 export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdfrc"
