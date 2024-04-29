@@ -35,7 +35,7 @@ map('v', 'ae', ':normal! ggVG<CR>', { desc = 'Select all lines in visual mode' }
 map('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous [D]iagnostic' })
 map('n', ']d', vim.diagnostic.goto_next, { desc = 'Next [D]iagnostic' })
 map('n', 'gl', vim.diagnostic.open_float, { desc = '[L]ine Diagnostic' })
-map('n', '<leader>Q', vim.diagnostic.setloclist, { desc = '[Q]uickfix List' })
+map('n', 'Q', vim.diagnostic.setqflist, { desc = '[Q]uickfix List' })
 map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous [Q]uickfix List' })
 map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next [Q]uickfix List' })
 

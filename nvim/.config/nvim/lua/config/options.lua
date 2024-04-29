@@ -24,7 +24,9 @@ o.updatetime = 250 -- faster completion (4000ms default)
 
 -- o.expandtab = true -- convert tabs to spaces
 o.tabstop = 4 -- insert 4 spaces for a tab
+o.softtabstop = 4
 o.shiftwidth = 4 -- the number of spaces inserted for each indentation
+o.expandtab = true
 
 o.cursorline = true -- highlight the current line
 

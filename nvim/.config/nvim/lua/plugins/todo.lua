@@ -3,6 +3,7 @@ return {
   {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    lazy = true,
     opts = {
       gui_style = {
         fg = 'BOLD',
@@ -18,7 +19,6 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     keys = {
       { '<leader>tq', '<cmd>TodoQuickFix<CR>', desc = '[T]odo [Q]uickFix' },
-      -- { '<leader>tt', '<cmd>TodoTelescope<CR>' },
     },
   },
 }

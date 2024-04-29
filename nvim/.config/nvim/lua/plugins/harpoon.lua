@@ -25,16 +25,16 @@ return {
       -- Harpoon files
       vim.keymap.set('n', '<leader>h', function()
         harpoon:list():select(1)
-      end)
+      end, { desc = 'Set harpoon 1' })
       vim.keymap.set('n', '<leader>j', function()
         harpoon:list():select(2)
-      end)
+      end, { desc = 'Set harpoon 2' })
       vim.keymap.set('n', '<leader>k', function()
         harpoon:list():select(3)
-      end)
+      end, { desc = 'Set harpoon 3' })
       vim.keymap.set('n', '<leader>l', function()
         harpoon:list():select(4)
-      end)
+      end, { desc = 'Set harpoon 4' })
     end,
   },
 }

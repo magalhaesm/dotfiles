@@ -1,3 +1,5 @@
+local util = require('config.util')
+
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -12,8 +14,9 @@ return {
     },
     keys = {
       { '<C-b>', '<cmd>Telescope buffers<CR>', desc = '[B]uffers' },
-      { '<C-p>', '<cmd>Telescope git_files<CR>', desc = '[S]earch [G]it Files' },
+      { '<C-p>', util.telescope('files', {}), desc = '[S]earch Files' },
       { '<leader>sf', '<cmd>Telescope find_files<CR>', desc = '[S]earch [F]iles' },
+      { '<leader>sg', '<cmd>Telescope git_files<CR>', desc = '[S]earch [G]it Files' },
       { '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = '[S]earch [H]elp' },
       { '<leader>so', '<cmd>Telescope oldfiles<CR>', desc = '[S]earch [O]ld Files' },
       {

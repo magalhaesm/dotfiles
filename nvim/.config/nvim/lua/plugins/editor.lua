@@ -7,7 +7,10 @@ return {
       vim.o.timeoutlen = 300
     end,
     opts = {
-      plugins = { spelling = true },
+      plugins = {
+        marks = false,
+        spelling = true,
+      },
       icons = {
         breadcrumb = '»',
         separator = '',
