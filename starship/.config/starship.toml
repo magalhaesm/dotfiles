@@ -1,7 +1,7 @@
 # ~/.config/starship.toml
 
-scan_timeout = 1
-command_timeout = 200
+# scan_timeout = 1
+# command_timeout = 200
 
 [python]
 symbol = "🐍 "

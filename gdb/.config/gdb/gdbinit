@@ -22,3 +22,5 @@ end
 document code
 Apply the "src" layout.
 end
+
+add-auto-load-safe-path /home/marcelo/.local/share/asdf/installs/golang/1.22.2/go/src/runtime/runtime-gdb.py
