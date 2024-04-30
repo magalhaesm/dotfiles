@@ -25,6 +25,7 @@ dependencies=(
   zoxide
   zsh
   lazygit
+  starship
 )
 
 info() {
@@ -113,7 +114,7 @@ main() {
   stow_configs
 
   info "Installing Oh-my-zsh..."
-  "$DOTFILES/scripts/install-omz"
+  "$DOTFILES/scripts/omz-install.sh"
 
   info "Setting zsh as the default shell..."
   set_shell
