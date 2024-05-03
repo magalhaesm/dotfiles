@@ -4,7 +4,10 @@ return {
     main = 'ibl',
     events = { 'BufferEnter' },
     opts = {
-      indent = { char = '│' },
+      indent = {
+        -- char = '┊',
+        char = '│',
+      },
       scope = {
         enabled = false,
         show_start = false,
