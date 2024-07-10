@@ -12,11 +12,11 @@ map('n', '<C-l>', '<C-w>l')
 
 -- Use tab to move between buffers
 map('n', '<tab>', '<cmd>bprev<CR>')
-map('n', '<s-tab>', '<cmd>bnext<CR>')
+map('n', '<S-tab>', '<cmd>bnext<CR>')
 
 -- Jump to beginning and end of line mappings
-map('n', '<A-h>', '^')
-map('n', '<A-l>', '$')
+map('n', '<S-h>', '^')
+map('n', '<S-l>', '$')
 
 -- Use <BS> to turn off the highlight
 map('n', '<BS>', '<cmd>nohlsearch<CR>')

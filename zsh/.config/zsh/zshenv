@@ -65,3 +65,6 @@ export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 export BAT_PAGER="less"
 export TMUX_CONFIG="${XDG_CONFIG_HOME}/tmux/tmux.conf"
 export _ZO_DATA_DIR="${XDG_DATA_HOME}/zoxide"
+
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"

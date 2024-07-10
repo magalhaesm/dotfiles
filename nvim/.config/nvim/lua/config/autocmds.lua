@@ -68,19 +68,20 @@ autocmd('BufEnter', {
   end,
 })
 
--- autocmd({ 'BufEnter' }, {
---   group = augroup('semicolon'),
---   pattern = {
---     '*.c',
---     '*.h',
---     '*.hpp',
---     '*.cpp',
---     '*.rs',
---   },
---   callback = function(event)
---     vim.keymap.set('n', '<leader>;', 'A;<ESC>', {
---       buffer = event.buf,
---       desc = 'Insert semicolon at the end of line',
---     })
---   end,
--- })
+autocmd({ 'BufEnter' }, {
+  group = augroup('semicolon'),
+  pattern = {
+    '*.c',
+    '*.h',
+    '*.hpp',
+    '*.cpp',
+    '*.rs',
+    '*.js',
+  },
+  callback = function(event)
+    vim.keymap.set('n', '<leader>;', 'A;<ESC>', {
+      buffer = event.buf,
+      desc = 'Insert semicolon at the end of line',
+    })
+  end,
+})

@@ -36,7 +36,7 @@ else
   alias lla='ls -lAh'
 fi
 
-alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
+# alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
 
 # Easier to read disk (human-readable sizes)
 alias df='df -h'
