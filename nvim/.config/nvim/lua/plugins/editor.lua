@@ -44,15 +44,15 @@ return {
       wk.setup(opts)
       local keymaps = {
         mode = { 'n', 'v' },
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>p'] = { name = '[P]eek', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]est', _ = 'which_key_ignore' },
-        ['<leader>S'] = { name = '[S]wap', _ = 'which_key_ignore' },
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>p', group = '[P]eek' },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>g', group = '[G]it' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>t', group = '[T]est' },
+        { '<leader>S', group = '[S]wap' },
       }
-      wk.register(keymaps)
+      wk.add(keymaps, opts)
     end,
   },
   -- Buffer Remove

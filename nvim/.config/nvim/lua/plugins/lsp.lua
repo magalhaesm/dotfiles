@@ -49,7 +49,9 @@ return {
       })
 
       local servers = {
-        clangd = {},
+        clangd = {
+          fallbackFlags = { '-std=c++17', '-I/usr/include' },
+        },
         gopls = {},
         pyright = {},
         rust_analyzer = {},
@@ -114,7 +116,7 @@ return {
           focusable = true,
           max_width = math.floor(vim.o.columns * 0.7),
           max_height = math.floor(vim.o.lines * 0.3),
-          source = 'always',
+          source = true,
         },
       })
     end,

@@ -22,7 +22,7 @@ export HISTFILE="${XDG_CACHE_HOME}/history"
 
 # === Fzf ===
 export FZF_DEFAULT_COMMAND="fd --type f --exclude '*.o'"
-export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS}
+export FZF_DEFAULT_OPTS="
   --color=dark
   --color=fg:-1,bg:-1,hl:#ae81ff,fg+:#f8f8f0,bg+:-1,hl+:#ae81ff
   --color=info:#a6e22e,prompt:#66d9ef,pointer:#e95678
@@ -35,7 +35,7 @@ export FZF_BAT_PREVIEW="'bat --style=numbers --color=always --line-range :500 {}
 export FZF_COMPLETION_OPTS="--border"
 
 export FZF_ALT_C_COMMAND="fd --type d"
-export FZF_ALT_C_OPTS="--border --preview 'eza -T -L2 -C --dirsfirst {} | head -200'"
+export FZF_ALT_C_OPTS="--border --preview 'eza -T -L2 {} | head -200'"
 
 export FZF_CTRL_R_OPTS="--height 40%"
 
@@ -68,3 +68,5 @@ export _ZO_DATA_DIR="${XDG_DATA_HOME}/zoxide"
 
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+
+export PATH="$PATH:$HOME/.local/share/asdf/installs/golang/1.22.5/packages/bin"

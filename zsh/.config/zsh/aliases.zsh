@@ -1,4 +1,5 @@
 alias v='nvim'
+alias vim='nvim'
 alias cn='${EDITOR} ~/.config/nvim/init.lua'
 alias cz='${EDITOR} ${ZDOTDIR}/zshrc'
 alias ct='${EDITOR} ${TMUX_CONFIG}'

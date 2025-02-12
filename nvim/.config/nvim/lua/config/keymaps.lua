@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 
 -- Save and Quit mappings
-map('n', '<leader>w', '<cmd>w!<CR>', { desc = 'Save' })
+map('n', '<leader>w', '<cmd>w!<CR>', { desc = 'Write' })
 map('n', '<leader>q', '<cmd>q!<CR>', { desc = 'Quit' })
 
 -- Use CTRL+<hjkl> to switch between windows

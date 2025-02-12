@@ -46,3 +46,5 @@ o.showbreak = '⤷ '
 o.shortmess:append({ W = true, I = true, c = true })
 
 o.whichwrap:append('<,>,[,]')
+
+o.formatoptions:append('t')
