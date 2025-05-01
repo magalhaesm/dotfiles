@@ -1,4 +1,63 @@
+--[[
+  navigation.lua - Navegação entre arquivos e código
+
+  Este arquivo contém plugins que facilitam a navegação entre arquivos
+  e dentro do código, permitindo movimentação rápida e eficiente.
+
+  Plugins incluídos:
+  • nvim-neo-tree/neo-tree.nvim - Explorador de arquivos
+  • nvim-telescope/telescope.nvim - Busca fuzzy e seleção
+  • ThePrimeagen/harpoon - Marcação e navegação rápida entre arquivos
+--]]
+
 return {
+  -- File Explorer
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'MunifTanjim/nui.nvim',
+    },
+    keys = {
+      { '<leader>e', '<cmd>Neotree toggle<CR>', desc = '[E]xplorer' },
+    },
+    config = function()
+      require('neo-tree').setup({
+        window = {
+          width = 35,
+        },
+        filesystem = {
+          follow_current_file = { enabled = true },
+        },
+        default_component_configs = {
+          icon = {
+            folder_open = '',
+            default = '',
+          },
+          git_status = {
+            symbols = {
+              -- Change type
+              added = '✚',
+              deleted = '✖',
+              modified = '',
+              renamed = '󰁕',
+              -- Status type
+              untracked = '',
+              ignored = '',
+              unstaged = '',
+              staged = '',
+              conflict = '',
+            },
+            -- align = 'right',
+          },
+        },
+      })
+    end,
+  },
+
+  -- Fuzzy Finder
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
@@ -80,8 +139,8 @@ return {
             },
           },
           previewer = false,
-          prompt_prefix = ' ',
-          selection_caret = ' ',
+          prompt_prefix = ' ',
+          selection_caret = ' ',
           file_ignore_patterns = { 'node_modules', 'package-lock.json' },
           initial_mode = 'insert',
           select_strategy = 'reset',
@@ -205,4 +264,66 @@ return {
       telescope.load_extension('ui-select')
     end,
   },
+
+  -- Buffer/File Marking
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      local harpoon = require('harpoon')
+      harpoon:setup({
+        settings = {
+          save_on_toggle = true,
+        },
+      })
+
+      -- Harpoon user interface
+      vim.keymap.set('n', '<leader>a', function()
+        harpoon:list():add()
+      end, { desc = 'Add to Harpoon' })
+
+      vim.keymap.set('n', '<C-n>', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, { desc = 'Open Harpoon' })
+
+      -- Harpoon files
+      vim.keymap.set('n', '<leader>h', function()
+        harpoon:list():select(1)
+      end, { desc = 'Set harpoon 1' })
+      vim.keymap.set('n', '<leader>j', function()
+        harpoon:list():select(2)
+      end, { desc = 'Set harpoon 2' })
+      vim.keymap.set('n', '<leader>k', function()
+        harpoon:list():select(3)
+      end, { desc = 'Set harpoon 3' })
+      vim.keymap.set('n', '<leader>l', function()
+        harpoon:list():select(4)
+      end, { desc = 'Set harpoon 4' })
+    end,
+  },
+
+  -- Project Navigation / Sessionizer
+  -- {
+  --   'nvim-lua/plenary.nvim',
+  --   lazy = true,
+  --   cmd = { 'PlenaryBustedDirectory', 'PlenaryBustedFile' },
+  --   keys = {
+  --     {
+  --       '<C-f>',
+  --       function()
+  --         -- Create a command to run the external tmux-sessionizer script
+  --         local sessionizer_path = vim.fn.expand('~/.config/tmux/scripts/sessionizer')
+  --         if vim.fn.filereadable(sessionizer_path) == 1 then
+  --           vim.cmd('silent !tmux neww ' .. sessionizer_path)
+  --         else
+  --           vim.notify('tmux sessionizer script not found', vim.log.levels.WARN)
+  --         end
+  --       end,
+  --       desc = 'Open Tmux Sessionizer',
+  --     },
+  --   },
+  -- },
 }
