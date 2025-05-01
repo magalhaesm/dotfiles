@@ -1,4 +1,22 @@
+--[[
+  ui.lua - Interface visual e estética do editor
+
+  Este arquivo contém plugins relacionados à interface do usuário e aparência
+  visual do Neovim, incluindo temas, barras de status e elementos visuais.
+
+  Plugins incluídos:
+  • catppuccin/nvim - Tema principal
+  • nvim-lualine/lualine.nvim - Barra de status
+  • goolord/alpha-nvim - Tela inicial personalizada
+  • utilyre/barbecue.nvim - Barra de contexto/breadcrumbs
+  • stevearc/dressing.nvim - Melhora interfaces nativas
+  • NvChad/nvim-colorizer.lua - Visualiza cores no código
+  • folke/which-key.nvim - Exibe atalhos de teclado disponíveis
+  • nvim-tree/nvim-web-devicons - Ícones para tipos de arquivos
+--]]
+
 return {
+  -- Plugins serão adicionados aqui
   {
     'catppuccin/nvim',
     priority = 1000,
@@ -369,5 +387,234 @@ return {
         },
       })
     end,
+  },
+
+  -- Status line
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'meuter/lualine-so-fancy.nvim',
+    },
+    enabled = true,
+    lazy = false,
+    event = { 'BufReadPost', 'BufNewFile', 'VeryLazy' },
+    config = function()
+      local icons = require('config').icons
+
+      require('lualine').setup({
+        options = {
+          theme = 'auto',
+          globalstatus = true,
+          icons_enabled = true,
+          component_separators = { left = '|', right = '|' },
+          section_separators = { left = '', right = '' },
+          disabled_filetypes = {
+            statusline = {
+              'alfa-nvim',
+              'help',
+              'neo-tree',
+              'Trouble',
+              'toggleterm',
+            },
+            winbar = {},
+          },
+        },
+        sections = {
+          lualine_a = { 'mode' },
+          lualine_b = { 'fancy_branch' },
+          lualine_c = {
+            {
+              'filename',
+              path = 1, -- 2 for full path
+            },
+            {
+              'fancy_diagnostics',
+              sources = { 'nvim_lsp' },
+              symbols = {
+                hint = icons.diagnostics.Hint,
+                info = icons.diagnostics.Info,
+                warn = icons.diagnostics.Warn,
+                error = icons.diagnostics.Error,
+              },
+            },
+          },
+          lualine_x = {
+            'fancy_location',
+            'progress',
+            'fancy_lsp_servers',
+          },
+          lualine_y = {},
+          lualine_z = {},
+        },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { 'filename' },
+          lualine_y = {},
+          lualine_z = {},
+        },
+        tabline = {},
+        extensions = { 'neo-tree', 'lazy' },
+      })
+    end,
+  },
+
+  -- Startup screen
+  {
+    'goolord/alpha-nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+
+    config = function()
+      local alpha = require('alpha')
+      local dashboard = require('alpha.themes.startify')
+
+      -- dashboard.nvim_web_devicons.enabled = false
+      dashboard.section.header.val = {
+        [[                                                                       ]],
+        [[                                                                       ]],
+        [[                                                                       ]],
+        [[                                                                       ]],
+        [[                                                                     ]],
+        [[       ████ ██████           █████      ██                     ]],
+        [[      ███████████             █████                             ]],
+        [[      █████████ ███████████████████ ███   ███████████   ]],
+        [[     █████████  ███    █████████████ █████ ██████████████   ]],
+        [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
+        [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
+        [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
+        [[                                                                       ]],
+        [[                                                                       ]],
+        [[                                                                       ]],
+      }
+      alpha.setup(dashboard.opts)
+    end,
+  },
+
+  -- Breadcrumbs navigation
+  {
+    'utilyre/barbecue.nvim',
+    name = 'barbecue',
+    version = '*',
+    dependencies = {
+      'SmiteshP/nvim-navic',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('barbecue').setup()
+    end,
+  },
+
+  -- Better UI elements
+  {
+    'stevearc/dressing.nvim',
+    opts = {},
+  },
+
+  -- Color highlighter
+  {
+    'NvChad/nvim-colorizer.lua',
+    event = 'BufReadPre',
+    enabled = false,
+    config = function()
+      require('colorizer').setup({
+        filetypes = { '*' },
+        user_default_options = {
+          names = false,
+          tailwind = 'both',
+          mode = 'background',
+        },
+      })
+    end,
+  },
+
+  -- Keybinding helper
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {
+      plugins = {
+        marks = false,
+        spelling = true,
+      },
+      icons = {
+        breadcrumb = '»',
+        separator = '',
+        group = '+',
+      },
+      window = {
+        border = 'none',
+        position = 'bottom',
+        margin = { 1, 0, 1, 0 },
+        padding = { 2, 2, 2, 2 },
+        winblend = 0,
+      },
+      layout = {
+        height = { min = 4, max = 15 },
+        width = { min = 20, max = 50 },
+        spacing = 3,
+        align = 'center',
+      },
+      key_labels = {
+        ['<space>'] = 'SPC',
+        ['<cr>'] = 'RET',
+        ['<tab>'] = 'TAB',
+      },
+      triggers_blacklist = {
+        i = { 'j', 'k' },
+        v = { 'j', 'k' },
+      },
+    },
+    config = function(_, opts)
+      local wk = require('which-key')
+      wk.setup(opts)
+      local keymaps = {
+        mode = { 'n', 'v' },
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>p', group = '[P]eek' },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>g', group = '[G]it' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>t', group = '[T]est' },
+        { '<leader>S', group = '[S]wap' },
+      }
+      wk.add(keymaps, opts)
+    end,
+  },
+
+  -- Indentation guides
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    events = { 'BufferEnter' },
+    opts = {
+      indent = {
+        char = '│',
+      },
+      scope = {
+        enabled = false,
+        show_start = false,
+        show_end = false,
+      },
+    },
+  },
+
+  -- Icons
+  {
+    'nvim-tree/nvim-web-devicons',
+    lazy = true,
+  },
+
+  -- Discord rich presence
+  {
+    'andweeb/presence.nvim',
+    opts = {},
+    event = 'VeryLazy',
+    enabled = false,
   },
 }
