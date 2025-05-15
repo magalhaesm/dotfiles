@@ -104,7 +104,7 @@ return {
 
       vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Toggle [B]reakpoint' })
       vim.keymap.set('n', '<leader>?', function()
-        require('dapui').eval(nil, { enter = true })
+        require('dapui').eval()
       end, { desc = 'Evaluate Expression' })
 
       vim.keymap.set('n', '<F1>', dap.continue, { desc = 'DAP: Continue' })

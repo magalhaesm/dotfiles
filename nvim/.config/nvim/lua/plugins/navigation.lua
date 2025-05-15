@@ -33,22 +33,22 @@ return {
         },
         default_component_configs = {
           icon = {
-            folder_open = '',
-            default = '',
+            folder_open = '',
+            default = '',
           },
           git_status = {
             symbols = {
               -- Change type
               added = '✚',
               deleted = '✖',
-              modified = '',
+              modified = '',
               renamed = '󰁕',
               -- Status type
-              untracked = '',
-              ignored = '',
+              untracked = '',
+              ignored = '',
               unstaged = '',
-              staged = '',
-              conflict = '',
+              staged = '',
+              conflict = '',
             },
             -- align = 'right',
           },

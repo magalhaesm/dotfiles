@@ -1,51 +1,31 @@
---[[
-  coding.lua - Suporte a programação e linguagens
-
-  Este arquivo contém plugins relacionados ao desenvolvimento de código,
-  incluindo LSP, completions, análise sintática e formatação.
-
-  Plugins incluídos:
-  • neovim/nvim-lspconfig - Configuração de LSP
-  • williamboman/mason.nvim - Gerenciador de LSP e ferramentas
-  • williamboman/mason-lspconfig.nvim - Integração Mason e LSP
-  • WhoIsSethDaniel/mason-tool-installer.nvim - Instalação automática
-  • j-hui/fidget.nvim - Feedback visual do LSP
-  • folke/neodev.nvim - Suporte a desenvolvimento em Lua
-  • hrsh7th/nvim-cmp e relacionados - Sistema de autocompletion
-  • ray-x/lsp_signature.nvim - Assinaturas de funções
-  • L3MON4D3/LuaSnip - Engine de snippets
-  • nvim-treesitter/nvim-treesitter - Análise sintática avançada
-  • stevearc/conform.nvim - Formatação de código
---]]
-
 return {
-  -- LSP Configuration & Plugins
+  -- LSP Configuration
   {
     'neovim/nvim-lspconfig',
     dependencies = {
       -- LSP Management
-      {
-        'williamboman/mason.nvim',
-        opts = {
-          ui = {
-            border = 'rounded',
-            height = 0.8,
-            icons = {
-              package_installed = '✓',
-              package_pending = '➜',
-              package_uninstalled = '✗',
-            },
-          },
-        },
-      },
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', version = '^1.0.0' },
+      { 'mason-org/mason-lspconfig.nvim', version = '^1.0.0' },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      -- LSP Status Updates
+      -- LSP UI Enhancements
       { 'j-hui/fidget.nvim', opts = {} },
-      -- Lua Development
       { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
+      -- Setup mason first
+      require('mason').setup({
+        ui = {
+          border = 'rounded',
+          height = 0.8,
+          icons = {
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗',
+          },
+        },
+      })
+
+      -- LSP handlers and keymaps configuration
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
         callback = function(event)
@@ -72,6 +52,7 @@ return {
         end,
       })
 
+      -- Define servers with their specific settings
       local servers = {
         clangd = {
           fallbackFlags = { '-std=c++17', '-I/usr/include' },
@@ -79,7 +60,7 @@ return {
         gopls = {},
         pyright = {},
         rust_analyzer = {},
-        ts_ls = {},
+        -- tsserver = {},
 
         lua_ls = {
           settings = {
@@ -98,18 +79,24 @@ return {
         },
       }
 
-      require('mason').setup()
-
+      -- List of tools to ensure are installed
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua',
+        --'stylua',
       })
-      require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
+      -- Setup mason-tool-installer
+      require('mason-tool-installer').setup({
+        ensure_installed = ensure_installed,
+      })
+
+      -- Get LSP capabilities enhanced by nvim-cmp
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
+      -- Setup mason-lspconfig
       require('mason-lspconfig').setup({
+        ensure_installed = ensure_installed,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -151,9 +138,8 @@ return {
       notify_on_error = false,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = false, cpp = false }
+        -- have a well standardized coding style
+        local disable_filetypes = { c = true, cpp = false }
         return {
           timeout_ms = 500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -172,7 +158,7 @@ return {
     },
   },
 
-  -- Improved hover documentation
+  -- Enhanced hover UI
   {
     'Fildo7525/pretty_hover',
     event = 'LspAttach',
@@ -183,7 +169,7 @@ return {
     },
   },
 
-  -- Autocompletion
+  -- Completion
   {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -243,7 +229,7 @@ return {
     end,
   },
 
-  -- Function signature help
+  -- Signature help
   {
     'ray-x/lsp_signature.nvim',
     event = 'VeryLazy',
@@ -258,6 +244,27 @@ return {
         },
       })
     end,
+  },
+
+  -- Surrounding pairs
+  {
+    'kylechui/nvim-surround',
+    event = 'InsertEnter',
+    opts = {},
+  },
+
+  -- Auto-pairs
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    opts = {},
+  },
+
+  -- Comment plugin
+  {
+    'numToStr/Comment.nvim',
+    opts = {},
+    event = { 'BufReadPost', 'BufNewFile' },
   },
 
   -- Snippet engine
@@ -302,27 +309,6 @@ return {
         mode = { 'i', 's' },
       },
     },
-  },
-
-  -- Add/change/delete surrounding delimiter pairs
-  {
-    'kylechui/nvim-surround',
-    event = 'InsertEnter',
-    opts = {},
-  },
-
-  -- Autopairs
-  {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    opts = {},
-  },
-
-  -- Comments
-  {
-    'numToStr/Comment.nvim',
-    opts = {},
-    event = { 'BufReadPost', 'BufNewFile' },
   },
 
   -- Treesitter
@@ -407,78 +393,6 @@ return {
           },
         },
       },
-    },
-  },
-
-  -- Code folding
-  {
-    'kevinhwang91/nvim-ufo',
-    dependencies = { 'kevinhwang91/promise-async' },
-    event = 'BufReadPost',
-    opts = {
-      provider_selector = function()
-        return { 'treesitter', 'indent' }
-      end,
-      fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
-        local newVirtText = {}
-        local suffix = ('  %d lines folded'):format(endLnum - lnum)
-        local sufWidth = vim.fn.strdisplaywidth(suffix)
-        local targetWidth = width - sufWidth
-        local curWidth = 0
-        for _, chunk in ipairs(virtText) do
-          local chunkText = chunk[1]
-          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-          if targetWidth > curWidth + chunkWidth then
-            table.insert(newVirtText, chunk)
-          else
-            chunkText = truncate(chunkText, targetWidth - curWidth)
-            local hlGroup = chunk[2]
-            table.insert(newVirtText, { chunkText, hlGroup })
-            chunkWidth = vim.fn.strdisplaywidth(chunkText)
-            -- str width returned from truncate() may less than 2nd argument, need padding
-            if curWidth + chunkWidth < targetWidth then
-              suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
-            end
-            break
-          end
-          curWidth = curWidth + chunkWidth
-        end
-        table.insert(newVirtText, { suffix, 'MoreMsg' })
-        return newVirtText
-      end,
-    },
-    init = function()
-      vim.o.foldcolumn = '0'
-      vim.o.foldlevel = 99 -- Using ufo provider need a large value
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
-      vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-      vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
-      vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith)
-    end,
-  },
-
-  -- Highlight todo comments
-  {
-    'folke/todo-comments.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    lazy = true,
-    opts = {
-      gui_style = {
-        fg = 'BOLD',
-        bg = 'NONE',
-      },
-      highlight = {
-        before = '',
-        keyword = 'fg',
-        after = '',
-      },
-      signs = false,
-    },
-    event = { 'BufReadPost', 'BufNewFile' },
-    keys = {
-      { '<leader>tq', '<cmd>TodoQuickFix<CR>', desc = '[T]odo [Q]uickFix' },
     },
   },
 }
