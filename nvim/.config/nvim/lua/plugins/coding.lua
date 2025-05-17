@@ -1,5 +1,111 @@
+--[[
+  coding.lua - Language support, LSP, completions and syntax highlighting
+
+  This file contains plugins related to programming language support,
+  including:
+  - LSP (Language Server Protocol) configuration
+  - Completion and snippet system
+  - Syntax highlighting via Treesitter
+  - Automatic code formatting
+  - Function signatures and hover documentation
+]]
+
+--------------------------------------------------
+-- Helper function definitions
+--------------------------------------------------
+
+-- Sets up LSP handlers and keymaps
+local function setup_lsp_handlers()
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+    callback = function(event)
+      local map = function(keys, func, desc)
+        vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+      end
+
+      -- Navigation and references
+      map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+      map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+      map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+      map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+      -- Symbols and documentation
+      map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+      map('<leader>sd', require('telescope.builtin').lsp_document_symbols, '[D]ocument Symbols')
+      map('<leader>sW', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace Symbols')
+      map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+      map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+
+      -- Hover documentation
+      map('K', function()
+        require('pretty_hover').hover()
+      end, 'Hover Documentation')
+
+      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help)
+    end,
+  })
+end
+
+-- Sets up LSP diagnostics UI
+local function setup_diagnostic_ui()
+  local icons = require('config').icons.diagnostics
+  for type, icon in pairs(icons) do
+    local hl = 'DiagnosticSign' .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
+
+  require('lspconfig.ui.windows').default_options.border = 'rounded'
+
+  vim.diagnostic.config({
+    virtual_text = {
+      -- prefix = "",
+      -- prefix = '',
+      severity_sort = true,
+    },
+    float = {
+      header = '',
+      border = 'rounded',
+      focusable = true,
+      max_width = math.floor(vim.o.columns * 0.7),
+      max_height = math.floor(vim.o.lines * 0.3),
+      source = true,
+    },
+  })
+end
+
+-- Defines LSP servers and their settings
+local function get_lsp_servers()
+  return {
+    clangd = {
+      fallbackFlags = { '-std=c++17', '-I/usr/include' },
+    },
+    gopls = {},
+    pyright = {},
+    rust_analyzer = {},
+    ts_ls = {},
+
+    lua_ls = {
+      settings = {
+        Lua = {
+          runtime = { version = 'LuaJIT' },
+          completion = {
+            callSnippet = 'Replace',
+          },
+          diagnostics = {
+            globals = {
+              'vim',
+            },
+          },
+        },
+      },
+    },
+  }
+end
+
 return {
-  -- LSP Configuration
+  --------------------------------------------------
+  -- LSP Configuration (Language Server Protocol)
+  --------------------------------------------------
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -7,12 +113,13 @@ return {
       { 'mason-org/mason.nvim', version = '^1.0.0' },
       { 'mason-org/mason-lspconfig.nvim', version = '^1.0.0' },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+
       -- LSP UI Enhancements
       { 'j-hui/fidget.nvim', opts = {} },
       { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
-      -- Setup mason first
+      -- Mason setup (installer manager)
       require('mason').setup({
         ui = {
           border = 'rounded',
@@ -25,76 +132,28 @@ return {
         },
       })
 
-      -- LSP handlers and keymaps configuration
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
-        callback = function(event)
-          local map = function(keys, func, desc)
-            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-          end
+      -- Setup handlers and keymaps
+      setup_lsp_handlers()
 
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+      -- Define servers and their specific configurations
+      local servers = get_lsp_servers()
 
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-          map('<leader>sd', require('telescope.builtin').lsp_document_symbols, '[D]ocument Symbols')
-          map('<leader>sW', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace Symbols')
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-          map('K', function()
-            require('pretty_hover').hover()
-          end, 'Hover Documentation')
-
-          vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help)
-        end,
-      })
-
-      -- Define servers with their specific settings
-      local servers = {
-        clangd = {
-          fallbackFlags = { '-std=c++17', '-I/usr/include' },
-        },
-        gopls = {},
-        pyright = {},
-        rust_analyzer = {},
-        -- tsserver = {},
-
-        lua_ls = {
-          settings = {
-            Lua = {
-              runtime = { version = 'LuaJIT' },
-              completion = {
-                callSnippet = 'Replace',
-              },
-              diagnostics = {
-                globals = {
-                  'vim',
-                },
-              },
-            },
-          },
-        },
-      }
-
-      -- List of tools to ensure are installed
+      -- List of tools to ensure installation
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        --'stylua',
+        -- 'stylua',
       })
 
-      -- Setup mason-tool-installer
+      -- mason-tool-installer configuration
       require('mason-tool-installer').setup({
         ensure_installed = ensure_installed,
       })
 
-      -- Get LSP capabilities enhanced by nvim-cmp
+      -- Advanced capabilities configuration with nvim-cmp support
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      -- Setup mason-lspconfig
+      -- mason-lspconfig configuration for automatic server setup
       require('mason-lspconfig').setup({
         ensure_installed = ensure_installed,
         handlers = {
@@ -106,39 +165,20 @@ return {
         },
       })
 
-      -- LSP UI configuration
-      local icons = require('config').icons.diagnostics
-      for type, icon in pairs(icons) do
-        local hl = 'DiagnosticSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
-
-      require('lspconfig.ui.windows').default_options.border = 'rounded'
-
-      vim.diagnostic.config({
-        virtual_text = {
-          severity_sort = true,
-        },
-        float = {
-          header = '',
-          border = 'rounded',
-          focusable = true,
-          max_width = math.floor(vim.o.columns * 0.7),
-          max_height = math.floor(vim.o.lines * 0.3),
-          source = true,
-        },
-      })
+      -- LSP diagnostics UI setup
+      setup_diagnostic_ui()
     end,
   },
 
-  -- Autoformatting
+  --------------------------------------------------
+  -- Code Formatting
+  --------------------------------------------------
   {
     'stevearc/conform.nvim',
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style
+        -- Desativa "format_on_save lsp_fallback" para linguagens sem estilo padronizado
         local disable_filetypes = { c = true, cpp = false }
         return {
           timeout_ms = 500,
@@ -158,7 +198,9 @@ return {
     },
   },
 
-  -- Enhanced hover UI
+  --------------------------------------------------
+  -- Enhanced Hover Documentation UI
+  --------------------------------------------------
   {
     'Fildo7525/pretty_hover',
     event = 'LspAttach',
@@ -169,15 +211,17 @@ return {
     },
   },
 
-  -- Completion
+  --------------------------------------------------
+  -- Completion System
+  --------------------------------------------------
   {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp', -- nvim-cmp source for neovim's built-in LSP
-      'hrsh7th/cmp-buffer', -- nvim-cmp source for buffer words
-      'hrsh7th/cmp-path', -- nvim-cmp source for path words
-      'saadparwaiz1/cmp_luasnip', -- nvim-cmp source for luasnip
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'saadparwaiz1/cmp_luasnip',
     },
     opts = function()
       local cmp = require('cmp')
@@ -214,7 +258,7 @@ return {
         },
         formatting = {
           format = function(entry, vim_item)
-            -- Source
+            -- Rótulos das fontes
             vim_item.menu = ({
               buffer = '[Buffer]',
               nvim_lsp = '[LSP]',
@@ -229,13 +273,15 @@ return {
     end,
   },
 
-  -- Signature help
+  --------------------------------------------------
+  -- Function Signature Help
+  --------------------------------------------------
   {
     'ray-x/lsp_signature.nvim',
     event = 'VeryLazy',
     opts = {},
     config = function(_, _)
-      -- Get signatures (and _only_ signatures) when in argument lists.
+      -- Obter assinaturas (e *somente* assinaturas) ao navegar por listas de argumentos
       require('lsp_signature').setup({
         doc_lines = 0,
         hint_enable = true,
@@ -246,28 +292,35 @@ return {
     end,
   },
 
-  -- Surrounding pairs
+  --------------------------------------------------
+  -- Surrounding Pairs
+  --------------------------------------------------
+  -- Manipulação de pares delimitadores (parênteses, chaves, aspas)
   {
     'kylechui/nvim-surround',
     event = 'InsertEnter',
     opts = {},
   },
 
-  -- Auto-pairs
+  -- Auto-parênteses e auto-fechamento de delimitadores
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     opts = {},
   },
 
-  -- Comment plugin
+  --------------------------------------------------
+  -- Suporte a comentários
+  --------------------------------------------------
   {
     'numToStr/Comment.nvim',
     opts = {},
     event = { 'BufReadPost', 'BufNewFile' },
   },
 
-  -- Snippet engine
+  --------------------------------------------------
+  -- Engine de snippets
+  --------------------------------------------------
   {
     'L3MON4D3/LuaSnip',
     version = 'v2.*',
@@ -311,7 +364,9 @@ return {
     },
   },
 
-  -- Treesitter
+  --------------------------------------------------
+  -- Treesitter (Syntax highlighting avançado)
+  --------------------------------------------------
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -323,13 +378,16 @@ return {
       require('nvim-treesitter.configs').setup(opts)
     end,
     opts = {
+      -- Syntax highlighting
       highlight = { enable = true },
       indent = { enable = true, disable = { 'python' } },
       context_commentstring = { enable = true, enable_autocmd = false },
 
+      -- Instalação automática de parsers
       auto_install = true,
       ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc' },
 
+      -- Seleção incremental de nós sintáticos
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -339,7 +397,10 @@ return {
           node_decremental = '<BS>',
         },
       },
+
+      -- Objetos textuais baseados em análise sintática
       textobjects = {
+        -- Interoperabilidade com LSP
         lsp_interop = {
           enable = true,
           floating_preview_opts = {
@@ -350,11 +411,13 @@ return {
             ['<leader>pD'] = '@class.outer',
           },
         },
+
+        -- Seleção de objetos textuais
         select = {
           enable = true,
-          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+          lookahead = true, -- Avança automaticamente para o próximo objeto, semelhante ao targets.vim
           keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
+            -- Você pode usar os grupos de captura definidos em textobjects.scm
             ['aa'] = '@parameter.outer',
             ['ia'] = '@parameter.inner',
             ['af'] = '@function.outer',
@@ -363,9 +426,11 @@ return {
             ['ic'] = '@class.inner',
           },
         },
+
+        -- Navegação entre objetos textuais
         move = {
           enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
+          set_jumps = true, -- Define saltos na jumplist
           goto_next_start = {
             [']m'] = '@function.outer',
             [']]'] = '@class.outer',
@@ -383,6 +448,8 @@ return {
             ['[]'] = '@class.outer',
           },
         },
+
+        -- Troca de elementos sintáticos
         swap = {
           enable = true,
           swap_next = {
