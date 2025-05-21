@@ -16,7 +16,7 @@ return {
         separator = '',
         group = '+',
       },
-      window = {
+      win = {
         border = 'none',
         position = 'bottom',
         margin = { 1, 0, 1, 0 },
@@ -29,14 +29,10 @@ return {
         spacing = 3,
         align = 'center',
       },
-      key_labels = {
+      replace = {
         ['<space>'] = 'SPC',
         ['<cr>'] = 'RET',
         ['<tab>'] = 'TAB',
-      },
-      triggers_blacklist = {
-        i = { 'j', 'k' },
-        v = { 'j', 'k' },
       },
     },
     config = function(_, opts)

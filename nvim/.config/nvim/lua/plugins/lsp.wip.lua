@@ -2,27 +2,24 @@ return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      {
-        'williamboman/mason.nvim',
-        version = '^1.0.0',
-        opts = {
-          ui = {
-            border = 'rounded',
-            height = 0.8,
-            icons = {
-              package_installed = '✓',
-              package_pending = '➜',
-              package_uninstalled = '✗',
-            },
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      'j-hui/fidget.nvim',
+      'folke/neodev.nvim',
+    },
+
+    config = function()
+      require('mason').setup({
+        ui = {
+          border = 'rounded',
+          height = 0.8,
+          icons = {
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗',
           },
         },
-      },
-      { 'mason-org/mason-lspconfig.nvim', version = '^1.0.0' },
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-      { 'j-hui/fidget.nvim', opts = {} },
-      { 'folke/neodev.nvim', opts = {} },
-    },
-    config = function()
+      })
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
         callback = function(event)
@@ -75,24 +72,49 @@ return {
         },
       }
 
-      require('mason').setup()
+      -- require('mason').setup()
 
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua',
-      })
-      require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      local cmp_lsp = require('cmp_nvim_lsp')
+      local capabilities =
+        vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       require('mason-lspconfig').setup({
+        automatic_installation = true,
+        ensure_installed = {
+          'lua_ls',
+          'gopls',
+        },
         handlers = {
           function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            require('lspconfig')[server_name].setup({
+              capabilities = capabilities,
+            })
           end,
+          clangd = {
+            fallbackFlags = { '-std=c++17', '-I/usr/include' },
+          },
+          gopls = {},
+          pyright = {},
+          rust_analyzer = {},
+          ts_ls = {},
+
+          lua_ls = {
+            settings = {
+              Lua = {
+                runtime = { version = 'LuaJIT' },
+                completion = {
+                  callSnippet = 'Replace',
+                },
+                diagnostics = {
+                  globals = {
+                    'vim',
+                  },
+                },
+              },
+            },
+          },
         },
       })
 
