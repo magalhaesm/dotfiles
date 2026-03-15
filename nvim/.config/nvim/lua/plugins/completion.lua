@@ -62,17 +62,13 @@ return {
   {
     'ray-x/lsp_signature.nvim',
     event = 'VeryLazy',
-    opts = {},
-    config = function(_, _)
-      -- Get signatures (and _only_ signatures) when in argument lists.
-      require('lsp_signature').setup({
-        doc_lines = 0,
-        hint_enable = true,
-        handler_opts = {
-          border = 'rounded',
-        },
-      })
-    end,
+    opts = {
+      doc_lines = 0,
+      hint_enable = true,
+      handler_opts = {
+        border = 'rounded',
+      },
+    },
   },
   -- Add/change/delete surrounding delimiter pairs
   {

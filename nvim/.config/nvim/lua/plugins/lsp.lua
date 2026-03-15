@@ -1,26 +1,25 @@
 return {
   { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
+    -- 'neovim/nvim-lspconfig',
+    -- dependencies = {
+    --   { 'williamboman/mason.nvim',                  version = '^1.0.0' },
+    --   { 'williamboman/mason-lspconfig.nvim',        version = '^1.0.0' },
+    --   { 'j-hui/fidget.nvim',                        opts = {} },
+    --   { 'folke/neodev.nvim',                        opts = {} },
+    --   { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+    -- },
+
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
     dependencies = {
-      {
-        'williamboman/mason.nvim',
-        opts = {
-          ui = {
-            border = 'rounded',
-            height = 0.8,
-            icons = {
-              package_installed = '✓',
-              package_pending = '➜',
-              package_uninstalled = '✗',
-            },
-          },
-        },
-      },
-      'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-      { 'j-hui/fidget.nvim', opts = {} },
-      { 'folke/neodev.nvim', opts = {} },
+      { "mason-org/mason.nvim",                     opts = {} },
+      { 'j-hui/fidget.nvim',                        opts = {} },
+      { 'folke/neodev.nvim',                        opts = {} },
+      { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+      "neovim/nvim-lspconfig",
     },
+
+
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
@@ -48,63 +47,96 @@ return {
         end,
       })
 
-      local servers = {
-        clangd = {
-          fallbackFlags = { '-std=c++17', '-I/usr/include' },
-        },
-        gopls = {},
-        pyright = {},
-        rust_analyzer = {},
-        tsserver = {},
+      require('mason-tool-installer').setup({
+        -- ensure_installed = {
+        --   'pyright',
+        --   'ts_ls',
+        -- }
+      })
 
-        lua_ls = {
-          settings = {
-            Lua = {
-              runtime = { version = 'LuaJIT' },
-              completion = {
-                callSnippet = 'Replace',
-              },
-              diagnostics = {
-                globals = {
-                  'vim',
-                },
-              },
-            },
+      require('mason').setup({
+        ui = {
+          border = 'rounded',
+          height = 0.8,
+          icons = {
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗',
           },
         },
-      }
-
-      require('mason').setup()
-
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua',
       })
-      require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
+      local lspconfig = require('lspconfig')
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       require('mason-lspconfig').setup({
+        automatic_installation = true,
+        ensure_installed = {
+          'clangd',
+          'lua_ls',
+          'gopls',
+          'jdtls'
+        },
         handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+          function(server_name) -- default handler (optional)
+            require('lspconfig')[server_name].setup({
+              capabilities = capabilities,
+            })
           end,
+          ['lua_ls'] = function()
+            -- local lspconfig = require('lspconfig')
+            lspconfig.lua_ls.setup({
+              capabilities = capabilities,
+              settings = {
+                Lua = {
+                  runtime = { version = 'LuaJIT' },
+                  completion = {
+                    callSnippet = 'Replace',
+                  },
+                  diagnostics = {
+                    globals = {
+                      'vim',
+                    },
+                  },
+                },
+              },
+            })
+          end,
+          ['clangd'] = function()
+            lspconfig.clangd.setup({
+              capabilities = capabilities,
+              cmd = {
+                'clangd',
+                '--header-insertion=never',
+                '--clang-tidy',
+                '--completion-style=detailed',
+              },
+              -- filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+              -- root_markers = { '.clangd', 'compile_commands.json' },
+              filetypes = { 'c', 'cpp' },
+            })
+          end,
+          ['jdtls'] = function()
+            lspconfig.jdtls.setup {}
+          end
         },
       })
 
       -- LSP UI.
       local icons = require('config').icons.diagnostics
-      for type, icon in pairs(icons) do
-        local hl = 'DiagnosticSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
 
       require('lspconfig.ui.windows').default_options.border = 'rounded'
 
       vim.diagnostic.config({
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = icons.Error,
+            [vim.diagnostic.severity.WARN]  = icons.Warn,
+            [vim.diagnostic.severity.INFO]  = icons.Info,
+            [vim.diagnostic.severity.HINT]  = icons.Hint,
+          },
+        },
         virtual_text = {
           -- prefix = "",
           -- prefix = '',
@@ -121,6 +153,17 @@ return {
       })
     end,
   },
+  -- {
+  --   "mfussenegger/nvim-jdtls",
+  --   ft = { "java" },
+  -- },
+  -- {
+  --   'nvim-java/nvim-java',
+  --   config = function()
+  --     require('java').setup()
+  --     vim.lsp.enable('jdtls')
+  --   end,
+  -- },
   { -- Autoformat
     'stevearc/conform.nvim',
     opts = {

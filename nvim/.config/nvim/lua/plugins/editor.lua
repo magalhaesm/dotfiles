@@ -7,36 +7,23 @@ return {
       vim.o.timeoutlen = 300
     end,
     opts = {
-      plugins = {
-        marks = false,
-        spelling = true,
-      },
+      -- plugins = {
+      --   marks = false,
+      --   spelling = true,
+      -- },
       icons = {
         breadcrumb = '»',
         separator = '',
         group = '+',
       },
-      window = {
-        border = 'none',
-        position = 'bottom',
-        margin = { 1, 0, 1, 0 },
-        padding = { 2, 2, 2, 2 },
-        winblend = 0,
-      },
-      layout = {
-        height = { min = 4, max = 15 },
-        width = { min = 20, max = 50 },
-        spacing = 3,
-        align = 'center',
-      },
-      key_labels = {
-        ['<space>'] = 'SPC',
-        ['<cr>'] = 'RET',
-        ['<tab>'] = 'TAB',
-      },
-      triggers_blacklist = {
-        i = { 'j', 'k' },
-        v = { 'j', 'k' },
+      win = {
+        width = 0.9,
+        height = { min = 4, max = 25 },
+        col = 0.5,
+        row = -1,
+        border = 'rounded',
+        title = true,
+        title_pos = 'center',
       },
     },
     config = function(_, opts)
