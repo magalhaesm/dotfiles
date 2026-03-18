@@ -44,6 +44,7 @@ packer_compiled.lua
 __pycache__
 *.bak
 .zcompdump*
+.zsh_history
 **/zsh/plugins
 
 watch_later

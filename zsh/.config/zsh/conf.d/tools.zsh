@@ -1,12 +1,14 @@
-zsh_add_file "$HOME/.asdf/asdf.sh"
+if ! has_cmd asdf; then
+  zsh_add_file "$HOME/.asdf/asdf.sh"
+fi
 
-if command -v zoxide >/dev/null 2>&1; then
+if has_cmd zoxide; then
   eval "$(zoxide init --cmd j zsh)"
 fi
 
 zsh_add_file "$HOME/.opam/opam-init/init.zsh"
 
-if command -v starship >/dev/null 2>&1; then
+if has_cmd starship; then
   eval "$(starship init zsh)"
 fi
 

@@ -4,36 +4,43 @@
 
 ## Goals
 
-- [x] Checks installation dependencies.
-- [x] Provides a list with the dependencies.
-- [x] Checks environment dependencies.
 - [x] Clones this repo to the local machine.
 - [x] Links configuration files.
-- [x] Installs Oh-my-zsh and plugins.
-- [x] Sets zsh as the default shell.
+- [x] Provides a minimal bootstrap flow.
+- [x] Provides a separate dependency check script.
+
+## Notes
+
+- Node is intentionally pinned manually in `zsh/.config/zsh/.zshenv`. Do not "simplify" or replace this without an explicit decision.
 
 ## Installation 🔧
 
-1. Run the script
-```sh
-wget https://raw.githubusercontent.com/magalhaesm/dotfiles/main/scripts/install.sh
-```
+1. Clone the repository
 
 ```sh
-chmod +x install.sh
+git clone https://github.com/magalhaesm/dotfiles.git ~/.dotfiles
 ```
+
+2. Link the configurations
 
 ```sh
-./install.sh
+cd ~/.dotfiles
+./scripts/install.sh
 ```
 
-The script will check for the required dependencies and inform you if any are missing. No modifications will be made until all dependencies are satisfied. Execute the script as many times as necessary to check the dependencies.
+3. Review recommended tools
 
-2. Once all dependencies are met, the script will proceed to clone the dotfiles repository, link the configuration files, install Oh-my-zsh, and set zsh as the default shell.
+```sh
+./scripts/check.sh
+```
 
-> Note: If prompted, enter your password to change the default shell.
+4. Install optional tools you actually use and complete any manual steps you want, such as:
 
-3. After the installation is complete, restart your terminal for the changes to take effect.
+- installing Oh My Zsh
+- changing the default shell to `zsh`
+- installing tools like `nvim`, `tmux`, `fzf`, `rg`, `fd`, `eza`, `bat`, `starship`, `zoxide`
+
+5. Restart your terminal for the changes to take effect.
 
 ## License
 

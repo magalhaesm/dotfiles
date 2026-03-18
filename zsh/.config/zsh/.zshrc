@@ -2,6 +2,7 @@ source ~/.config/user-dirs.dirs
 
 source "$ZDOTDIR/lib/functions.zsh"
 
+zsh_add_file "$ZDOTDIR/conf.d/options.zsh"
 zsh_add_file "$ZDOTDIR/conf.d/interactive.zsh"
 zsh_add_file "$ZDOTDIR/conf.d/fzf.zsh"
 zsh_add_file "$ZDOTDIR/conf.d/plugins.zsh"

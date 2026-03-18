@@ -3,10 +3,11 @@ alias vim='nvim'
 alias cn='${EDITOR} ~/.config/nvim/init.lua'
 alias cz='${EDITOR} ${ZDOTDIR}/.zshrc'
 alias ct='${EDITOR} ${TMUX_CONFIG}'
-alias f='file=$(fzf --height 40%); if [ -n "$file" ]; then $EDITOR $file; fi'
-alias desktop='cd "$XDG_DESKTOP_DIR"'
+alias desk='cd "$XDG_DESKTOP_DIR"'
 
-if [ -x "$(command -v bat)" ]; then
+zsh_alias_if_cmd f fzf 'file=$(fzf --height 40%); if [ -n "$file" ]; then $EDITOR $file; fi'
+
+if has_cmd bat; then
   alias cat='bat'
 fi
 
@@ -23,7 +24,7 @@ alias fgrep='fgrep --color=auto'
 alias path='echo $PATH | tr -s ":" "\n"'
 alias ip='ip -color=auto'
 
-if [ -x "$(command -v eza)" ]; then
+if has_cmd eza; then
   alias l='eza --color=always'
   alias ls='l'
   alias la='l -a'
@@ -45,7 +46,7 @@ alias df='df -h'
 alias du='du -h'
 
 # Open
-alias o='nohup xdg-open >/dev/null'
+zsh_alias_if_cmd o xdg-open 'nohup xdg-open >/dev/null'
 
 # Git
 alias g='git'
@@ -53,7 +54,7 @@ alias gc='git commit'
 alias gs='git status -s'
 alias gst='git status'
 alias gl='git log --oneline --decorate --graph'
-alias lg='lazygit'
+zsh_alias_if_cmd lg lazygit 'lazygit'
 
 # Kitty terminal
-alias kssh='kitty +kitten ssh'
+zsh_alias_if_cmd kssh kitty 'kitty +kitten ssh'
