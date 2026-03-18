@@ -1,5 +1,20 @@
 return {
   {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      indent = {
+        char = '│',
+      },
+      scope = {
+        enabled = false,
+        show_start = false,
+        show_end = false,
+      },
+    },
+  },
+  {
     'folke/which-key.nvim',
     event = 'VeryLazy',
     init = function()
@@ -65,6 +80,12 @@ return {
   {
     'stevearc/dressing.nvim',
     opts = {},
+  },
+  {
+    'mbbill/undotree',
+    keys = {
+      { '<leader>u', vim.cmd.UndotreeToggle, desc = '[U]ndoTree' },
+    },
   },
   -- color highlighter
   {

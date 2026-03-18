@@ -1,23 +1,15 @@
-# DEPOIS
-nvim/
-└── lua/
-    └── plugins/
-        ├── ui.lua           (temas, barras, visual)
-        ├── editor.lua       (edição de texto, snippets, comentários)
-        ├── navigation.lua   (navegação de arquivos, telescope, harpoon)
-        ├── coding.lua       (LSP, completions, treesitter, formatação)
-        ├── tools.lua        (integração com git, testes, depuração)
-        └── langs.lua        (configurações específicas de linguagens)
+# Neovim config
 
-# ANTES Segurida
-nvim/
-└── lua/
-    └── plugins/
-        ├── appearance.lua     (temas, UI, statusline)
-        ├── navigation.lua     (telescope, neo-tree, harpoon)
-        ├── lsp.lua            (LSP, autocompletion)
-        ├── treesitter.lua     (treesitter e relacionados)
-        ├── editor.lua         (indentação, comentários, edição)
-        ├── git.lua            (integrações Git)
-        ├── tools.lua          (ferramentas externas, terminal)
-        └── utils.lua          (utilitários diversos)
+Estrutura atual:
+
+- `lua/plugins/ui.lua`: temas, dashboard, statusline e elementos visuais
+- `lua/plugins/editor.lua`: edição de texto, which-key, buffers e utilitários
+- `lua/plugins/navigation.lua`: exploração de arquivos e busca
+- `lua/plugins/coding.lua`: LSP, completion, treesitter e formatação
+- `lua/plugins/tools.lua`: Git, testes e depuração
+- `lua/plugins/langs.lua`: integrações específicas por linguagem
+
+Notas:
+
+- `plugins.bak/` existe apenas como referência temporária da estrutura anterior.
+- A intenção é manter a configuração agrupada por responsabilidade, não por plugin isolado.

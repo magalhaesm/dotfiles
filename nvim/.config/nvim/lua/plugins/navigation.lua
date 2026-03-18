@@ -1,22 +1,99 @@
 return {
   {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      local harpoon = require('harpoon')
+      harpoon:setup({
+        settings = {
+          save_on_toggle = true,
+        },
+      })
+
+      vim.keymap.set('n', '<leader>a', function()
+        harpoon:list():add()
+      end, { desc = 'Add to Harpoon' })
+
+      vim.keymap.set('n', '<C-n>', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, { desc = 'Open Harpoon' })
+
+      vim.keymap.set('n', '<leader>h', function()
+        harpoon:list():select(1)
+      end, { desc = 'Set harpoon 1' })
+      vim.keymap.set('n', '<leader>j', function()
+        harpoon:list():select(2)
+      end, { desc = 'Set harpoon 2' })
+      vim.keymap.set('n', '<leader>k', function()
+        harpoon:list():select(3)
+      end, { desc = 'Set harpoon 3' })
+      vim.keymap.set('n', '<leader>l', function()
+        harpoon:list():select(4)
+      end, { desc = 'Set harpoon 4' })
+    end,
+  },
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'MunifTanjim/nui.nvim',
+    },
+    keys = {
+      { '<leader>e', '<cmd>Neotree toggle<CR>', desc = '[E]xplorer' },
+    },
+    config = function()
+      require('neo-tree').setup({
+        window = {
+          width = 35,
+        },
+        filesystem = {
+          follow_current_file = { enabled = true },
+        },
+        default_component_configs = {
+          icon = {
+            folder_open = '',
+            default = '',
+          },
+          git_status = {
+            symbols = {
+              added = '✚',
+              deleted = '✖',
+              modified = '',
+              renamed = '󰁕',
+              untracked = '',
+              ignored = '',
+              unstaged = '',
+              staged = '',
+              conflict = '',
+            },
+          },
+        },
+      })
+    end,
+  },
+  {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     version = false,
     lazy = true,
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { 'nvim-tree/nvim-web-devicons', lazy = true },
+      { 'nvim-tree/nvim-web-devicons',              lazy = true },
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       'nvim-telescope/telescope-ui-select.nvim',
     },
     keys = {
-      { '<C-b>', '<cmd>Telescope buffers<CR>', desc = '[B]uffers' },
-      { '<C-p>', require('config.util').telescope('files', {}), desc = '[S]earch Files' },
-      { '<leader>sf', '<cmd>Telescope find_files<CR>', desc = '[S]earch [F]iles' },
-      { '<leader>sg', '<cmd>Telescope git_files<CR>', desc = '[S]earch [G]it Files' },
-      { '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = '[S]earch [H]elp' },
-      { '<leader>so', '<cmd>Telescope oldfiles<CR>', desc = '[S]earch [O]ld Files' },
+      { '<C-b>',      '<cmd>Telescope buffers<CR>',                  desc = '[B]uffers' },
+      { '<C-p>',      require('config.util').telescope('files', {}), desc = '[S]earch Files' },
+      { '<leader>sf', '<cmd>Telescope find_files<CR>',               desc = '[S]earch [F]iles' },
+      { '<leader>sg', '<cmd>Telescope git_files<CR>',                desc = '[S]earch [G]it Files' },
+      { '<leader>sh', '<cmd>Telescope help_tags<CR>',                desc = '[S]earch [H]elp' },
+      { '<leader>so', '<cmd>Telescope oldfiles<CR>',                 desc = '[S]earch [O]ld Files' },
       {
         '<leader>sw',
         function()
@@ -87,8 +164,7 @@ return {
           select_strategy = 'reset',
           sorting_strategy = 'ascending',
           color_devicons = true,
-          set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-
+          set_env = { ['COLORTERM'] = 'truecolor' },
           layout_config = {
             prompt_position = 'top',
             preview_cutoff = 120,
@@ -105,7 +181,6 @@ return {
             '--glob=!.git/',
           },
         },
-
         pickers = {
           find_files = {
             previewer = false,
@@ -176,13 +251,12 @@ return {
             previewer = true,
           },
         },
-
         extensions = {
           fzf = {
-            fuzzy = true, -- false will only do exact matching
-            override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true, -- override the file sorter
-            case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = 'smart_case',
           },
           ['ui-select'] = {
             require('telescope.themes').get_dropdown({
