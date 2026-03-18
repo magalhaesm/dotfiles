@@ -1,5 +1,20 @@
 return {
   {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      indent = {
+        char = '│',
+      },
+      scope = {
+        enabled = false,
+        show_start = false,
+        show_end = false,
+      },
+    },
+  },
+  {
     'folke/which-key.nvim',
     event = 'VeryLazy',
     init = function()
@@ -7,32 +22,23 @@ return {
       vim.o.timeoutlen = 300
     end,
     opts = {
-      plugins = {
-        marks = false,
-        spelling = true,
-      },
+      -- plugins = {
+      --   marks = false,
+      --   spelling = true,
+      -- },
       icons = {
         breadcrumb = '»',
         separator = '',
         group = '+',
       },
       win = {
-        border = 'none',
-        position = 'bottom',
-        margin = { 1, 0, 1, 0 },
-        padding = { 2, 2, 2, 2 },
-        winblend = 0,
-      },
-      layout = {
-        height = { min = 4, max = 15 },
-        width = { min = 20, max = 50 },
-        spacing = 3,
-        align = 'center',
-      },
-      replace = {
-        ['<space>'] = 'SPC',
-        ['<cr>'] = 'RET',
-        ['<tab>'] = 'TAB',
+        width = 0.9,
+        height = { min = 4, max = 25 },
+        col = 0.5,
+        row = -1,
+        border = 'rounded',
+        title = true,
+        title_pos = 'center',
       },
     },
     config = function(_, opts)
@@ -74,6 +80,12 @@ return {
   {
     'stevearc/dressing.nvim',
     opts = {},
+  },
+  {
+    'mbbill/undotree',
+    keys = {
+      { '<leader>u', vim.cmd.UndotreeToggle, desc = '[U]ndoTree' },
+    },
   },
   -- color highlighter
   {
