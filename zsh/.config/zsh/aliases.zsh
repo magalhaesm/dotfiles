@@ -3,7 +3,10 @@ alias vim='nvim'
 alias cn='${EDITOR} ~/.config/nvim/init.lua'
 alias cz='${EDITOR} ${ZDOTDIR}/.zshrc'
 alias ct='${EDITOR} ${TMUX_CONFIG}'
-alias desk='cd "$XDG_DESKTOP_DIR"'
+
+desk() {
+  cd "${XDG_DESKTOP_DIR:-$HOME/Desktop}"
+}
 
 zsh_alias_if_cmd f fzf 'file=$(fzf --height 40%); if [ -n "$file" ]; then $EDITOR $file; fi'
 
@@ -17,12 +20,16 @@ alias mv='mv -iv'
 alias rm='rm -iv'
 
 # Colorize grep output (good for log files)
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+if printf '\n' | command grep --color=auto '' >/dev/null 2>&1; then
+  alias grep='grep --color=auto'
+  alias egrep='egrep --color=auto'
+  alias fgrep='fgrep --color=auto'
+fi
 
 alias path='echo $PATH | tr -s ":" "\n"'
-alias ip='ip -color=auto'
+if has_cmd ip; then
+  alias ip='ip -color=auto'
+fi
 
 if has_cmd eza; then
   alias l='eza --color=always'
@@ -32,8 +39,12 @@ if has_cmd eza; then
   alias lla='ll -a'
   alias tree='eza -T -L2 --git -I ".git|.vim|node_modules|coverage|__pycache__"'
 else
-  alias ls='ls --color'
-  alias l='l -CF'
+  if [ "$(uname -s)" = "Darwin" ]; then
+    alias ls='ls -G'
+  else
+    alias ls='ls --color=auto'
+  fi
+  alias l='ls -CF'
   alias la='ls -Ah'
   alias ll='ls -lh'
   alias lla='ls -lAh'
@@ -46,7 +57,11 @@ alias df='df -h'
 alias du='du -h'
 
 # Open
-zsh_alias_if_cmd o xdg-open 'nohup xdg-open >/dev/null'
+if [ "$(uname -s)" = "Darwin" ]; then
+  zsh_alias_if_cmd o open 'open'
+else
+  zsh_alias_if_cmd o xdg-open 'nohup xdg-open >/dev/null'
+fi
 
 # Git
 alias g='git'

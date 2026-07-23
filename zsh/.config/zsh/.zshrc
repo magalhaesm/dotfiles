@@ -1,4 +1,10 @@
-source ~/.config/user-dirs.dirs
+source "$ZDOTDIR/.zshenv"
+
+if [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
+  source "$XDG_CONFIG_HOME/user-dirs.dirs"
+fi
+
+mkdir -p "$XDG_CACHE_HOME/zsh"
 
 source "$ZDOTDIR/lib/functions.zsh"
 
