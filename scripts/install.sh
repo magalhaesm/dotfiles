@@ -7,7 +7,7 @@ CYAN="\033[1;36m"
 GREEN="\033[1;32m"
 YELLOW="\033[1;33m"
 
-DOTFILES="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+DOTFILES="$HOME/.dotfiles"
 
 COMMON_PACKAGES=(
   bat
@@ -57,6 +57,15 @@ check_sys_deps() {
   exit 1
 }
 
+clone_dotfiles() {
+  if [ -d "$DOTFILES" ]; then
+    printf "Directory %s already exists.\n" "$DOTFILES"
+    return
+  fi
+
+  git clone https://github.com/magalhaesm/dotfiles.git "$DOTFILES"
+}
+
 config() {
   local package=$1
 
@@ -92,6 +101,9 @@ main() {
 
   info "Checking bootstrap dependencies..."
   check_sys_deps
+
+  info "Cloning dotfiles repository..."
+  clone_dotfiles
 
   info "Linking configuration files..."
   stow_configs
