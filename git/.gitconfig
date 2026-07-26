@@ -30,9 +30,6 @@
 	br = branch
 	ba = branch -a
 
-[credential]
- 	helper = store
-
 [push]
  	followTags = true
  	autoSetupRemote = true
